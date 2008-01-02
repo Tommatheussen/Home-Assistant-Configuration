@@ -14,12 +14,18 @@ coins:
   - token: 'IOT'
     amount: 97.25512748
     price: 0.49365
-  - token: 'XEM'
-    amount: 380.340938
-    price: 0.2629219997
+  - token: 'BTC'
+    amount: 0.01497818
+    price: 6676.378572
   - token: 'PART'
     amount: 22.501668
     price: 8.888229975
   - token: 'PART'
     amount: 10.900216
     price: 9.17413013
+  - token: 'IOT'
+    amount: 356.44206157
+    price: 0.5429392246
+  - token: 'VTC'
+    amount: 50.22265563
+    price: 1.988842779
