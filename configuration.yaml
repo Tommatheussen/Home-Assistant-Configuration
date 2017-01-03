@@ -260,6 +260,13 @@ sensor:
       - type: process
         arg: Plex Media Server
 
+shell_commmand:
+  get_latest_config: ./pullconfig.sh
+
+script:
+  update_config:
+    sequence:
+      - service: shell_command.get_latest_config
 
 #device_tracker:
  # - platform: nmap_tracker
