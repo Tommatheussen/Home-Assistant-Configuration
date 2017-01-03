@@ -173,8 +173,8 @@ automation:
 sensor:
 #  - platform: demo
 
-  #- platform: command_line
-  #  command: 'git fetch && git rev-list --count master..origin/master'
+  - platform: command_line
+    command: 'bash /home/hass/.homeassistant/getcommits.sh'
     
 
   - platform: template
