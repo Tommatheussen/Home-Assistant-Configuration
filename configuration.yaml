@@ -305,11 +305,11 @@ script:
 #cover:
  # - platform: demo
 
-fan:
-  - platform: demo
+#fan:
+#  - platform: demo
 
-light:
-  - platform: demo
+#light:
+ # - platform: demo
 
 #lock:
  # - platform: demo
