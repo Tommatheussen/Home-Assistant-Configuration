@@ -1,0 +1,30 @@
+
+- cal_id: tom.matheussen2@gmail.com
+  entities:
+  - device_id: tommatheussen5hotmailcom
+    name: tommatheussen5@hotmail.com
+    track: False
+
+- cal_id: hj3i0ucmkenfjmdbrr85v7o2q8@group.calendar.google.com
+  entities:
+  - device_id: jokes_werk
+    name: Joke's werk
+    track: True
+
+- cal_id: e7mmlshuh7sm6epo4vr77ic24f1fv36f@import.calendar.google.com
+  entities:
+  - device_id: tom_matheussens_facebook_events
+    name: Tom Matheussen's Facebook Events
+    track: true
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: true
+
+- cal_id: nl.be#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: feestdagen_in_belgie
+    name: "Feestdagen in Belgi\xEB"
+    track: true
