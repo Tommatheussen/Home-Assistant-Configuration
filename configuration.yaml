@@ -260,7 +260,7 @@ sensor:
       - type: process
         arg: Plex Media Server
 
-shell_commmand:
+shell_command:
   get_latest_config: ./pullconfig.sh
 
 script:
