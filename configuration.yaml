@@ -303,8 +303,8 @@ script:
 #camera:
  # - platform: demo
 
-#climate: 
- # - platform: demo
+climate: 
+  - platform: demo
 
 #cover:
  # - platform: demo
