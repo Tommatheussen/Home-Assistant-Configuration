@@ -158,6 +158,11 @@ automation:
 sensor:
 #  - platform: demo
 
+  - platform: lastfm
+    api_key: !secret lastfm_api
+    users:
+      - tmatheussen
+
   - platform: command_line
     scan_interval: 600
     command: 'bash /home/hass/.homeassistant/bin/getcommits.sh'
@@ -313,6 +318,6 @@ script:
  # - platform: demo
 
 ####################
-#     Includes     #
+#   Includes       #
 ####################
 zone: !include_dir_merge_list zones
