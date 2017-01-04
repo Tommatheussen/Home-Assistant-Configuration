@@ -159,8 +159,8 @@ sensor:
 #  - platform: demo
 
   - platform: command_line
-    command: 'bash /home/hass/.homeassistant/getcommits.sh'
     scan_interval: 600
+    command: 'bash /home/hass/.homeassistant/getcommits.sh'
 
   - platform: template
     sensors:
