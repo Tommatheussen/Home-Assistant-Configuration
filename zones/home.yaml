@@ -1,11 +1,3 @@
 - name: Home
   latitude: 51.273616
   longitude: 4.785493
-
-- name: Work
-  latitude: 51.272387
-  longitude: 4.655792
-
-- name: Joke's Home
-  latitude: 51.162589
-  longitude: 4.834117
