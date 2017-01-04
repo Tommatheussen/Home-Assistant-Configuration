@@ -31,6 +31,7 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+fret:
 
 http:
   api_password: !secret http_password
@@ -137,7 +138,7 @@ notify:
 sensor:
 #  - platform: demo
 
-  - platform: lastfm
+  - platform: lastm
     api_key: !secret lastfm_api
     users:
       - tmatheussen
