@@ -160,7 +160,7 @@ sensor:
 
   - platform: command_line
     scan_interval: 600
-    command: 'bash /home/hass/.homeassistant/getcommits.sh'
+    command: 'bash /home/hass/.homeassistant/bin/getcommits.sh'
 
   - platform: template
     sensors:
@@ -250,7 +250,7 @@ sensor:
         arg: Plex Media Server
 
 shell_command:
-  get_latest_config: bash /home/hass/.homeassistant/pullconfig.sh
+  get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
 
 script:
   update_config:
