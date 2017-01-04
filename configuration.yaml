@@ -29,21 +29,6 @@ homeassistant:
   #    hidden: false
    #x   friendly_name: Devices
 
-zone:
-  name: Home
-  latitude: 51.273616
-  longitude: 4.785493
-
-zone 2:
-  name: Work
-  latitude: 51.272387
-  longitude: 4.655792
-
-zone 3:
-  name: Joke's Home
-  latitude: 51.162589
-  longitude: 4.834117
-
 # Enables the frontend
 frontend:
 
@@ -326,3 +311,8 @@ script:
 
 #tts:
  # - platform: demo
+
+####################
+#     Includes     #
+####################
+zone: !include_dir_merge_list zones
