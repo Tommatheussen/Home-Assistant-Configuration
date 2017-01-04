@@ -1,0 +1,9 @@
+alias: Update Available
+trigger:
+  platform: state
+  entity_id: updater.updater
+action:
+  service: notify.pushbullet_tom
+  data:
+    title: "Update available"
+    message: "Update available for Home Assistant"

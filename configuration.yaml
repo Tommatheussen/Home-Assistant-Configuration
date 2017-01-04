@@ -133,27 +133,6 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api
 
-automation:
-  - alias: Free space
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.system_monitor_disk_free_plexmediaserver
-      below: 100
-    action:
-      service: notify.pushbullet_tom
-      data:
-        title: "Disk space low"
-        message: "Disk space of your server is low, remaining: {{ states.sensor.system_monitor_disk_free_plexmediaserver.state }} GiB"
-  - alias: Update Available
-    trigger:
-      platform: state
-      entity_id: updater.updater
-    action:
-      service: notify.pushbullet_tom
-      data:
-        title: "Update available"
-        message: "Update available for Home Assistant"
-
 # Weather Prediction
 sensor:
 #  - platform: demo
@@ -320,4 +299,5 @@ script:
 ####################
 #   Includes       #
 ####################
-zone: !include_dir_merge_list zones
+zone: !include_dir_merge_list zones/
+automation: !include_dir_list automation/
