@@ -4,6 +4,6 @@ python:
 install: 
   - "pip install homeassistant"
   - "bash $TRAVIS_BUILD_DIR/bin/dummy_secrets.sh"
-  - "cat $TRAVIS_BUILD_DIR/secrets.yaml"
-  - "ls -la $TRAVIS_BUILD_DIR"
 script: hass --config $TRAVIS_BUILD_DIR --script check_config
+notifications:
+  email: false
