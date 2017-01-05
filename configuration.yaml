@@ -137,7 +137,7 @@ notify:
 sensor:
 #  - platform: demo
 
-  - platform:  lastfm
+  - platform: lastfm
     api_key: !secret lastfm_api
     users:
       - tmatheussen
