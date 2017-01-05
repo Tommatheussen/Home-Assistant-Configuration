@@ -1,0 +1,8 @@
+name: System Monitor
+entities:
+  - sensor.system_monitor_cpu_use
+  - sensor.system_monitor_disk_free_plexmediaserver
+  - sensor.system_monitor_disk_use_plexmediaserver
+  - sensor.system_monitor_ram_use
+  - sensor.system_monitor_received_eth0
+  - sensor.system_monitor_sent_eth0
