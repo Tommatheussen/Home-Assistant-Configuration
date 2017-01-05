@@ -1,0 +1,7 @@
+view: yes
+name: Server
+icon: mdi:server
+entities:
+  - group.system_monitor
+  - group.process_monitor
+  - automation.free_space
