@@ -248,4 +248,4 @@ script:
 ####################
 zone: !include_dir_merge_list zones/
 automation: !include_dir_list automation/
-group: !include_dir_merge_name groups/
+group: !include_dir_named groups/
