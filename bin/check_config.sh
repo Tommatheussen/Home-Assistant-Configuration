@@ -2,9 +2,9 @@
 
 result=$(hass --config $TRAVIS_BUILD_DIR --script check_config)
 
-if [[ $result == *"Failed"* ]]
+if [[ $result == *"ERROR"* ]]
 then
-  echo $result
+  echo "$result"
   exit 1
 fi
 
