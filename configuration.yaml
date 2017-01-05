@@ -111,7 +111,7 @@ group:
       #- sun.sun
 
   calendar:
-	name: Cal
+    name: Cal
     entities:
       - sensor.jokes_next_shift
 
@@ -130,7 +130,7 @@ group:
 # Notifier setup
 notify:
   - name: pushbullet_tom
-     platform: pushbullet
+    platform: pushbullet
     api_key: !secret pushbullet_api
 
 # Weather Prediction
