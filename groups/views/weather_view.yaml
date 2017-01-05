@@ -1,0 +1,5 @@
+name: Weather
+view: yes
+entities:
+  - group.weathergroup
+  - weather.openweathermap
