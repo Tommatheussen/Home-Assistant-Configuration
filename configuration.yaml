@@ -65,59 +65,6 @@ calendar:
 # Track the sun
 sun:
 
-# Setup home page groups
-group:
-  # Views
-  weather:
-    name: Weather
-    view: yes
-    entities:
-      - group.weathergroup
-      - weather.openweathermap
-  server:
-    view: yes
-    name: Server
-    icon: mdi:server
-    entities:
-      - group.system_monitor
-      - group.process_monitor
-      - automation.free_space
-      
-  # Groups
-  system_monitor:
-    name: System Monitor
-    entities:
-      - sensor.system_monitor_cpu_use
-      - sensor.system_monitor_disk_free_plexmediaserver
-      - sensor.system_monitor_disk_use_plexmediaserver
-      - sensor.system_monitor_ram_use
-      - sensor.system_monitor_received_eth0
-      - sensor.system_monitor_sent_eth0
-  process_monitor:
-    name: Process Monitor
-    entities:
-      - sensor.process_flexget
-      - sensor.process_deluge_web
-      - sensor.process_deluged
-      - sensor.process_plexpy
-      - sensor.process_plex_media_server
-
-#  weathergroup:
- #   name: Current Weather
-  #  entities:
-   #   - sensor.yr_precipitation
-    #  - sensor.yr_symbol
-     # - sensor.yr_temperature
-      #- sun.sun
-
-  calendar:
-    name: Cal
-    entities:
-      - sensor.jokes_next_shift
-
-  
-
-
 #  forecast:
  #   entities:
   #    - sensor.owm_forecast
@@ -301,3 +248,4 @@ script:
 ####################
 zone: !include_dir_merge_list zones/
 automation: !include_dir_list automation/
+group: !include_dir_merge_name groups/
