@@ -4,7 +4,7 @@ result=`hass --config $TRAVIS_BUILD_DIR --script check_config`
 
 if [[ $result == *"Failed"* ]]
 then
-  echo "It's there!";
+  exit 1
 fi
 
 exit
