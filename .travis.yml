@@ -4,7 +4,7 @@ python:
 install: 
   - "pip install homeassistant"
   - "bash $TRAVIS_BUILD_DIR/bin/dummy_secrets.sh"
-  - "touch /dev/ttyUSB0"
+  - "sudo touch /dev/ttyUSB0"
 script: "bash $TRAVIS_BUILD_DIR/bin/check_config.sh"
 notifications:
   email: false
