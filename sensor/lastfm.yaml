@@ -1,0 +1,4 @@
+platform: lastfm
+api_key: !secret lastfm_api
+users:
+  - !secret lastfm_user

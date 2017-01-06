@@ -80,105 +80,13 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api
 
-# Weather Prediction
-sensor:
-#  - platform: demo
 
-  - platform: lastfm
-    api_key: !secret lastfm_api
-    users:
-      - tmatheussen
-
-  - platform: command_line
-    scan_interval: 600
-    command: 'bash /home/hass/.homeassistant/bin/getcommits.sh'
-
-  - platform: template
-    sensors:
-      process_flexget:
-        friendly_name: Flexget
-        value_template: >
-          {% if states.sensor.system_monitor_process_flexget.state == 'on' %}Running
-          {% elif states.sensor.system_monitor_process_flexget.state == 'off' %}Not running
-          {% else %}Invalid state{% endif %}
-        entity_id: sensor.system_monitor_process_flexget
-      process_deluged:
-        friendly_name: Deluge Daemon
-        value_template: >
-          {% if states.sensor.system_monitor_process_deluged.state == 'on' %}Running
-          {% elif states.sensor.system_monitor_process_deluged.state == 'off' %}Not running
-          {% else %}Invalid state{% endif %}          
-        entity_id: sensor.system_monitor_process_deluged
-      process_deluge_web:
-        friendly_name: Deluge Web
-        value_template: >
-          {% if states.sensor.system_monitor_process_delugeweb.state == 'on' %}Running
-          {% elif states.sensor.system_monitor_process_delugedweb.state == 'off' %}Not running
-          {% else %}Invalid state{% endif %}
-        entity_id: sensor.system_monitor_process_delugeweb
-      process_plexpy:
-        friendly_name: PlexPy
-        value_template: >
-          {% if states.sensor.system_monitor_process_plexpy.state == 'on' %}Running
-          {% elif states.sensor.system_monitor_process_plexpy.state == 'off' %}Not running
-          {% else %}Invalid state{% endif %}
-        entity_id: sensor.system_monitor_process_plexpy
-      process_plex_media_server:
-        friendly_name: Plex Media Server
-        value_template: >
-          {% if states.sensor.system_monitor_process_plex_media_server.state == 'on' %}Running
-          {% elif states.sensor.system_monitor_process_plex_media_server.state == 'off' %}Not running
-          {% else %}Invalid state{% endif %}
-        entity_id: sensor.system_monitor_process_plex_media_server
-      jokes_next_shift:
-        friendly_name: "Joke's next shift"
-        value_template: >
-          {% set texts = ["Vandaag", "Morgen", "Overmorgen"] %}
-          {% set start = strptime(states.calendar.jokes_werk.attributes.start_time, '%Y-%m-%d %H:%M:%S') %}
-          {% set end = strptime(states.calendar.jokes_werk.attributes.end_time, '%Y-%m-%d %H:%M:%S') %}
-          {% set shift = start.strftime('%H:%M') + "-" + end.strftime('%H:%M') %}
-          {% set days = (start.date() - now().date()).days %}
-          {% set day = texts[days] %}
-          {{ day | default("Binnen " + days | string + " dagen") }} {{ shift }} 
-
-#  - platform: openweathermap
-#    api_key: !secret owm_api
-#    forecast: true
-#    monitored_conditions:
-#      - weather
-#      - temperature
-#      - wind_speed
-#      - humidity
-#      - pressure
-#      - clouds
-#      - rain
-#      - snow
+  
 #  - platform: yr
  #   monitored_conditions:
   #    - symbol
    #   - temperature
     #  - precipitation
-  - platform: systemmonitor
-    entity_namespace: system_monitor
-    resources:
-      - type: disk_use_percent
-        arg: /PlexMediaServer
-      - type: disk_free
-        arg: /PlexMediaServer
-      - type: memory_use_percent
-      - type: processor_use
-      - type: network_in
-        arg: eth0
-      - type: network_out
-        arg: eth0
-      - type: process
-        arg: deluged
-      - type: process
-        arg: deluge-web
-      - type: process
-        arg: flexget
-      - type: process
-        arg: Plex Media Server
 
 shell_command:
   get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
@@ -249,3 +157,4 @@ script:
 zone: !include_dir_merge_list zone/
 automation: !include_dir_list automation/
 group: !include_dir_named group/
+sensor: !include_dir_list sensor/

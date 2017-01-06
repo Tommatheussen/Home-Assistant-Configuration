@@ -1,0 +1,47 @@
+platform: template
+sensors:
+  process_flexget:
+    friendly_name: Flexget
+    value_template: >
+      {% if states.sensor.system_monitor_process_flexget.state == 'on' %}Running
+      {% elif states.sensor.system_monitor_process_flexget.state == 'off' %}Not running
+      {% else %}Invalid state{% endif %}
+    entity_id: sensor.system_monitor_process_flexget
+  process_deluged:
+    friendly_name: Deluge Daemon
+    value_template: >
+      {% if states.sensor.system_monitor_process_deluged.state == 'on' %}Running
+      {% elif states.sensor.system_monitor_process_deluged.state == 'off' %}Not running
+      {% else %}Invalid state{% endif %}          
+    entity_id: sensor.system_monitor_process_deluged
+  process_deluge_web:
+    friendly_name: Deluge Web
+    value_template: >
+      {% if states.sensor.system_monitor_process_delugeweb.state == 'on' %}Running
+      {% elif states.sensor.system_monitor_process_delugedweb.state == 'off' %}Not running
+      {% else %}Invalid state{% endif %}
+    entity_id: sensor.system_monitor_process_delugeweb
+  process_plexpy:
+    friendly_name: PlexPy
+    value_template: >
+      {% if states.sensor.system_monitor_process_plexpy.state == 'on' %}Running
+      {% elif states.sensor.system_monitor_process_plexpy.state == 'off' %}Not running
+      {% else %}Invalid state{% endif %}
+    entity_id: sensor.system_monitor_process_plexpy
+  process_plex_media_server:
+    friendly_name: Plex Media Server
+    value_template: >
+      {% if states.sensor.system_monitor_process_plex_media_server.state == 'on' %}Running
+      {% elif states.sensor.system_monitor_process_plex_media_server.state == 'off' %}Not running
+      {% else %}Invalid state{% endif %}
+    entity_id: sensor.system_monitor_process_plex_media_server
+  jokes_next_shift:
+    friendly_name: "Joke's next shift"
+    value_template: >
+      {% set texts = ["Vandaag", "Morgen", "Overmorgen"] %}
+      {% set start = strptime(states.calendar.jokes_werk.attributes.start_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set end = strptime(states.calendar.jokes_werk.attributes.end_time, '%Y-%m-%d %H:%M:%S') %}
+      {% set shift = start.strftime('%H:%M') + "-" + end.strftime('%H:%M') %}
+      {% set days = (start.date() - now().date()).days %}
+      {% set day = texts[days] %}
+      {{ day | default("Binnen " + days | string + " dagen") }} {{ shift }}
