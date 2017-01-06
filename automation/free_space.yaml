@@ -1,3 +1,4 @@
+# Trigger a notification when available space drops under 100GB
 alias: Free space
 trigger:
   platform: numeric_state
