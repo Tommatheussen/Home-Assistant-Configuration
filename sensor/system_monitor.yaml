@@ -1,0 +1,21 @@
+platform: systemmonitor
+entity_namespace: system_monitor
+resources:
+  - type: disk_use_percent
+    arg: /PlexMediaServer
+  - type: disk_free
+    arg: /PlexMediaServer
+  - type: memory_use_percent
+  - type: processor_use
+  - type: network_in
+    arg: eth0
+  - type: network_out
+    arg: eth0
+  - type: process
+    arg: deluged
+  - type: process
+    arg: deluge-web
+  - type: process
+    arg: flexget
+  - type: process
+    arg: Plex Media Server
