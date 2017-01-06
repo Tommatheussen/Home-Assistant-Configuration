@@ -62,6 +62,9 @@ calendar:
     client_id: 72083380627-0itnt9cn81ivs7i5a71r583qrg85k6hc.apps.googleusercontent.com
     client_secret: !secret google_secret
 
+rfxtrx:
+  device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A1Y0NJGR-if00-port0
+
 # Track the sun
 sun:
 
