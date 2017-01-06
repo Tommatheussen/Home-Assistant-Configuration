@@ -63,7 +63,7 @@ calendar:
     client_secret: !secret google_secret
 
 rfxtrx:
-  device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A1Y0NJGR-if00-port0
+  device: /dev/ttyUSB0
 
 # Track the sun
 sun:
