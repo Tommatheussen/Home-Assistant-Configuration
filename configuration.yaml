@@ -62,6 +62,11 @@ calendar:
     client_id: 72083380627-0itnt9cn81ivs7i5a71r583qrg85k6hc.apps.googleusercontent.com
     client_secret: !secret google_secret
 
+logger:
+  default: debug
+  logs:
+    homeassistant.components.rfxtrx: warning
+
 rfxtrx:
   device: /dev/ttyUSB0
 
