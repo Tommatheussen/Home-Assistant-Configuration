@@ -3,8 +3,8 @@ python:
   - "3.5"
 install: 
   - "pip install homeassistant"
+  - "pip install RFXtrx"
   - "bash $TRAVIS_BUILD_DIR/bin/dummy_secrets.sh"
-  - "sudo touch /dev/ttyUSB0"
 script: "bash $TRAVIS_BUILD_DIR/bin/check_config.sh"
 notifications:
   email: false
