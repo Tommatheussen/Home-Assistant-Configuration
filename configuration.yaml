@@ -13,10 +13,6 @@ homeassistant:
 
   customize: !include customize.yaml
 
- #   group.all_devices:
-  #    hidden: false
-   #x   friendly_name: Devices
-
 # Enables the frontend
 frontend:
 
@@ -52,29 +48,11 @@ calendar:
 
 # Track the sun
 sun:
-
-#  forecast:
- #   entities:
-  #    - sensor.owm_forecast
-
-#  plex:
- #   name: Plex
-  #  entities:
-   #   - sensor.plex
-
 # Notifier setup
 notify:
   - name: pushbullet_tom
     platform: pushbullet
     api_key: !secret pushbullet_api
-
-
-  
-#  - platform: yr
- #   monitored_conditions:
-  #    - symbol
-   #   - temperature
-    #  - precipitation
 
 shell_command:
   get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
@@ -85,25 +63,20 @@ script:
       - service: shell_command.get_latest_config
       - service: homeassistant.restart
 
-#device_tracker:
- # - platform: nmap_tracker
-  #  hosts:
-   #   - 192.168.1.0/24
-    #home_interval: 5
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - 192.168.1.0/24
+    home_interval: 5
 
-#mqtt:
- # broker: m21.cloudmqtt.com
-  #port: 23101
- # username: !secret mqtt_username
- # password: !secret mqtt_pass
+mqtt:
+  broker: m21.cloudmqtt.com
+  port: 23101
+  username: !secret mqtt_username
+  password: !secret mqtt_pass
 
-#device_tracker:
- # - platform: owntracks
-
-#weather:
- # - platform: demo
-  #- platform: openweathermap
-   # api_key: !secret owm_api
+device_tracker:
+  - platform: owntracks
 
 ############# Demo stuff
 #alarm_control_panel:
