@@ -6,3 +6,5 @@ echo "pushbullet_api: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
 echo "lastfm_api: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
 echo "lastfm_user: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
 echo "owm_api: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
+echo "mqtt_pass: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
+echo "mqtt_username: dummy" >> $TRAVIS_BUILD_DIR/secrets.yaml
