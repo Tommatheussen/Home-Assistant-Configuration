@@ -1,0 +1,12 @@
+sun.sun:
+  hidden: true
+sensor.system_monitor_process_deluged:
+  hidden: true
+sensor.system_monitor_process_delugeweb:
+  hidden: true
+sensor.system_monitor_process_flexget:
+  hidden: true
+sensor.system_monitor_process_plexpy:
+  hidden: true
+sensor.system_monitor_process_plex_media_server:
+  hidden: true
