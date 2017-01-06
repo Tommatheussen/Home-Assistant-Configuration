@@ -11,19 +11,7 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Brussels
 
-  customize:
-    sun.sun:
-      hidden: true
-    sensor.system_monitor_process_deluged:
-      hidden: true
-    sensor.system_monitor_process_delugeweb:
-      hidden: true
-    sensor.system_monitor_process_flexget:
-      hidden: true
-    sensor.system_monitor_process_plexpy:
-      hidden: true
-    sensor.system_monitor_process_plex_media_server:
-      hidden: true
+  customize: !include customize.yaml
 
  #   group.all_devices:
   #    hidden: false
