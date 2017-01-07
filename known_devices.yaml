@@ -27,17 +27,22 @@ b047bf113a4b:
   picture:
   track: true
 
-smartphone_tom:
+tom_msm8226:
   mac: 9C:A9:E4:9A:A8:57
   name: Tom ZTE
   track: true
 
-server:
+000d60202ebf:
   mac: 00:0d:60:20:2e:bf
   name: Server
   track: true
 
-laptop_tom:
+e4f89cd27323:
   mac: E4:F8:9C:D2:73:23
   name: Tom MSI
+  track: true
+
+00219b1f31c2:
+  mac: 00:21:9B:1F:31:C2
+  name: Home PC
   track: true
