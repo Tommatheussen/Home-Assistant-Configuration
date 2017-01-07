@@ -27,9 +27,17 @@ b047bf113a4b:
   picture:
   track: true
 
-tom_msm8226:
-  hide_if_away: false
-  mac:
-  name: Tom
-  picture:
+smartphone_tom:
+  mac: 9C:A9:E4:9A:A8:57
+  name: Tom ZTE
+  track: true
+
+server:
+  mac: 00:0d:60:20:2e:bf
+  name: Server
+  track: true
+
+laptop_tom:
+  mac: E4:F8:9C:D2:73:23
+  name: Tom MSI
   track: true
