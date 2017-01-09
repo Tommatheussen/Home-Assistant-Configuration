@@ -18,7 +18,7 @@ frontend:
 
 http:
   api_password: !secret http_password
-  ssl_cert: !secret ssl_cert
+  ssl_certificate: !secret ssl_cert
   ssl_key: !secret ssl_key
   trusted_networks:
     - 192.168.1.0/24
