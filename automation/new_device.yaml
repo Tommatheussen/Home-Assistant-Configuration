@@ -1,0 +1,11 @@
+trigger:
+  platform: event
+  event_type: device_tracker_new_device
+action:
+  service: persistent_notification.create
+  data_template:
+    title: "New device connected"
+    message: >
+      A new device connected to your internet
+      Data: {{ trigger.event }}
+      
