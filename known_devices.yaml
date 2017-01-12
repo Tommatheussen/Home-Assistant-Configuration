@@ -51,3 +51,27 @@ e4f89cd27323:
   mac: 60:E7:01:7A:20:DC
   name: Joke Huawei
   track: true
+
+00219b1f31c2:
+  hide_if_away: false
+  mac: 00:21:9B:1F:31:C2
+  name: 00219b1f31c2
+  picture:
+  track: true
+  vendor: Dell Inc.
+
+9ca9e49aa857:
+  hide_if_away: false
+  mac: 9C:A9:E4:9A:A8:57
+  name: 9ca9e49aa857
+  picture:
+  track: true
+  vendor: zte corporation
+
+0016d4eff1c1:
+  hide_if_away: false
+  mac: 00:16:D4:EF:F1:C1
+  name: 0016d4eff1c1
+  picture:
+  track: true
+  vendor: Compal Communications, Inc.
