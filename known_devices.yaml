@@ -1,53 +1,8 @@
-
-9c972640d578:
-  hide_if_away: false
-  mac: 9C:97:26:40:D5:78
-  name: 9c972640d578
-  picture:
-  track: true
-
-9e972640d581:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:81
-  name: 9e972640d581
-  picture:
-  track: true
-
-9e972640d578:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:78
-  name: 9e972640d578
-  picture:
-  track: true
-
-b047bf113a4b:
-  hide_if_away: false
-  mac: B0:47:BF:11:3A:4B
-  name: b047bf113a4b
-  picture:
-  track: true
-
 tom_msm8226:
+  hide_if_away: false
   mac: 9C:A9:E4:9A:A8:57
   name: Tom ZTE
+  picture:
   track: true
-
-000d60202ebf:
-  mac: 00:0d:60:20:2e:bf
-  name: Server
-  track: true
-
-e4f89cd27323:
-  mac: E4:F8:9C:D2:73:23
-  name: Tom MSI
-  track: true
-
-00219b1f31c2:
-  mac: 00:21:9B:1F:31:C2
-  name: Home PC
-  track: true
-
-60e7017a20dc:
-  mac: 60:E7:01:7A:20:DC
-  name: Joke Huawei
-  track: true
+  vendor: zte corporation
+  
