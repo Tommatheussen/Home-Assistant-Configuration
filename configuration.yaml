@@ -23,9 +23,8 @@ http:
   trusted_networks:
     - 192.168.1.0/24
 
-# TODO: Re-enable after it works
 # Checks for available updates
-#updater:
+updater:
 
 # Discover some devices automatically
 #discovery:
@@ -34,7 +33,7 @@ http:
 history:
 
 recorder:
-  purge_days: 7
+  purge_days: 3
 
 # View all events in a logbook
 logbook:
