@@ -5,3 +5,11 @@ tom_msm8226:
   picture:
   track: true
   vendor: zte corporation
+
+9c972640d578:
+  hide_if_away: false
+  mac: 9C:97:26:40:D5:78
+  name: Router
+  picture:
+  track: true
+  vendor: Technicolor
