@@ -10,11 +10,7 @@ sensor.system_monitor_process_plexpy:
   hidden: true
 sensor.system_monitor_process_plex_media_server:
   hidden: true
-device_tracker.00219b1f31c2:
-  icon: mdi:desktop-tower
-device_tracker.e4f89cd27323:
-  icon: mdi:laptop-windows
+device_tracker.9c972640d578
+  icon: mdi:router-wireless
 device_tracker.tom_msm8226:
   icon: mdi:cellphone-android
-device_tracker.000d60202ebf:
-  icon: mdi:server
