@@ -21,10 +21,10 @@
   entities:
   - device_id: contacts
     name: Contacts
-    track: true
+    track: false
 
 - cal_id: nl.be#holiday@group.v.calendar.google.com
   entities:
   - device_id: feestdagen_in_belgie
     name: "Feestdagen in Belgi\xEB"
-    track: true
+    track: false
