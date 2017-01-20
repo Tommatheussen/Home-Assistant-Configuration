@@ -13,21 +13,18 @@ homeassistant:
 
   customize: !include customize.yaml
 
- #   group.all_devices:
-  #    hidden: false
-   #x   friendly_name: Devices
-
 # Enables the frontend
 frontend:
 
 http:
   api_password: !secret http_password
+  ssl_certificate: !secret ssl_cert
+  ssl_key: !secret ssl_key
   trusted_networks:
     - 192.168.1.0/24
 
-# TODO: Re-enable after it works
 # Checks for available updates
-#updater:
+updater:
 
 # Discover some devices automatically
 #discovery:
@@ -36,7 +33,8 @@ http:
 history:
 
 recorder:
-  purge_days: 7
+  purge_days: 14
+  db_url: !secret db_url
 
 # View all events in a logbook
 logbook:
@@ -52,29 +50,11 @@ calendar:
 
 # Track the sun
 sun:
-
-#  forecast:
- #   entities:
-  #    - sensor.owm_forecast
-
-#  plex:
- #   name: Plex
-  #  entities:
-   #   - sensor.plex
-
 # Notifier setup
 notify:
   - name: pushbullet_tom
     platform: pushbullet
     api_key: !secret pushbullet_api
-
-
-  
-#  - platform: yr
- #   monitored_conditions:
-  #    - symbol
-   #   - temperature
-    #  - precipitation
 
 shell_command:
   get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
@@ -85,25 +65,19 @@ script:
       - service: shell_command.get_latest_config
       - service: homeassistant.restart
 
-#device_tracker:
- # - platform: nmap_tracker
-  #  hosts:
-   #   - 192.168.1.0/24
-    #home_interval: 5
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - 192.168.1.0/24
+    home_interval: 5
+  - platform: owntracks
 
-#mqtt:
- # broker: m21.cloudmqtt.com
-  #port: 23101
- # username: !secret mqtt_username
- # password: !secret mqtt_pass
-
-#device_tracker:
- # - platform: owntracks
-
-#weather:
- # - platform: demo
-  #- platform: openweathermap
-   # api_key: !secret owm_api
+mqtt:
+  broker: m21.cloudmqtt.com
+  port: 23101
+  username: !secret mqtt_username
+  password: !secret mqtt_pass
+ 
 
 ############# Demo stuff
 #alarm_control_panel:
