@@ -1,4 +1,4 @@
-friendly_name: "Update HA"
+alias: "Update HA"
 sequence:
   - service: shell_command.update_hass
   - service: homeassistant.restart
