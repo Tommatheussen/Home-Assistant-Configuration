@@ -59,11 +59,11 @@ notify:
 shell_command:
   get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
 
-script:
-  update_config:
-    sequence:
-      - service: shell_command.get_latest_config
-      - service: homeassistant.restart
+#script:
+#  update_config:
+ #   sequence:
+  #    - service: shell_command.get_latest_config
+   #   - service: homeassistant.restart
 
 device_tracker:
   - platform: nmap_tracker
@@ -120,3 +120,4 @@ zone: !include_dir_merge_list zone/
 automation: !include_dir_list automation/
 group: !include_dir_named group/
 sensor: !include_dir_list sensor/
+script: !include_dir_list script/
