@@ -1,6 +1,6 @@
 tom_msm8226:
   hide_if_away: false
-  mac: 9C:A9:E4:9A:A8:57
+#  mac: 9C:A9:E4:9A:A8:57
   name: Tom ZTE
   picture:
   track: true
@@ -13,3 +13,75 @@ tom_msm8226:
   picture:
   track: true
   vendor: Technicolor
+
+b047bf113a4b:
+  hide_if_away: false
+  mac: B0:47:BF:11:3A:4B
+  name: b047bf113a4b
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
+
+9e972640d581:
+  hide_if_away: false
+  mac: 9E:97:26:40:D5:81
+  name: 9e972640d581
+  picture:
+  track: true
+  vendor: unknown
+
+9e972640d578:
+  hide_if_away: false
+  mac: 9E:97:26:40:D5:78
+  name: 9e972640d578
+  picture:
+  track: true
+  vendor: unknown
+
+9cb65419c01e:
+  hide_if_away: true
+  mac: 9C:B6:54:19:C0:1E
+  name: 9cb65419c01e
+  picture:
+  track: true
+  vendor: Hewlett Packard
+
+0016d4eff1c1:
+  hide_if_away: true
+  mac: 00:16:D4:EF:F1:C1
+  name: 0016d4eff1c1
+  picture:
+  track: true
+  vendor: Compal Communications, Inc.
+
+9ca9e49aa857:
+  hide_if_away: false
+  mac: 9C:A9:E4:9A:A8:57
+  name: 9ca9e49aa857
+  picture:
+  track: true
+  vendor: zte corporation
+
+00219b1f31c2:
+  hide_if_away: false
+  mac: 00:21:9B:1F:31:C2
+  name: 00219b1f31c2
+  picture:
+  track: true
+  vendor: Dell Inc.
+
+d09dabb2046a:
+  hide_if_away: false
+  mac: D0:9D:AB:B2:04:6A
+  name: d09dabb2046a
+  picture:
+  track: true
+  vendor: TCT mobile ltd
+
+78009ed47a6e:
+  hide_if_away: false
+  mac: 78:00:9E:D4:7A:6E
+  name: 78009ed47a6e
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
