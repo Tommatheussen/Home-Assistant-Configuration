@@ -38,10 +38,19 @@ sensors:
   jokes_next_shift:
     friendly_name: "Joke's next shift"
     value_template: >
-      {% set texts = ["Vandaag", "Morgen", "Overmorgen"] %}
-      {% set start = strptime(states.calendar.jokes_werk.attributes.start_time, '%Y-%m-%d %H:%M:%S') %}
-      {% set end = strptime(states.calendar.jokes_werk.attributes.end_time, '%Y-%m-%d %H:%M:%S') %}
-      {% set shift = start.strftime('%H:%M') + "-" + end.strftime('%H:%M') %}
-      {% set days = (start.date() - now().date()).days %}
-      {% set day = texts[days] %}
-      {{ day | default("Binnen " + days | string + " dagen") }} {{ shift }}
+      {% if states.calendar.jokes_werk %}
+        {% set attrs = states.calendar.jokes_werk.attributes %}
+        {% if attrs.start_time and attrs.end_time %}
+          {% set texts = ["Vandaag", "Morgen", "Overmorgen"] %}
+          {% set start = strptime(states.calendar.jokes_werk.attributes.start_time, '%Y-%m-%d %H:%M:%S') %}
+          {% set end = strptime(states.calendar.jokes_werk.attributes.end_time, '%Y-%m-%d %H:%M:%S') %}
+          {% set shift = start.strftime('%H:%M') + "-" + end.strftime('%H:%M') %}
+          {% set days = (start.date() - now().date()).days %}
+          {% set day = texts[days] %}
+          {{ day | default("Binnen " + days | string + " dagen") }} {{ shift }}
+        {% else %}
+          No new event found
+        {% endif %}
+      {% else %}
+        Calendar failed
+      {% endif %}
