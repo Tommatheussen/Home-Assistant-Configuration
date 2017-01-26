@@ -4,5 +4,5 @@ sequence:
   - condition: numeric_state
     entity_id: sensor.new_commits
     above: 0
-  - service: shell_command.get_latest_config
+  - service: shell_command.update_config_from_github
   - service: homeassistant.restart
