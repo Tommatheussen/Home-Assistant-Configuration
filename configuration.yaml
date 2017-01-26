@@ -59,6 +59,7 @@ notify:
 shell_command:
   update_new_commits_sensor: bash /home/hass/.homeassistant/bin/update_new_commits_sensor.sh #TODO: feed password 
   update_config_from_github: bash /home/hass/.homeassistant/bin/update_config_from_github.sh
+  update_devices_from_server: bash /home/hass/.homeassistant/bin/update_devices_from_server.sh
 
 device_tracker:
   - platform: nmap_tracker
