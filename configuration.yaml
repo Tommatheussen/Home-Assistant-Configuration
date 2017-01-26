@@ -75,6 +75,11 @@ mqtt:
  
 
 ############# Demo stuff
+weather:
+  - platform: demo
+  - platform: openweathermap
+    api_key: !secret owm_api
+
 #alarm_control_panel:
  # - platform: demo
 
