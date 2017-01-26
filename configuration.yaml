@@ -57,13 +57,8 @@ notify:
     api_key: !secret pushbullet_api
 
 shell_command:
-  get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
-
-#script:
-#  update_config:
- #   sequence:
-  #    - service: shell_command.get_latest_config
-   #   - service: homeassistant.restart
+  update_new_commits_sensor: bash /home/hass/.homeassistant/bin/update_new_commits_sensor.sh #TODO: feed password 
+  update_config_from_github: bash /home/hass/.homeassistant/bin/update_config_from_github.sh
 
 device_tracker:
   - platform: nmap_tracker
