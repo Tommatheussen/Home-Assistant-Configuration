@@ -6,7 +6,7 @@ action:
   - service: notify.pushbullet_tom
     data_template:
       title: "New device connected"
-      message>
+      message: >
         New device has connected to your internet:
         {{ trigger.event.entity_id }}
   - service: shell_command.update_devices_from_server
