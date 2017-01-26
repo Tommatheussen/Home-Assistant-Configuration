@@ -45,3 +45,11 @@ b047bf113a4b:
   picture:
   track: true
   vendor: Samsung Electronics Co.,Ltd
+
+78009ed47a6e:
+  hide_if_away: false
+  mac: 78:00:9E:D4:7A:6E
+  name: 78009ed47a6e
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
