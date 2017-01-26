@@ -1,0 +1,10 @@
+trigger:
+  platform: event
+  event_type: device_tracker_new_device
+action:
+  service: notify.pushbullet_tom
+  data_template:
+    title: "New device connected"
+    message>
+      New device has connected to your internet:
+      {{ trigger.event.entity_id }}
