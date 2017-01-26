@@ -18,5 +18,7 @@ device_tracker.tom_msm8226:
   icon: mdi:cellphone-android
 device_tracker.9cb65419c01e:
   icon: mdi:printer
+device_tracker.00219b1f31c2
+  icon: mdi:desktop-tower
 group.all_devices:
   hidden: false
