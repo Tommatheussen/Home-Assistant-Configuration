@@ -44,7 +44,7 @@ sensors:
           {% set start = strptime(states.calendar.jokes_werk.attributes.start_time, '%Y-%m-%d %X') %}
           {% set end = strptime(states.calendar.jokes_werk.attributes.end_time, '%Y-%m-%d %X') %}
           {% if start < now().replace(tzinfo=None) %}
-            Nu tot {{ end.strftime('%R')
+            Nu tot {{ end.strftime('%R') }}
           {% else %}
             {% set texts = ["Vandaag", "Morgen", "Overmorgen"] %}
             {% set shift = start.strftime('%R') + "-" + end.strftime('%R') %}
