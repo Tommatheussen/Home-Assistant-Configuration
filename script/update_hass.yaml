@@ -1,0 +1,7 @@
+alias: "Update HA"
+sequence:
+  - condition: state
+    entity_id: updater.updater
+    state: 'On'
+  - service: shell_command.update_hass
+  - service: homeassistant.restart

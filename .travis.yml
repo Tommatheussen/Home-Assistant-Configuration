@@ -1,13 +1,9 @@
 language: python
 python:
-  - "3.5"
+  - "3.4.3"
 install: 
   - "pip install homeassistant"
   - "bash $TRAVIS_BUILD_DIR/bin/dummy_secrets.sh"
 script: "bash $TRAVIS_BUILD_DIR/bin/check_config.sh"
 notifications:
   email: false
-after_success:
-  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge"
-  - "chmod a+x /tmp/travis-automerge"
-  - "BRANCHES_TO_MERGE_REGEX='local_update' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=Tommatheussen/Home-Assistant-Configuration /tmp/travis-automerge"

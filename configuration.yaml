@@ -57,13 +57,9 @@ notify:
     api_key: !secret pushbullet_api
 
 shell_command:
-  get_latest_config: bash /home/hass/.homeassistant/bin/pullconfig.sh
-
-script:
-  update_config:
-    sequence:
-      - service: shell_command.get_latest_config
-      - service: homeassistant.restart
+  update_new_commits_sensor: bash /home/hass/.homeassistant/bin/update_new_commits_sensor.sh #TODO: feed password 
+  update_config_from_github: bash /home/hass/.homeassistant/bin/update_config_from_github.sh
+  update_devices_from_server: bash /home/hass/.homeassistant/bin/update_devices_from_server.sh
 
 device_tracker:
   - platform: nmap_tracker
@@ -80,6 +76,11 @@ mqtt:
  
 
 ############# Demo stuff
+weather:
+  - platform: demo
+  - platform: openweathermap
+    api_key: !secret owm_api
+
 #alarm_control_panel:
  # - platform: demo
 
@@ -120,3 +121,4 @@ zone: !include_dir_merge_list zone/
 automation: !include_dir_list automation/
 group: !include_dir_named group/
 sensor: !include_dir_list sensor/
+script: !include_dir_named script/

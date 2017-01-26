@@ -1,5 +1,7 @@
 sun.sun:
   hidden: true
+sensor.new_commits:
+  hidden: true  
 sensor.system_monitor_process_deluged:
   hidden: true
 sensor.system_monitor_process_delugeweb:
@@ -14,3 +16,5 @@ device_tracker.9c972640d578:
   icon: mdi:router-wireless
 device_tracker.tom_msm8226:
   icon: mdi:cellphone-android
+group.all_devices:
+  hidden: false

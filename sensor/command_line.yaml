@@ -1,3 +1,0 @@
-platform: command_line
-scan_interval: 600
-command: 'bash /home/hass/.homeassistant/bin/getcommits.sh'
