@@ -49,7 +49,7 @@ calendar:
     client_secret: !secret google_secret
 
 # Track the sun
-sun:
+#sun:
 # Notifier setup
 notify:
   - name: pushbullet_tom
