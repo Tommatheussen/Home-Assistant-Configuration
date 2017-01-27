@@ -3,7 +3,7 @@ trigger:
   platform: event
   event_type: new_device_update_failed
 action:
-  - service: notify.pushbullet_tom
+  - service: persistent_notification.create
     data_template:
       title: "Adding device to Github failed"
       message: >
