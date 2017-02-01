@@ -1,7 +1,6 @@
 alias: "Update HA"
 sequence:
-  - condition: state
-    entity_id: updater.updater
-    state: 'On'
+  - condition: template
+    value_template: '{{ states.updater.updater.state == "0.37" }}'
   - service: shell_command.update_hass
   - service: homeassistant.restart
