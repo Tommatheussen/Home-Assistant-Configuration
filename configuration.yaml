@@ -56,7 +56,7 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api
 
-shell_command:
+
   update_new_commits_sensor: bash /home/hass/.homeassistant/bin/update_new_commits_sensor.sh #TODO: feed password 
   update_config_from_github: bash /home/hass/.homeassistant/bin/update_config_from_github.sh
   update_devices_from_server: bash /home/hass/.homeassistant/bin/update_devices_from_server.sh #TODO: feed password
@@ -123,3 +123,4 @@ automation: !include_dir_list automation/
 group: !include_dir_named group/
 sensor: !include_dir_list sensor/
 script: !include_dir_named script/
+shell_command: !include_dir_named shell_command/
