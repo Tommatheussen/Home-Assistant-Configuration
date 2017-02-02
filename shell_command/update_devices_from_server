@@ -1,0 +1,1 @@
+bash /home/hass/.homeassistant/bin/update_devices_from_server.sh #TODO: feed password
