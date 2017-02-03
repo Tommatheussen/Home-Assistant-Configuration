@@ -1,1 +1,1 @@
-bash /home/hass.homeassistant/bin/update_hass.sh
+bash /home/hass/.homeassistant/bin/update_hass.sh
