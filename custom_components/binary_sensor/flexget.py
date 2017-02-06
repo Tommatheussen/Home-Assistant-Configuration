@@ -1,15 +1,17 @@
-from homeassistant.helpers.entity import Entity
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-import homeassistant.helpers.config_validation as cv
-from homeassistant.const import (CONF_NAME, CONF_PASSWORD, CONF_HOST)
-import logging
-import time
 import voluptuous as vol
+
+from homeassistant.components.binary_sensor import (
+BinarySensorDevice, PLATFORM_SCHEMA)
+from homeassistant.const import (
+    CONF_NAME, CONF_PASSWORD, CONF_HOST)
+import homeassistant.helpers.config_validation as cv
+
+import logging
 from datetime import timedelta
 from homeassistant.util import Throttle
 import requests
 
-MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=15)
+MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=5)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -36,12 +38,14 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     
     add_devices([FlexgetTaskSensor(task) for task in r.json()])
 
-class FlexgetTaskSensor(Entity):
+class FlexgetTaskSensor(BinarySensorDevice):
     """Representation of a Sensor."""
     def __init__(self, task):
         self._name = task['name']
+        self._id = task['id']
+        self._state = False
         self._last_execution = task['last_execution']
-        print(task)
+        self.update()
 
     @property
     def name(self):
@@ -49,15 +53,16 @@ class FlexgetTaskSensor(Entity):
         return self._name
 
     @property
-    def state(self):
+    def is_on(self):
         """Return the state of the sensor."""
-        return self._last_execution['succeeded']
+        return self._state
 
-  #  @property
-  #  def unit_of_measurement(self):
-   #     """Return the unit of measurement."""
-    #    return TEMP_CELSIUS
-        
-    #@Throttle(MIN_TIME_BETWEEN_UPDATES)
-    #def update(self):
-    #	  """Get the latest data and updates the state and """
+    @property
+    def state_attributes(self):
+        """Return the last execution details"""
+        return self._last_execution
+
+    @Throttle(MIN_TIME_BETWEEN_UPDATES)
+    def update(self):
+          """Get the latest data and updates the state and """
+          print('getting update')
