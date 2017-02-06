@@ -22,12 +22,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the sensor platform."""
-    name = config.get(CONF_NAME)
     host = config.get(CONF_HOST)
     password = config.get(CONF_PASSWORD)
 
     try:
-        r = requests.get(host + 'status/', auth=('flexget', password))
+        r = requests.get(host + 'status/', auth=('flexget', password), params=({'include_execution': False }))
     except requests.exceptions.RequestException:
         _LOGGER.error("Failed to connect to the configured Flexget instance")
         return False
@@ -36,15 +35,15 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         _LOGGER.error("Authentication with Flexget failed")
         return False
     
-    add_devices([FlexgetTaskSensor(task) for task in r.json()])
+    add_devices([FlexgetTaskSensor(task['name'], task['id'], host, password) for task in r.json()])
 
 class FlexgetTaskSensor(BinarySensorDevice):
     """Representation of a Sensor."""
-    def __init__(self, task):
-        self._name = task['name']
-        self._id = task['id']
-        self._state = False
-        self._last_execution = task['last_execution']
+    def __init__(self, name, task_id, host, password):
+        self._name = name
+        self._id = task_id
+        self._host = host
+        self._password = password
         self.update()
 
     @property
@@ -55,7 +54,7 @@ class FlexgetTaskSensor(BinarySensorDevice):
     @property
     def is_on(self):
         """Return the state of the sensor."""
-        return self._state
+        return self._last_execution['succeeded']
 
     @property
     def state_attributes(self):
@@ -64,5 +63,7 @@ class FlexgetTaskSensor(BinarySensorDevice):
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
     def update(self):
-          """Get the latest data and updates the state and """
-          print('getting update')
+        """Get the latest data and updates the state and """
+        # TODO: handle errors
+        r = requests.get(self._host + 'status/' + str(self._id) + '/', auth=('flexget', self._password))
+        self._last_execution = r.json()['last_execution']
