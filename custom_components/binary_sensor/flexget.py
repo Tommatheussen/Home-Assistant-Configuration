@@ -13,17 +13,21 @@ import requests
 
 MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=5)
 
+CONF_TASKS = 'tasks'
+
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_HOST, default='http://localhost:5050/api/'): cv.string,
-    vol.Required(CONF_PASSWORD): cv.string
+    vol.Required(CONF_PASSWORD): cv.string,
+    vol.Optional(CONF_TASKS, default=[]): cv.ensure_list
 })
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the sensor platform."""
     host = config.get(CONF_HOST)
     password = config.get(CONF_PASSWORD)
+    tasks = config.get(CONF_TASKS)
 
     try:
         r = requests.get(host + 'status/', auth=('flexget', password), params=({'include_execution': False }))
@@ -35,7 +39,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
         _LOGGER.error("Authentication with Flexget failed")
         return False
     
-    add_devices([FlexgetTaskSensor(task['name'], task['id'], host, password) for task in r.json()])
+    add_devices([FlexgetTaskSensor(task['name'], task['id'], host, password) for task in r.json() if task['name'] in tasks])
 
 class FlexgetTaskSensor(BinarySensorDevice):
     """Representation of a Sensor."""
