@@ -69,3 +69,27 @@ b047bf113a4b:
   picture:
   track: true
   vendor: Compal Communications, Inc.
+
+d09dabb2046a:
+  hide_if_away: false
+  mac: D0:9D:AB:B2:04:6A
+  name: d09dabb2046a
+  picture:
+  track: true
+  vendor: TCT mobile ltd
+
+14d11f7debb7:
+  hide_if_away: false
+  mac: 14:D1:1F:7D:EB:B7
+  name: 14d11f7debb7
+  picture:
+  track: true
+  vendor: HUAWEI TECHNOLOGIES CO.,LTD
+
+3859f93c90bb:
+  hide_if_away: false
+  mac: 38:59:F9:3C:90:BB
+  name: 3859f93c90bb
+  picture:
+  track: true
+  vendor: Hon Hai Precision Ind. Co.,Ltd.
