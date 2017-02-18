@@ -93,3 +93,19 @@ d09dabb2046a:
   picture:
   track: true
   vendor: Hon Hai Precision Ind. Co.,Ltd.
+
+bc72b1eaf4ad:
+  hide_if_away: false
+  mac: BC:72:B1:EA:F4:AD
+  name: bc72b1eaf4ad
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
+
+60e7017a20dc:
+  hide_if_away: false
+  mac: 60:E7:01:7A:20:DC
+  name: 60e7017a20dc
+  picture:
+  track: true
+  vendor: HUAWEI TECHNOLOGIES CO.,LTD
