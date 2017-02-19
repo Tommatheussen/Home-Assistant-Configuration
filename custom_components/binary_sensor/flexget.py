@@ -32,14 +32,15 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     try:
         r = requests.get(host + 'status/', auth=('flexget', password), params=({'include_execution': False }))
     except requests.exceptions.RequestException:
-        _LOGGER.error("Failed to connect to the configured Flexget instance")
+        _LOGGER.error("Failed to connect to the configured Flexget instance: %e", requests.exceptions.RequestException)
         return False
 
     if(r.status_code == 401):
         _LOGGER.error("Authentication with Flexget failed")
         return False
     
-    add_devices([FlexgetTaskSensor(task['name'], task['id'], host, password) for task in r.json() if task['name'] in tasks])
+    add_devices([FlexgetTaskSensor(task['name'], task['id'], host, password)
+        for task in r.json() if (task['name'] in tasks or tasks == [])])
 
 class FlexgetTaskSensor(BinarySensorDevice):
     """Representation of a Sensor."""
