@@ -7,6 +7,7 @@ sensors:
       {% elif states.sensor.system_monitor_process_flexget.state == 'off' %}Not running
       {% else %}Invalid state{% endif %}
     entity_id: sensor.system_monitor_process_flexget
+    icon_template: '{% if is_state("sensor.system_monitor_process_flexget", "on") %}mdi:checkbox-marked{% else %}mdi:alert-box{% endif %}'
   process_deluged:
     friendly_name: Deluge Daemon
     value_template: >
@@ -14,6 +15,7 @@ sensors:
       {% elif states.sensor.system_monitor_process_deluged.state == 'off' %}Not running
       {% else %}Invalid state{% endif %}          
     entity_id: sensor.system_monitor_process_deluged
+    icon_template: '{% if is_state("sensor.system_monitor_process_deluged", "on") %}mdi:checkbox-marked{% else %}mdi:alert-box{% endif %}'
   process_deluge_web:
     friendly_name: Deluge Web
     value_template: >
@@ -21,6 +23,7 @@ sensors:
       {% elif states.sensor.system_monitor_process_delugedweb.state == 'off' %}Not running
       {% else %}Invalid state{% endif %}
     entity_id: sensor.system_monitor_process_delugeweb
+    icon_template: '{% if is_state("sensor.system_monitor_process_delugeweb", "on") %}mdi:checkbox-marked{% else %}mdi:alert-box{% endif %}'
   process_plexpy:
     friendly_name: PlexPy
     value_template: >
@@ -28,6 +31,7 @@ sensors:
       {% elif states.sensor.system_monitor_process_plexpy.state == 'off' %}Not running
       {% else %}Invalid state{% endif %}
     entity_id: sensor.system_monitor_process_plexpy
+    icon_template: '{% if is_state("sensor.system_monitor_process_plexpy", "on") %}mdi:checkbox-marked{% else %}mdi:alert-box{% endif %}'
   process_plex_media_server:
     friendly_name: Plex Media Server
     value_template: >
@@ -35,6 +39,7 @@ sensors:
       {% elif states.sensor.system_monitor_process_plex_media_server.state == 'off' %}Not running
       {% else %}Invalid state{% endif %}
     entity_id: sensor.system_monitor_process_plex_media_server
+    icon_template: '{% if is_state("sensor.system_monitor_process_plex_media_server", "on") %}mdi:checkbox-marked{% else %}mdi:alert-box{% endif %}'
   jokes_next_shift:
     friendly_name: "Joke's next shift"
     value_template: >

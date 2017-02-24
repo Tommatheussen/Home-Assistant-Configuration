@@ -79,7 +79,9 @@ weather:
 #alarm_control_panel:
  # - platform: demo
 
-#binary_sensor:
+binary_sensor:
+  - platform: flexget
+    password: !secret flexget
  # - platform: demo
 
 #camera:
@@ -108,6 +110,9 @@ weather:
 
 #tts:
  # - platform: demo
+
+media_player:
+  - platform: plex
 
 ####################
 #   Includes       #

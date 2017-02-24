@@ -1,0 +1,16 @@
+name: Flexget Task executions
+entities:
+  - binary_sensor.cleandownloaddirmovies
+  - binary_sensor.cleandownloaddirseries
+  - binary_sensor.downloadmovieshq
+  - binary_sensor.downloadmovieslq
+  - binary_sensor.downloadser
+  - binary_sensor.downloadseries
+  - binary_sensor.fillmovielisthq
+  - binary_sensor.fillmovielistlq
+  - binary_sensor.fillrssmovies
+  - binary_sensor.fillrssseries
+  - binary_sensor.fromdeluge
+  - binary_sensor.logtest
+  - binary_sensor.removefromstaging
+  - binary_sensor.traktcleanshows
