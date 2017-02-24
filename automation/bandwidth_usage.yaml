@@ -1,0 +1,10 @@
+alias: Monthly bandwidth usage reached
+trigger:
+  platform: numeric_state
+  entity_id: sensor.monthly_bandwidth_usage
+  above: 300
+action:
+  service: notify.pushbullet_tom
+  data:
+    title: "Slow down your downloading"
+    message: "You have reached your soft limit of downloading, consider putting some stuff on hold for a while"
