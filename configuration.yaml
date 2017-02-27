@@ -12,9 +12,14 @@ homeassistant:
   time_zone: Europe/Brussels
 
   customize: !include customize.yaml
+  customize_glob:
+    "sensor.system_monitor_process_*":
+      hidden: true
 
 # Enables the frontend
 frontend:
+
+config:
 
 http:
   api_password: !secret http_password
@@ -61,6 +66,7 @@ device_tracker:
     hosts:
       - 192.168.1.0/24
     home_interval: 5
+    scan_interval: 30
   - platform: owntracks
 
 mqtt:
@@ -72,7 +78,6 @@ mqtt:
 
 ############# Demo stuff
 weather:
-  - platform: demo
   - platform: openweathermap
     api_key: !secret owm_api
 
