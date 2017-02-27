@@ -22,38 +22,6 @@ tom_msm8226:
   track: true
   vendor: Hewlett Packard
 
-9e972640d578:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:78
-  name: 9e972640d578
-  picture:
-  track: true
-  vendor: unknown
-
-9e972640d581:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:81
-  name: 9e972640d581
-  picture:
-  track: true
-  vendor: unknown
-
-b047bf113a4b:
-  hide_if_away: false
-  mac: B0:47:BF:11:3A:4B
-  name: b047bf113a4b
-  picture:
-  track: true
-  vendor: Samsung Electronics Co.,Ltd
-
-78009ed47a6e:
-  hide_if_away: false
-  mac: 78:00:9E:D4:7A:6E
-  name: 78009ed47a6e
-  picture:
-  track: true
-  vendor: Samsung Electronics Co.,Ltd
-
 00219b1f31c2:
   hide_if_away: true
   mac: 00:21:9B:1F:31:C2
@@ -61,59 +29,3 @@ b047bf113a4b:
   picture:
   track: true
   vendor: Dell Inc.
-
-0016d4eff1c1:
-  hide_if_away: false
-  mac: 00:16:D4:EF:F1:C1
-  name: 0016d4eff1c1
-  picture:
-  track: true
-  vendor: Compal Communications, Inc.
-
-d09dabb2046a:
-  hide_if_away: false
-  mac: D0:9D:AB:B2:04:6A
-  name: d09dabb2046a
-  picture:
-  track: true
-  vendor: TCT mobile ltd
-
-14d11f7debb7:
-  hide_if_away: false
-  mac: 14:D1:1F:7D:EB:B7
-  name: 14d11f7debb7
-  picture:
-  track: true
-  vendor: HUAWEI TECHNOLOGIES CO.,LTD
-
-3859f93c90bb:
-  hide_if_away: false
-  mac: 38:59:F9:3C:90:BB
-  name: 3859f93c90bb
-  picture:
-  track: true
-  vendor: Hon Hai Precision Ind. Co.,Ltd.
-
-bc72b1eaf4ad:
-  hide_if_away: false
-  mac: BC:72:B1:EA:F4:AD
-  name: bc72b1eaf4ad
-  picture:
-  track: true
-  vendor: Samsung Electronics Co.,Ltd
-
-60e7017a20dc:
-  hide_if_away: false
-  mac: 60:E7:01:7A:20:DC
-  name: 60e7017a20dc
-  picture:
-  track: true
-  vendor: HUAWEI TECHNOLOGIES CO.,LTD
-
-b88d123a6146:
-  hide_if_away: false
-  mac: B8:8D:12:3A:61:46
-  name: b88d123a6146
-  picture:
-  track: true
-  vendor: Apple, Inc.
