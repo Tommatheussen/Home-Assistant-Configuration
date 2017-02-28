@@ -5,3 +5,4 @@ deps/
 secrets.yaml
 home-assistant*.log
 home-assistant*.db
+*.pyc
