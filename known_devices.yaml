@@ -30,6 +30,14 @@ tom_msm8226:
   track: true
   vendor: Dell Inc.
 
+9e972640d578:
+  hide_if_away: false
+  mac: 9E:97:26:40:D5:78
+  name: 9e972640d578
+  picture:
+  track: true
+  vendor: unknown
+
 9e972640d581:
   hide_if_away: false
   mac: 9E:97:26:40:D5:81
