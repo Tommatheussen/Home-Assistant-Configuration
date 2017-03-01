@@ -45,11 +45,3 @@ tom_msm8226:
   picture:
   track: true
   vendor: unknown
-
-b047bf113a4b:
-  hide_if_away: false
-  mac: B0:47:BF:11:3A:4B
-  name: b047bf113a4b
-  picture:
-  track: true
-  vendor: Samsung Electronics Co.,Ltd
