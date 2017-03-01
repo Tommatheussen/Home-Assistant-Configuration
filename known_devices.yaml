@@ -29,27 +29,3 @@ tom_msm8226:
   picture:
   track: true
   vendor: Dell Inc.
-
-9e972640d578:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:78
-  name: 9e972640d578
-  picture:
-  track: true
-  vendor: unknown
-
-9e972640d581:
-  hide_if_away: false
-  mac: 9E:97:26:40:D5:81
-  name: 9e972640d581
-  picture:
-  track: true
-  vendor: unknown
-
-b047bf113a4b:
-  hide_if_away: false
-  mac: B0:47:BF:11:3A:4B
-  name: b047bf113a4b
-  picture:
-  track: true
-  vendor: Samsung Electronics Co.,Ltd
