@@ -61,3 +61,11 @@ b047bf113a4b:
   picture:
   track: true
   vendor: Compal Communications, Inc.
+
+1c232cd1cbf3:
+  hide_if_away: false
+  mac: 1C:23:2C:D1:CB:F3
+  name: 1c232cd1cbf3
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
