@@ -77,3 +77,11 @@ b047bf113a4b:
   picture:
   track: true
   vendor: HUAWEI TECHNOLOGIES CO.,LTD
+
+d09dabb2046a:
+  hide_if_away: false
+  mac: D0:9D:AB:B2:04:6A
+  name: d09dabb2046a
+  picture:
+  track: true
+  vendor: TCT mobile ltd
