@@ -69,3 +69,11 @@ b047bf113a4b:
   picture:
   track: true
   vendor: Samsung Electronics Co.,Ltd
+
+14d11f7debb7:
+  hide_if_away: false
+  mac: 14:D1:1F:7D:EB:B7
+  name: 14d11f7debb7
+  picture:
+  track: true
+  vendor: HUAWEI TECHNOLOGIES CO.,LTD
