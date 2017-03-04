@@ -85,3 +85,19 @@ d09dabb2046a:
   picture:
   track: true
   vendor: TCT mobile ltd
+
+bc72b1eaf4ad:
+  hide_if_away: false
+  mac: BC:72:B1:EA:F4:AD
+  name: bc72b1eaf4ad
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
+
+4c80931c900d:
+  hide_if_away: false
+  mac: 4C:80:93:1C:90:0D
+  name: 4c80931c900d
+  picture:
+  track: true
+  vendor: Intel Corporate
