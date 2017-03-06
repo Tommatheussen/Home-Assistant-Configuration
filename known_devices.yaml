@@ -101,3 +101,19 @@ bc72b1eaf4ad:
   picture:
   track: true
   vendor: Intel Corporate
+
+78009ed47a6e:
+  hide_if_away: false
+  mac: 78:00:9E:D4:7A:6E
+  name: 78009ed47a6e
+  picture:
+  track: true
+  vendor: unknown
+
+e4f89cd27323:
+  hide_if_away: false
+  mac: E4:F8:9C:D2:73:23
+  name: e4f89cd27323
+  picture:
+  track: true
+  vendor: Intel Corporate
