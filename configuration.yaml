@@ -68,14 +68,6 @@ device_tracker:
     home_interval: 5
     scan_interval: 30
     interval_seconds: 30
-  - platform: owntracks
-
-mqtt:
-  broker: m21.cloudmqtt.com
-  port: 23101
-  username: !secret mqtt_username
-  password: !secret mqtt_pass
- 
 
 ############# Demo stuff
 weather:
