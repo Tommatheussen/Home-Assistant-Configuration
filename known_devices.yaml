@@ -117,3 +117,11 @@ e4f89cd27323:
   picture:
   track: true
   vendor: Intel Corporate
+
+60e7017a20dc:
+  hide_if_away: false
+  mac: 60:E7:01:7A:20:DC
+  name: 60e7017a20dc
+  picture:
+  track: true
+  vendor: HUAWEI TECHNOLOGIES CO.,LTD
