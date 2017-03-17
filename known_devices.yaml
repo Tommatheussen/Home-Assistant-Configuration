@@ -125,3 +125,11 @@ e4f89cd27323:
   picture:
   track: true
   vendor: HUAWEI TECHNOLOGIES CO.,LTD
+
+a0f459ca37aa:
+  hide_if_away: false
+  mac: A0:F4:59:CA:37:AA
+  name: a0f459ca37aa
+  picture:
+  track: true
+  vendor: FN-LINK TECHNOLOGY LIMITED
