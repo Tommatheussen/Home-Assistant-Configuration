@@ -133,3 +133,19 @@ a0f459ca37aa:
   picture:
   track: true
   vendor: FN-LINK TECHNOLOGY LIMITED
+
+b88d123a6146:
+  hide_if_away: false
+  mac: B8:8D:12:3A:61:46
+  name: b88d123a6146
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+3859f93c90bb:
+  hide_if_away: false
+  mac: 38:59:F9:3C:90:BB
+  name: 3859f93c90bb
+  picture:
+  track: true
+  vendor: Hon Hai Precision Ind. Co.,Ltd.
