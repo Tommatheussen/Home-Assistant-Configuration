@@ -149,3 +149,11 @@ b88d123a6146:
   picture:
   track: true
   vendor: Hon Hai Precision Ind. Co.,Ltd.
+
+101f74c8cf9a:
+  hide_if_away: false
+  mac: 10:1F:74:C8:CF:9A
+  name: 101f74c8cf9a
+  picture:
+  track: true
+  vendor: Hewlett Packard
