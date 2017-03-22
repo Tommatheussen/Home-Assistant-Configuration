@@ -157,3 +157,11 @@ b88d123a6146:
   picture:
   track: true
   vendor: Hewlett Packard
+
+b827eb955b03:
+  hide_if_away: false
+  mac: B8:27:EB:95:5B:03
+  name: b827eb955b03
+  picture:
+  track: true
+  vendor: unknown
