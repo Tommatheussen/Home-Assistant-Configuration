@@ -1,0 +1,6 @@
+alias: "Reset motion counter"
+trigger:
+  platform: time
+  after: "00:00:00"
+action:
+  - service: counter.reset
