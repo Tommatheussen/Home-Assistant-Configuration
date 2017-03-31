@@ -3,4 +3,4 @@ trigger:
   platform: event
   event_type: motion_detected
 action:
-  - service: counter.increment
+  - service: sensor.increment_counter
