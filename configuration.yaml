@@ -131,7 +131,3 @@ group: !include_dir_named group/
 sensor: !include_dir_list sensor/
 script: !include_dir_named script/
 shell_command: !include_dir_named shell_command/
-
-#### Camera motion tracker ####
-counter:
-  sensor: motion
