@@ -3,6 +3,7 @@ python:
   - "3.4.3"
 install: 
   - "pip install homeassistant"
+  - "pip install pyRFXtrx"
   - "bash $TRAVIS_BUILD_DIR/bin/dummy_secrets.sh"
 script: "bash $TRAVIS_BUILD_DIR/bin/check_config.sh"
 notifications:

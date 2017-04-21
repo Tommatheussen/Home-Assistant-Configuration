@@ -63,6 +63,14 @@ calendar:
     client_id: 72083380627-0itnt9cn81ivs7i5a71r583qrg85k6hc.apps.googleusercontent.com
     client_secret: !secret google_secret
 
+logger:
+  default: debug
+  logs:
+    homeassistant.components.rfxtrx: warning
+
+rfxtrx:
+  device: /dev/ttyUSB0
+
 # Track the sun
 #sun:
 # Notifier setup
@@ -113,7 +121,26 @@ binary_sensor:
 #remote:
  # - platform: demo
 
-#switch:
+switch:
+  - platform: rfxtrx
+    automatic_add: True
+    devices:
+      0b11000000f5f11e01010f50:
+        name: staande_lampen
+      0b11000103bc0cfe01010f70:
+        name: living_staande_lamp
+      0b11000124bc0cfe03010f70:
+        name: dj_staande_lamp
+      0b11000622bc0cfe04010f70:
+        name: eet_staande_lamp
+      0b11000600f5f11e02010f50:
+        name: scene1
+        fire_event: True
+      0b11000100f5f11e03000060:
+        name: scene2
+        fire_event: True
+      7100a0341040000:
+        name: kerst
  # - platform: demo
 
 #tts:
