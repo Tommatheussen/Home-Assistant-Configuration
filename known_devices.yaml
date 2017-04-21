@@ -165,3 +165,11 @@ b827eb955b03:
   picture:
   track: true
   vendor: unknown
+
+ellenpclan:
+  hide_if_away: false
+  mac: 3C:A9:F4:5D:6C:1C
+  name: ELLEN-PC.lan
+  picture:
+  track: true
+  vendor: Intel Corporate
