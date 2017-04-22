@@ -3,7 +3,7 @@
   entities:
   - device_id: tommatheussen5hotmailcom
     name: tommatheussen5@hotmail.com
-    track: False
+    track: false
 
 - cal_id: hj3i0ucmkenfjmdbrr85v7o2q8@group.calendar.google.com
   entities:
