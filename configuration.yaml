@@ -20,11 +20,6 @@ logger:
   logs:
     requests.packages.urllib3: error
 
-camera:
-  - platform: mjpeg
-    mjpeg_url: http://192.168.1.201:8081
-    name: Front Door
-
 # Enables the frontend
 frontend:
 
@@ -40,6 +35,7 @@ http:
 
 # Checks for available updates
 updater:
+  include_used_components: true
 
 # Discover some devices automatically
 #discovery:
@@ -67,9 +63,13 @@ calendar:
 #sun:
 # Notifier setup
 notify:
-  - name: pushbullet_tom
+  - name: tom
     platform: pushbullet
     api_key: !secret pushbullet_api
+  - name: slack
+    platform: slack
+    api_key: !secret slack_api
+    default_channel: '#general'
 
 device_tracker:
   - platform: nmap_tracker
@@ -90,6 +90,10 @@ weather:
 binary_sensor:
   - platform: flexget
     password: !secret flexget
+  - platform: template
+    sensors:
+      free_space_low:
+        value_template: "{{ states.sensor.system_monitor_disk_free_plexmediaserver.state | float < 100 }}"
  # - platform: demo
 
 #camera:
@@ -121,6 +125,9 @@ binary_sensor:
 
 media_player:
   - platform: plex
+  - platform: spotify
+    client_id: !secret spotify_id
+    client_secret: !secret spotify_secret
 
 ####################
 #   Includes       #
@@ -131,3 +138,4 @@ group: !include_dir_named group/
 sensor: !include_dir_list sensor/
 script: !include_dir_named script/
 shell_command: !include_dir_named shell_command/
+alert: !include alert.yaml

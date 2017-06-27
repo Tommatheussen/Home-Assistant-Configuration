@@ -173,3 +173,11 @@ ellenpclan:
   picture:
   track: true
   vendor: Intel Corporate
+
+raspberrypilan:
+  hide_if_away: false
+  mac: B8:27:EB:30:27:65
+  name: raspberrypi.lan
+  picture:
+  track: true
+  vendor: Raspberry Pi Foundation

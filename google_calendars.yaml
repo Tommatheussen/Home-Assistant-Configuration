@@ -11,12 +11,6 @@
     name: Joke's werk
     track: True
 
-- cal_id: e7mmlshuh7sm6epo4vr77ic24f1fv36f@import.calendar.google.com
-  entities:
-  - device_id: tom_matheussens_facebook_events
-    name: Tom Matheussen's Facebook Events
-    track: true
-
 - cal_id: '#contacts@group.v.calendar.google.com'
   entities:
   - device_id: contacts
@@ -28,3 +22,9 @@
   - device_id: feestdagen_in_belgie
     name: "Feestdagen in Belgi\xEB"
     track: false
+
+- cal_id: 4refba4uhtgiol2826dftf4d729vtpcn@import.calendar.google.com
+  entities:
+  - device_id: httpwwwiokbeafvalkalendericsst2219pc2200
+    name: http://www.iok.be/afvalkalender.ics?st=2219&pc=2200
+    track: true
