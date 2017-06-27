@@ -3,7 +3,7 @@ trigger:
   platform: state
   entity_id: updater.updater
 action:
-  service: notify.pushbullet_tom
+  service: notify.tom
   data:
     title: "Update available"
     message: "Update available for Home Assistant"

@@ -4,7 +4,7 @@ trigger:
   entity_id: sensor.system_monitor_disk_free_plexmediaserver
   below: 100
 action:
-  service: notify.pushbullet_tom
+  service: notify.tom
   data:
     title: "Disk space low"
     message: "Disk space of your server is low, remaining: {{ states.sensor.system_monitor_disk_free_plexmediaserver.state }} GiB"
