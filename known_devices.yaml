@@ -181,3 +181,12 @@ raspberrypilan:
   picture:
   track: true
   vendor: Raspberry Pi Foundation
+
+android3b9ecf454654b846lan:
+  hide_if_away: false
+  icon:
+  mac: FC:3D:93:9A:AC:A0
+  name: android-3b9ecf454654b846.lan
+  picture:
+  track: true
+  vendor: LONGCHEER TELECOMMUNICATION LIMITED
