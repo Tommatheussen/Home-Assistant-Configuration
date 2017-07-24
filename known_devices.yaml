@@ -182,7 +182,7 @@ raspberrypilan:
   track: true
   vendor: Raspberry Pi Foundation
 
-android3b9ecf454654b846lan:
+ef26c66a:
   hide_if_away: false
   icon: mdi:phone
   mac: FC:3D:93:9A:AC:A0
@@ -191,21 +191,3 @@ android3b9ecf454654b846lan:
   track: true
   vendor: LONGCHEER TELECOMMUNICATION LIMITED
   gravatar: tommatheussen5@hotmail.com
-
-test:
-  hide_if_away: false
-  icon:
-  mac:
-  name: test
-  picture:
-  track: true
-  vendor:
-
-ef26c66a:
-  hide_if_away: false
-  icon:
-  mac:
-  name: ef26c66a
-  picture:
-  track: true
-  vendor:
