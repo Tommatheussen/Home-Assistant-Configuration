@@ -200,3 +200,12 @@ test:
   picture:
   track: true
   vendor:
+
+ef26c66a:
+  hide_if_away: false
+  icon:
+  mac:
+  name: ef26c66a
+  picture:
+  track: true
+  vendor:
