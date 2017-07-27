@@ -187,7 +187,15 @@ ef26c66a:
   icon: mdi:phone
   mac: FC:3D:93:9A:AC:A0
   name: Tom
-  picture:
+  picture: /local/pictures/tom.jpg
   track: true
   vendor: LONGCHEER TELECOMMUNICATION LIMITED
-  gravatar: tommatheussen5@hotmail.com
+
+mbptomlan:
+  hide_if_away: false
+  icon:
+  mac: DC:A9:04:8D:3E:50
+  name: MBPTom.lan
+  picture:
+  track: true
+  vendor: Apple, Inc.
