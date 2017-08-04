@@ -4,7 +4,7 @@ trigger:
   entity_id: sensor.monthly_bandwidth_usage
   above: 300
 action:
-  service: notify.tom
+  service: notify.all
   data:
     title: "Slow down your downloading"
     message: "You have reached your soft limit of downloading, consider putting some stuff on hold for a while"

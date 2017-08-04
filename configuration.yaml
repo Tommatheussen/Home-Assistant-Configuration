@@ -61,15 +61,6 @@ calendar:
 
 # Track the sun
 #sun:
-# Notifier setup
-notify:
-  - name: tom
-    platform: pushbullet
-    api_key: !secret pushbullet_api
-  - name: slack
-    platform: slack
-    api_key: !secret slack_api
-    default_channel: '#general'
 
 device_tracker:
   - platform: nmap_tracker
@@ -88,8 +79,8 @@ weather:
  # - platform: demo
 
 binary_sensor:
-  - platform: flexget
-    password: !secret flexget
+#  - platform: flexget
+ #   password: !secret flexget
   - platform: template
     sensors:
       free_space_low:
@@ -139,3 +130,4 @@ sensor: !include_dir_list sensor/
 script: !include_dir_named script/
 shell_command: !include_dir_named shell_command/
 alert: !include alert.yaml
+notify: !include_dir_list notify/

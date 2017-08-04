@@ -1,0 +1,4 @@
+name: all
+platform: group
+services:
+  - service: slack
