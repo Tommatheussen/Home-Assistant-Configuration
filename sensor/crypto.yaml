@@ -1,0 +1,12 @@
+platform: crypto_tracker
+base: 'EUR'
+coins:
+  - token: 'ETH'
+    amount: 0.5720479
+    price: 169.58
+  - token: 'ETH'
+    amount: 1.94116131
+    price: 199.26
+  - token: 'LTC'
+    amount: 13.85071825
+    price: 36.10
