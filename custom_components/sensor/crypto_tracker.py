@@ -1,7 +1,12 @@
 import logging
 from datetime import timedelta
 
+import voluptuous as vol
+
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_NAME
 from homeassistant.helpers.entity import Entity
+import homeassistant.helpers.config_validation as cv
 
 REQUIREMENTS = ['cryptonator==0.0.2']
 
@@ -12,6 +17,14 @@ SCAN_INTERVAL = timedelta(minutes=5)
 CONF_BASE = 'base'
 CONF_COINS = 'coins'
 
+DEFAULT_NAME = 'Crypto Tracker'
+
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    vol.Required(CONF_BASE): cv.string,
+    vol.Required(CONF_COINS): cv.ensure_list,
+    vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string
+})
+
 def setup_platform(hass, config, add_devices, discover_info=None):
     """Setup the crypto_tracker component."""
     # States are in the format DOMAIN.OBJECT_ID.
@@ -19,30 +32,34 @@ def setup_platform(hass, config, add_devices, discover_info=None):
 
     base = config.get(CONF_BASE)
     coins = config.get(CONF_COINS)
-
-    unique_coins = []
-    for coin in coins:
-      if coin.get('token') not in unique_coins:
-        unique_coins.append(coin.get('token'))
+    name = config.get(CONF_NAME)
 
     crypto = cryptonator.Cryptonator()
 
-    add_devices([CryptoTracker(crypto, base, coins, unique_coins)], True)
+    add_devices([CryptoTracker(name, crypto, base, coins)], True)
 
 class CryptoTracker(Entity):
     """Representation of the Crypto Tracker."""
 
-    def __init__(self, crypto, base, coins, unique_coins):
+    def __init__(self, name, crypto, base, coins):
         """Initialize the cryptotracker."""
         self._state = 0
         self._crypto = crypto
         self._base = base
         self._coins = coins
-        self._unique_coins = unique_coins
+        self._name = name
+
+        def get_unique_coins(self):
+            self._unique_coins = []
+            for coin in self._coins:
+                if coin.get('token') not in self._unique_coins:
+                    self._unique_coins.append(coin.get('token'))
+
+        get_unique_coins(self)
 
     @property
     def name(self):
-        return 'Crypto Tracker'
+        return self._name
 
     @property
     def unit_of_measurement(self):
@@ -63,3 +80,4 @@ class CryptoTracker(Entity):
           endprice += coin.get('amount') / prices.get(coin.get('token'))
 
       self._state = endprice - initialprice
+

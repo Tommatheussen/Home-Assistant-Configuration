@@ -1,4 +1,5 @@
 platform: crypto_tracker
+name: 'Crypto Profit'
 base: 'EUR'
 coins:
   - token: 'ETH'
