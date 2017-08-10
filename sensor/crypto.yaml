@@ -11,3 +11,6 @@ coins:
   - token: 'LTC'
     amount: 13.85071825
     price: 36.10
+  - token: 'IOT'
+    amount: 97.25512748
+    price: 0.49365
