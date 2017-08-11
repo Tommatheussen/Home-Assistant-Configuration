@@ -27,7 +27,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 def setup_platform(hass, config, add_devices, discover_info=None):
     """Setup the crypto_tracker component."""
-    # States are in the format DOMAIN.OBJECT_ID.
     import cryptonator
 
     base = config.get(CONF_BASE)
@@ -48,6 +47,7 @@ class CryptoTracker(Entity):
         self._base = base
         self._coins = coins
         self._name = name
+        self._attributes = {}
 
         def get_unique_coins(self):
             self._unique_coins = []
@@ -69,15 +69,24 @@ class CryptoTracker(Entity):
     def state(self):
         return self._state
 
+    @property
+    def device_state_attributes(self):
+        return self._attributes
+
     def update(self):
+      self._attributes = {}
       prices = self._crypto.get_exchange_rates(self._base, self._unique_coins)
 
       initialprice = 0
       endprice = 0
       for coin in self._coins:
         if coin.get('token') in prices and prices.get(coin.get('token')) is not None:
-          initialprice += coin.get('amount') * coin.get('price')
-          endprice += coin.get('amount') / prices.get(coin.get('token'))
+          coin_initial_price = coin.get('amount') * coin.get('price')
+          coin_end_price = coin.get('amount') / prices.get(coin.get('token'))
+
+          self._attributes[str(coin.get('token')) + '@' + str(coin.get('price'))] = coin_end_price - coin_initial_price
+          initialprice += coin_initial_price
+          endprice += coin_end_price
 
       self._state = endprice - initialprice
 
