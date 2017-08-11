@@ -25,11 +25,25 @@ frontend:
 
 config:
 
+panel_iframe:
+  plexpy:
+    title: 'PlexPy'
+    url: !secret plexpy.url
+    icon: mdi:eye
+  flexget:
+    title: 'Flexget'
+    url: !secret flexget.url
+    icon: mdi:cloud-download
+  deluge:
+    title: 'Deluge'
+    url: !secret deluge.url
+    icon: mdi:download
+
 http:
-  api_password: !secret http_password
-  ssl_certificate: !secret ssl_cert
-  ssl_key: !secret ssl_key
-  base_url: !secret base_url
+  api_password: !secret http.password
+  ssl_certificate: !secret http.ssl.cert
+  ssl_key: !secret http.ssl.key
+  base_url: !secret http.base.url
   trusted_networks:
     - 192.168.1.0/24
 
@@ -51,13 +65,13 @@ recorder:
 logbook:
 
 google:
-  client_id: 72083380627-0itnt9cn81ivs7i5a71r583qrg85k6hc.apps.googleusercontent.com
-  client_secret: !secret google_secret
+  client_id: !secret google.id
+  client_secret: !secret google.secret
 
 calendar:
   - platform: google
-    client_id: 72083380627-0itnt9cn81ivs7i5a71r583qrg85k6hc.apps.googleusercontent.com
-    client_secret: !secret google_secret
+    client_id: !secret google.id
+    client_secret: !secret google.secret
 
 # Track the sun
 #sun:
@@ -73,10 +87,7 @@ device_tracker:
 ############# Demo stuff
 weather:
   - platform: openweathermap
-    api_key: !secret owm_api
-
-#alarm_control_panel:
- # - platform: demo
+    api_key: !secret owm.api
 
 binary_sensor:
 #  - platform: flexget
@@ -85,40 +96,12 @@ binary_sensor:
     sensors:
       free_space_low:
         value_template: "{{ states.sensor.system_monitor_disk_free_plexmediaserver.state | float < 100 }}"
- # - platform: demo
-
-#camera:
- # - platform: demo
-
-#climate: 
- # - platform: demo
-
-#cover:
- # - platform: demo
-
-#fan:
-#  - platform: demo
-
-#light:
- # - platform: demo
-
-#lock:
- # - platform: demo
-
-#remote:
- # - platform: demo
-
-#switch:
- # - platform: demo
-
-#tts:
- # - platform: demo
 
 media_player:
   - platform: plex
   - platform: spotify
-    client_id: !secret spotify_id
-    client_secret: !secret spotify_secret
+    client_id: !secret spotify.id
+    client_secret: !secret spotify.secret
 
 ####################
 #   Includes       #
