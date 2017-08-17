@@ -12,3 +12,7 @@ device_tracker.00219b1f31c2:
   icon: mdi:desktop-tower
 group.all_devices:
   hidden: false
+sensor.password:
+  hidden: true
+sensor.hostname:
+  hidden: true
