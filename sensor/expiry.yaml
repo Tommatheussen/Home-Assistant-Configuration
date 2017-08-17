@@ -2,4 +2,4 @@ platform: command_line
 name: SSL Cert Expiry
 unit_of_measurement: days
 scan_interval: 86400
-command: "ssl-cert-check -b -c /etc/letsencrypt/live/URL_HERE/fullchain.pem | awk '{ print $NF }'"
+command: "ssl-cert-check -b -c /etc/letsencrypt/live/{{ states.sensor.hostname.state }}/fullchain.pem | awk '{ print $NF }'"

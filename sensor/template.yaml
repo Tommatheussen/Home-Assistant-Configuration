@@ -1,5 +1,7 @@
 platform: template
 sensors:
+  hostname:
+    value_template: !secret http.base.url
   process_flexget:
     friendly_name: Flexget
     value_template: >
