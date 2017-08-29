@@ -50,7 +50,7 @@ class CryptoTracker(Entity):
         self._attributes = {
             'coins': [],
             'invested': 0,
-            'total': 0
+            'worth': 0
         }
 
         def get_unique_coins(self):
@@ -99,6 +99,6 @@ class CryptoTracker(Entity):
                 initialprice += coin_initial_price
                 endprice += coin_end_price
 
-      self._state = endprice - initialprice
-      self._attributes['invested'] = initialprice
-      self._attributes['total'] = endprice
+        self._state = endprice - initialprice
+        self._attributes['invested'] = initialprice
+        self._attributes['worth'] = endprice

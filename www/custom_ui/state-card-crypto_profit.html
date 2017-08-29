@@ -19,12 +19,18 @@
       }
     </style>
 
+    <p>
+      <b>Profit:</b> {{round(stateObj.state)}}<br>
+      <b>Invested:</b> {{round(stateObj.attributes.invested)}}<br>
+      <b>Worth:</b>{{round(stateObj.attributes.worth)}}
+    </p>
+
     <table>
       <thead>
         <tr>
           <th>Token</th>
           <th>Amount</th>
-          <th>Investment</th>
+          <th>Invest</th>
           <th>Worth</th>
           <th>Profit</th>
         </tr>
