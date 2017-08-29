@@ -99,6 +99,7 @@ binary_sensor:
 
 media_player:
   - platform: plex
+    include_non_clients: true
   - platform: spotify
     client_id: !secret spotify.id
     client_secret: !secret spotify.secret

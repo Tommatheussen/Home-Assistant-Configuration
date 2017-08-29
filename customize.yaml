@@ -16,3 +16,5 @@ sensor.password:
   hidden: true
 sensor.hostname:
   hidden: true
+sensor.crypto_profit:
+  custom_ui_state_card: crypto_profit
