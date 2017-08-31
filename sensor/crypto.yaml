@@ -20,3 +20,6 @@ coins:
   - token: 'PART'
     amount: 22.501668
     price: 8.888229975
+  - token: 'PART'
+    amount: 10.900216
+    price: 9.17413013
