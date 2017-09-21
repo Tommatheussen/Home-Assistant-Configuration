@@ -23,6 +23,8 @@ logger:
 
 # Enables the frontend
 frontend:
+  extra_html_url:
+    - /local/custom_ui/state-card-crypto_profit.html
 
 config:
 

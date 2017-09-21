@@ -1,7 +1,7 @@
 sun.sun:
   hidden: true
 sensor.new_commits:
-  hidden: true  
+  hidden: true
 device_tracker.9c972640d578:
   icon: mdi:router-wireless
 device_tracker.tom_msm8226:
@@ -17,4 +17,4 @@ sensor.password:
 sensor.hostname:
   hidden: true
 sensor.crypto_profit:
-  custom_ui_state_card: crypto_profit
+  custom_ui_state_card: state-card-crypto_profit
