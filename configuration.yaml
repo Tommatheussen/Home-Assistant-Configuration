@@ -15,6 +15,7 @@ homeassistant:
   customize_glob:
     "sensor.system_monitor_process_*":
       hidden: true
+
 logger:
   default: warning
   logs:
@@ -90,8 +91,10 @@ weather:
     api_key: !secret owm.api
 
 binary_sensor:
-#  - platform: flexget
- #   password: !secret flexget
+  - platform: flexget
+    host: !secret flexget.host
+    ssl: False
+    password: !secret flexget
   - platform: template
     sensors:
       free_space_low:
