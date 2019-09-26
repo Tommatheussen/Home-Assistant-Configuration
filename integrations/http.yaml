@@ -1,0 +1,7 @@
+http:
+  # TODO: Replace, temp
+  base_url: http://tojo-home.duckdns.org:8123
+  # TODO: Enable, requires more config
+  # use_x_forwarded_for: true
+  ip_ban_enabled: true
+  login_attempts_threshold: 5

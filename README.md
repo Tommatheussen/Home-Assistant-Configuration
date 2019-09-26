@@ -1,4 +1,7 @@
+# :construction: :house: New configuration under construction...
+
 # Home-Assistant-Configuration
+
 This is my configuration file for the awesome [Home Assistant](https://home-assistant.io).
 
 It currently is a WIP, since there are a number of things left to do.
