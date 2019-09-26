@@ -1,6 +1,0 @@
-name: Weather
-view: yes
-icon: mdi:weather-sunny
-entities:
-  - group.weathergroup
-  - weather.openweathermap

@@ -1,0 +1,2 @@
+platform: darksy
+api_key: !secret darksky.key
