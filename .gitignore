@@ -14,6 +14,7 @@ deps
 
 # Specific file ignores
 secrets.yaml
+.uuid
 
 # Specific keeps
 !.gitkeep
