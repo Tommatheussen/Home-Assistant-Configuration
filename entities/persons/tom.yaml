@@ -1,3 +1,3 @@
 name: Tom
-id: tom
-user_id: !secret user.id.tom
+id: !secret user.tom.id
+user_id: !secret user.tom.user_id
