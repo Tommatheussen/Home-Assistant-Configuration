@@ -1,0 +1,15 @@
+{
+  "domain": "nibe",
+  "name": "Nibe Uplink Heat Pumps",
+  "config_flow": true,
+  "documentation": "https://github.com/elupus/hass_nibe",
+  "requirements": [
+    "nibeuplink==0.9.1"
+  ],
+  "dependencies": [
+    "group"
+  ],
+  "codeowners": [
+    "@elupus"
+  ]
+}
