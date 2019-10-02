@@ -1,0 +1,35 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Seulement une unique configuration de HACS est autorisée."
+        },
+        "error": {
+            "auth": "Le token personnl d'accès est invalide."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "appdaemon": "Activer la découverte et le suivi des applications AppDaemon",
+                    "python_script": "Activer la découverte et le suivi des python_scripts",
+                    "sidepanel_icon": "Icône de la barre latérale",
+                    "sidepanel_title": "Titre de la barre latérale",
+                    "theme": "Activer la découverte et le suivi des thèmes",
+                    "token": "Token d'accès personnel GitHub"
+                },
+                "description": "Si vous avez besoin d'aide pour la configuration, jetez un oeil ici: https:\/\/hacs.netlify.com\/installation\/configuration\/",
+                "title": "HACS (Home Assistant Community Store)"
+            }
+        },
+        "title": "HACS (Home Assistant Community Store)"
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "country": "Filtrer par code pays.",
+                    "release_limit": "Nombre de releases à afficher."
+                }
+            }
+        }
+    }
+}
