@@ -1,3 +1,5 @@
 platform: sma
 host: !secret sma.host
 password: !secret sma.password
+ssl: true
+verify_ssl: false
