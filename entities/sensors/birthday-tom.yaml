@@ -1,0 +1,3 @@
+platform: anniversaries
+name: Tom's Birthday
+date: !secret anniversaries.birthday.tom
