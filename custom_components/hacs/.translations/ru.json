@@ -2,7 +2,7 @@
     "common": {
         "appdaemon": "AppDaemon",
         "appdaemon_apps": "Приложения AppDaemon",
-        "background_task": "Выполняется фоновая задача, страница перезагрузится, когда все будет готово.",
+        "background_task": "Выполняется фоновая задача, страница перезагрузится по готовности.",
         "installed": "установлено",
         "integration": "Интеграция",
         "integrations": "Интеграции",
@@ -33,7 +33,7 @@
                     "theme": "Включить поиск и отслеживание тем",
                     "token": "GitHub-токен персонального доступа"
                 },
-                "description": "Если вам нужна помощь с настройкой, посмотрите: https:\/\/hacs.netlify.com\/installation\/configuration\/",
+                "description": "Если вам нужна помощь с настройкой, посмотрите: https:\/\/hacs.xyz\/docs\/configuration\/start\/",
                 "title": "HACS (Home Assistant Community Store)"
             }
         },
