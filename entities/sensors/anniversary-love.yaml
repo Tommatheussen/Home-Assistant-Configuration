@@ -1,0 +1,3 @@
+platform: anniversaries
+name: Love's anniversary
+date: !secret anniversaries.love

@@ -1,0 +1,60 @@
+# Enables the frontend
+frontend:
+  extra_html_url:
+    - /local/custom_ui/state-card-crypto_profit.html
+
+panel_iframe:
+  plexpy:
+    title: "PlexPy"
+    url: !secret plexpy.url
+    icon: mdi:eye
+  flexget:
+    title: "Flexget"
+    url: !secret flexget.url
+    icon: mdi:cloud-download
+  deluge:
+    title: "Deluge"
+    url: !secret deluge.url
+    icon: mdi:download
+
+http:
+  api_password: !secret http.password
+  ssl_certificate: !secret http.ssl.cert
+  ssl_key: !secret http.ssl.key
+  base_url: !secret http.base.url
+  trusted_networks:
+    - 192.168.1.0/24
+
+google:
+  client_id: !secret google.id
+  client_secret: !secret google.secret
+
+calendar:
+  - platform: google
+    client_id: !secret google.id
+    client_secret: !secret google.secret
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - 192.168.1.0/24
+    home_interval: 5
+    scan_interval: 30
+    interval_seconds: 30
+
+binary_sensor:
+  - platform: flexget
+    host: !secret flexget.host
+    ssl: False
+    password: !secret flexget
+  - platform: template
+    sensors:
+      free_space_low:
+        value_template: "{{ states.sensor.system_monitor_disk_free_plexmediaserver.state | float < 100 }}"
+
+media_player:
+  - platform: plex
+    include_non_clients: true
+  - platform: spotify
+    client_id: !secret spotify.id
+    client_secret: !secret spotify.secret

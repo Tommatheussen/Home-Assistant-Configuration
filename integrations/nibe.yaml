@@ -1,0 +1,10 @@
+nibe:
+  client_id: !secret nibe.client_id
+  client_secret: !secret nibe.client_secret
+  redirect_uri: !secret nibe.redirect_url
+  writeaccess: False
+
+  systems:
+    - system: !secret nibe.system_id
+      units:
+        - unit: 0

@@ -1,0 +1,4 @@
+name: Home Joke
+latitude: !secret home.joke.latitude
+longitude: !secret home.joke.longitude
+icon: mdi:home

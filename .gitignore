@@ -1,8 +1,20 @@
-.HA_VERSION
-.google.token
-.uuid
-deps/
-secrets.yaml
-home-assistant*.log
-home-assistant*.db
+# Generic ignores
+*.log
+*.db
+*.db-shm
+*.db-wal
 *.pyc
+._*
+__pycache__
+
+# Directory (contents) ignore
+.cloud
+.storage
+deps
+
+# Specific file ignores
+secrets.yaml
+.uuid
+
+# Specific keeps
+!.gitkeep

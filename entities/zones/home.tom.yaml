@@ -1,0 +1,4 @@
+name: Home Tom
+latitude: !secret home.tom.latitude
+longitude: !secret home.tom.longitude
+icon: mdi:home

@@ -1,0 +1,4 @@
+platform: knx
+name: wasplaats verbruik
+state_address: '0/0/5'
+type: current
