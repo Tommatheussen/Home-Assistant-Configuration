@@ -1,0 +1,4 @@
+platform: knx
+name: zolder verbruik
+state_address: '0/0/6'
+type: current

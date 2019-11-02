@@ -1,0 +1,3 @@
+platform: knx
+address: '1/1/50'
+state_address: '1/1/51'

@@ -1,0 +1,2 @@
+platform: knx
+state_address: '0/1/6'
