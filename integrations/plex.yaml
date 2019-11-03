@@ -1,0 +1,2 @@
+plex:
+  host: !secret server.host

@@ -53,8 +53,6 @@ binary_sensor:
         value_template: "{{ states.sensor.system_monitor_disk_free_plexmediaserver.state | float < 100 }}"
 
 media_player:
-  - platform: plex
-    include_non_clients: true
   - platform: spotify
     client_id: !secret spotify.id
     client_secret: !secret spotify.secret
