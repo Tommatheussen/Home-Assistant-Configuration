@@ -1,4 +1,0 @@
-platform: knx
-name: bering verbruik
-state_address: '0/0/4'
-type: 4byte_signed
