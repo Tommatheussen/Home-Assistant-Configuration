@@ -1,2 +1,3 @@
 plex:
   host: !secret server.host
+  token: !secret plex.token
