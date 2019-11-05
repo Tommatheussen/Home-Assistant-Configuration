@@ -1,4 +1,0 @@
-name: Tom's work
-latitude: !secret work.tom.latitude
-longitude: !secret work.tom.longitude
-icon: mdi:briefcase
