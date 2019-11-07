@@ -1,0 +1,6 @@
+platform: knx
+address: '1/1/0'
+name: Keuken raam
+state_address: '1/1/3'
+brightness_address: '1/1/2'
+brightness_state_address: '1/1/4'

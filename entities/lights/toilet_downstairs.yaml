@@ -1,3 +1,4 @@
 platform: knx
+name: Toilet beneden
 address: '1/1/50'
 state_address: '1/1/51'

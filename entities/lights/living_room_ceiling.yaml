@@ -1,5 +1,6 @@
 platform: knx
 address: '1/1/40'
+name: Woonkamer
 state_address: '1/1/43'
 brightness_address: '1/1/42'
 brightness_state_address: '1/1/44'
