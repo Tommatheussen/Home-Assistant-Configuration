@@ -1,0 +1,8 @@
+platform: knx
+name: "Slaapkamer 1 Midden"
+move_long_address: '2/2/10'
+move_short_address: '2/2/11'
+position_address: '2/2/12'
+position_state_address: '2/2/18'
+travelling_time_down: 17
+travelling_time_up: 17
