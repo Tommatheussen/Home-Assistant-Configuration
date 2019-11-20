@@ -8,6 +8,8 @@ from aiohttp.web import Request, Response, HTTPBadRequest
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.components.http import HomeAssistantView
 
+from nibeuplink import UplinkSession
+
 from .const import (
     AUTH_CALLBACK_NAME,
     AUTH_CALLBACK_URL,
@@ -40,21 +42,20 @@ class NibeConfigFlow(config_entries.ConfigFlow):
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
         if user_input:
-            from nibeuplink import Uplink
-
             scope = None
             if user_input[CONF_WRITEACCESS]:
                 scope = ["READSYSTEM", "WRITESYSTEM"]
             else:
                 scope = ["READSYSTEM"]
 
-            uplink = Uplink(
+            session = UplinkSession(
                 client_id=user_input[CONF_CLIENT_ID],
                 client_secret=user_input[CONF_CLIENT_SECRET],
                 redirect_uri=user_input[CONF_REDIRECT_URI],
                 scope=scope,
             )
-            self.uplink = uplink
+
+            self.session = session
             self.user_data = user_input
             return await self.async_step_auth()
 
@@ -93,12 +94,12 @@ class NibeConfigFlow(config_entries.ConfigFlow):
         errors = {}
         if user_input is not None:
             try:
-                await self.uplink.get_access_token(user_input["code"])
+                await self.session.get_access_token(user_input["code"])
             except Exception:
                 _LOGGER.exception("Error on converting code")
                 errors["base"] = "code"
             else:
-                self.user_data[CONF_ACCESS_DATA] = self.uplink.access_data
+                self.user_data[CONF_ACCESS_DATA] = self.session.access_data
                 return self.async_external_step_done(next_step_id="finish")
 
         global _view
@@ -106,8 +107,8 @@ class NibeConfigFlow(config_entries.ConfigFlow):
             _view = NibeAuthView()
             self.hass.http.register_view(_view)
 
-        url = self.uplink.get_authorize_url()
-        _view.register_flow(self.uplink.state, self.flow_id)
+        url = self.session.get_authorize_url()
+        _view.register_flow(self.session.state, self.flow_id)
 
         return self.async_external_step(step_id="auth", url=url)
 
@@ -144,7 +145,7 @@ class NibeAuthView(HomeAssistantView):
         def check_get(param):
             if param not in request.query:
                 _LOGGER.error("State missing in request.")
-                raise HTTPBadRequest("Parameter {} not found".format(param))
+                raise HTTPBadRequest(text="Parameter {} not found".format(param))
             return request.query[param]
 
         state = check_get("state")
@@ -152,7 +153,7 @@ class NibeAuthView(HomeAssistantView):
 
         if state not in self._flows:
             _LOGGER.error("State unexpected %s", state)
-            raise HTTPBadRequest("State can not be translated into flow")
+            raise HTTPBadRequest(text="State can not be translated into flow")
 
         flow_id = self._flows[state]
         _LOGGER.debug("Received auth request for flow %s", flow_id)
@@ -165,4 +166,4 @@ class NibeAuthView(HomeAssistantView):
                 text="<script>window.close()</script>",
             )
         except data_entry_flow.UnknownFlow:
-            raise HTTPBadRequest("Unkown flow")
+            raise HTTPBadRequest(text="Unkown flow")

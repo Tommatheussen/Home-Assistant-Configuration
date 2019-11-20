@@ -8,7 +8,6 @@ from typing import List, Set
 
 from homeassistant.components.climate import ENTITY_ID_FORMAT, ClimateDevice
 from homeassistant.components.climate.const import (
-    ATTR_HVAC_MODE,
     ATTR_TARGET_TEMP_LOW,
     ATTR_TARGET_TEMP_HIGH,
     CURRENT_HVAC_HEAT,
@@ -510,7 +509,8 @@ class NibeThermostat(ClimateDevice, RestoreEntity):
             self._target_temperature = old_state.attributes.get(
                 ATTR_TARGET_TEMPERATURE, DEFAULT_THERMOSTAT_TEMPERATURE
             )
-            self._hvac_mode = old_state.attributes.get(ATTR_HVAC_MODE, HVAC_MODE_OFF)
+            if old_state.state:
+                self._hvac_mode = old_state.state
 
         def track_entity_id(tracked_entity_id, update_fun):
             if tracked_entity_id:
@@ -684,14 +684,14 @@ class NibeThermostat(ClimateDevice, RestoreEntity):
             valve = None
             systems = []
 
-        data = SetThermostatModel(
-            externalId=self._external_id,
-            name=self._name,
-            actualTemp=actual,
-            targetTemp=target,
-            valvePosition=valve,
-            climateSystems=systems,
-        )
+        data: SetThermostatModel = {
+            "externalId": self._external_id,
+            "name": self._name,
+            "actualTemp": actual,
+            "targetTemp": target,
+            "valvePosition": valve,
+            "climateSystems": systems,
+        }
 
         _LOGGER.debug("Publish thermostat {}".format(data))
         await self._uplink.post_smarthome_thermostats(self._system_id, data)
