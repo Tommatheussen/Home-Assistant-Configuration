@@ -1,3 +1,2 @@
-platform: anniversaries
 name: Joke's Birthday
 date: !secret joke.birthday
