@@ -1,0 +1,8 @@
+{
+  "domain": "ophaalkalender",
+  "name": "Ophaalkalender",
+  "documentation": "https://github.com/pippyn/Home-Assistant-Sensor-Ophaalkalender",
+  "dependencies": [],
+  "codeowners": ["@pippyn"],
+  "requirements": []
+}

@@ -1,0 +1,10 @@
+platform: ophaalkalender
+resources:
+  - restafval
+  - tuinafval
+  - papier
+  - pmd
+  - grofafval
+postcode: 2200
+streetname: Acacialaan
+streetnumber: 71
