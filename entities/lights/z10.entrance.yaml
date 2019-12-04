@@ -1,0 +1,6 @@
+platform: knx
+address: '1/1/45'
+name: Inkom
+state_address: '1/1/48'
+brightness_address: '1/1/47'
+brightness_state_address: '1/1/49'
