@@ -1,13 +1,14 @@
 """
 Sensor component for waste pickup dates from belgium waste collectors
 Original Author: Pippijn Stortelder
-Current Version: 1.1.2 20190822 - Pippijn Stortelder
+Current Version: 1.1.3 20191118 - Pippijn Stortelder
 20190207 - Changed Groenafval to GFT
 20190218 - Fixed typo
 20190223 - Fix for HA 88
 20190611 - HACS compatible
 20190612 - Fixed HACS
 20180822 - Fixed version numbering
+20191118 - Include categories 'gemengde plastics' & 'pmd'
 """
 
 import logging
@@ -48,7 +49,10 @@ RENAME_TITLES = {
     'tuinafval': 'gft',
     'p-k': 'papier',
     'rest': 'restafval',
-    'Grof huisvuil': 'grofafval',
+    'grof huisvuil': 'grofafval',
+    'grof huisvuil afroep': 'grofafval',
+    'gemengde plastics': 'plastic',
+    'pmd': 'pmd',
 }
 
 # COLLECTOR_WASTE_ID = {}
