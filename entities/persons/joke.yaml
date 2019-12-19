@@ -1,3 +1,5 @@
 name: Joke
 id: !secret joke.id
 user_id: !secret joke.user_id
+device_trackers:
+  - device_tracker.joke_phone
