@@ -1,5 +1,19 @@
-# platform: sma
-# host: !secret sma.host
-# password: !secret sma.password
-# ssl: true
-# verify_ssl: false
+platform: sma
+host: !secret sma.host
+password: !secret sma.password
+ssl: true
+verify_ssl: false
+sensors:
+  - grid_power
+  # - frequency
+  # - voltage_l1
+  # - voltage_l2
+  # - voltage_l3
+  - pv_power
+  - pv_gen_meter
+  - total_yield
+  # - grid_power_supplied
+  # - grid_power_absorbed
+  # - grid_total_yield
+  # - grid_total_absorbed
+  - status
