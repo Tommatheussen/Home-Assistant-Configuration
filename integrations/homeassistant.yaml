@@ -1,2 +1,3 @@
 homeassistant:
   # TODO: customize should go here
+  customize: !include_dir_named ../customizations/entities
