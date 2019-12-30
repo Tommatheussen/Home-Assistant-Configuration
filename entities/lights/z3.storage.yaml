@@ -1,6 +1,6 @@
 platform: knx
 address: '1/1/10'
-name: Berging
+name: Z3 Storage
 state_address: '1/1/13'
 brightness_address: '1/1/12'
 brightness_state_address: '1/1/14'

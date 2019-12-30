@@ -1,6 +1,6 @@
 platform: knx
 address: '1/1/30'
-name: Hal
+name: Z7 Hallway
 state_address: '1/1/33'
 brightness_address: '1/1/32'
 brightness_state_address: '1/1/34'

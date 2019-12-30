@@ -1,4 +1,4 @@
 platform: knx
 address: '1/1/35'
-name: Bureau
+name: Z8 Office
 state_address: '1/1/38'
