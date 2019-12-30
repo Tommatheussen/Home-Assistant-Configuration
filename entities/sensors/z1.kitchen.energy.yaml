@@ -1,0 +1,5 @@
+platform: integration
+source: sensor.z1_kitchen_power
+name: Z1 Kitchen Energy
+unit_prefix: k
+round: 5

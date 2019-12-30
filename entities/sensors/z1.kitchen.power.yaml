@@ -1,0 +1,4 @@
+platform: knx
+name: Z1 Kitchen Power
+state_address: '5/1/0'
+type: power
