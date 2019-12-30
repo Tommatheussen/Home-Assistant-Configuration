@@ -2,5 +2,3 @@ platform: knx
 address: '1/1/35'
 name: Bureau
 state_address: '1/1/38'
-brightness_address: '1/1/37'
-brightness_state_address: '1/1/39'

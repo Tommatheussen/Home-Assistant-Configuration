@@ -1,0 +1,6 @@
+platform: knx
+address: '1/2/0'
+name: Slaapkamer 1
+state_address: '1/2/3'
+brightness_address: '1/2/2'
+brightness_state_address: '1/2/4'

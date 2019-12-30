@@ -1,0 +1,4 @@
+platform: knx
+address: '1/2/32'
+name: Douche
+state_address: '1/2/33'

@@ -1,0 +1,4 @@
+platform: knx
+address: '1/2/25'
+name: Gang boven
+state_address: '1/2/28'
