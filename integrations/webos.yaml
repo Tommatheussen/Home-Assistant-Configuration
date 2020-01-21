@@ -1,0 +1,3 @@
+webostv:
+  host: !secret webostv.ip
+  name: LG TV
