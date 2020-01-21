@@ -1,0 +1,6 @@
+platform: denonavr
+host: !secret denonavr.ip
+name: Denon AVR
+zones:
+  - zone: Zone2
+    name: Keuken
