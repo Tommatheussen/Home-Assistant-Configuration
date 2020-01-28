@@ -1,0 +1,3 @@
+platform: harmony
+name: Harmony Hub
+host: !secret harmony.host
