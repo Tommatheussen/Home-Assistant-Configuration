@@ -1,1 +1,3 @@
 knx:
+  tunneling:
+    host: !secret knx.host
