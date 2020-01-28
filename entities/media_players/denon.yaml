@@ -1,5 +1,5 @@
 platform: denonavr
-host: !secret denonavr.ip
+host: !secret denonavr.host
 name: Denon AVR
 zones:
   - zone: Zone2
