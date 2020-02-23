@@ -1,3 +1,7 @@
 knx:
   tunneling:
     host: !secret knx.host
+  expose:
+    - type: 'binary'
+      entity_id: 'binary_sensor.day_night'
+      address: '0/0/3'

@@ -1,0 +1,4 @@
+platform: tod
+name: Day/Night
+after: '22:30'
+before: '08:00'
