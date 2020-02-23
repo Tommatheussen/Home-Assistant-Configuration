@@ -1,0 +1,3 @@
+platform: knx
+name: Gang boven licht
+state_address: '1/2/36'

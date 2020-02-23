@@ -1,0 +1,4 @@
+platform: knx
+address: '1/2/50'
+name: Gang boven Muur
+state_address: '1/2/53'
