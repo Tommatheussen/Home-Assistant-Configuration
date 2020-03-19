@@ -10,7 +10,7 @@ from homeassistant.exceptions import PlatformNotReady
 from nibeuplink import get_active_ventilations, VentilationSystem, Uplink
 
 from . import NibeSystem
-from .const import CONF_FANS, DATA_NIBE, DOMAIN as DOMAIN_NIBE
+from .const import DATA_NIBE, DOMAIN as DOMAIN_NIBE
 from .entity import NibeEntity
 
 PARALLEL_UPDATES = 0
@@ -38,7 +38,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
             entities.append(NibeFan(uplink, system.system_id, ventilation))
 
     await asyncio.gather(
-        *[add_active(system) for system in systems.values() if system.config[CONF_FANS]]
+        *[add_active(system) for system in systems.values()]
     )
 
     async_add_entities(entities, True)
@@ -49,7 +49,7 @@ class NibeFan(NibeEntity, FanEntity):
 
     def __init__(self, uplink: Uplink, system_id: int, ventilation: VentilationSystem):
         """Init."""
-        super().__init__(uplink, system_id, [])
+        super().__init__(uplink, system_id)
 
         self._ventilation = ventilation
         self.entity_id = ENTITY_ID_FORMAT.format(

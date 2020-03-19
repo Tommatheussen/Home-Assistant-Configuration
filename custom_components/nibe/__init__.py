@@ -2,9 +2,8 @@
 
 import attr
 import asyncio
-import json
 import logging
-from typing import List
+from typing import List, Dict, Union, T
 
 import voluptuous as vol
 
@@ -56,13 +55,35 @@ def none_as_true(data):
         return cv.boolean(data)
 
 
-UNIT_SCHEMA = vol.Schema(
+def ensure_system_dict(value: Union[Dict[int, T], List[T], None]) -> Dict[int, T]:
+    """Wrap value in list if it is not one."""
+    if value is None:
+        return {}
+    if isinstance(value, list):
+        value_schema = vol.Schema([
+            vol.Schema({
+                vol.Required(CONF_SYSTEM): cv.positive_int
+            }, extra=vol.ALLOW_EXTRA)
+        ])
+        value = value_schema(value)
+        return {
+            x[CONF_SYSTEM]: x
+            for x in value
+        }
+    if isinstance(value, dict):
+        return value
+    value = SYSTEM_SCHEMA(value)
+    return {value[CONF_SYSTEM]: value}
+
+
+UNIT_SCHEMA = vol.Schema(vol.All(
+    cv.deprecated(CONF_STATUSES),
     {
         vol.Required(CONF_UNIT): cv.positive_int,
         vol.Optional(CONF_CATEGORIES, default=False): none_as_true,
         vol.Optional(CONF_STATUSES, default=False): none_as_true,
     }
-)
+))
 
 THERMOSTAT_SCHEMA = vol.Schema(
     {
@@ -73,9 +94,12 @@ THERMOSTAT_SCHEMA = vol.Schema(
     }
 )
 
-SYSTEM_SCHEMA = vol.Schema(
+SYSTEM_SCHEMA = vol.Schema(vol.All(
+    cv.deprecated(CONF_CLIMATES),
+    cv.deprecated(CONF_WATER_HEATERS),
+    cv.deprecated(CONF_FANS),
     {
-        vol.Required(CONF_SYSTEM): cv.positive_int,
+        vol.Optional(CONF_SYSTEM): cv.positive_int,
         vol.Optional(CONF_UNITS, default=[]): vol.All(cv.ensure_list, [UNIT_SCHEMA]),
         vol.Optional(CONF_SENSORS, default=[]): vol.All(cv.ensure_list, [cv.string]),
         vol.Optional(CONF_CLIMATES, default=False): none_as_true,
@@ -89,7 +113,7 @@ SYSTEM_SCHEMA = vol.Schema(
             cv.positive_int: THERMOSTAT_SCHEMA
         },
     }
-)
+))
 
 NIBE_SCHEMA = vol.Schema(
     {
@@ -97,8 +121,8 @@ NIBE_SCHEMA = vol.Schema(
         vol.Optional(CONF_CLIENT_ID): cv.string,
         vol.Optional(CONF_CLIENT_SECRET): cv.string,
         vol.Optional(CONF_WRITEACCESS): cv.boolean,
-        vol.Optional(CONF_SYSTEMS, default=[]): vol.All(
-            cv.ensure_list, [SYSTEM_SCHEMA]
+        vol.Optional(CONF_SYSTEMS, default={}): vol.All(
+            ensure_system_dict, {vol.Coerce(str): SYSTEM_SCHEMA}
         ),
     }
 )
@@ -125,27 +149,21 @@ class NibeData:
     systems = attr.ib(default=[], type=List["NibeSystem"])
 
 
+def _get_merged_config(data: NibeData, entry: config_entries.ConfigEntry):
+    config = dict(entry.options)
+    config.update(data.config)
+    return config
+
+
 async def async_setup_systems(hass, data: NibeData, entry):
     """Configure each system."""
-    if not len(data.config.get(CONF_SYSTEMS)):
-        systems = await data.uplink.get_systems()
-        msg = json.dumps(systems, indent=1)
-        persistent_notification.async_create(
-            hass,
-            (
-                "No systems selected, please configure one system id of:"
-                "<br/><br/><pre>{}</pre>"
-            ).format(msg),
-            "Invalid nibe config",
-            "invalid_config",
-        )
-        return
+    config = _get_merged_config(data, entry)
 
     systems = {
-        config[CONF_SYSTEM]: NibeSystem(
-            hass, data.uplink, config[CONF_SYSTEM], config, entry.entry_id
+        system_id: NibeSystem(
+            hass, data.uplink, int(system_id), system_cfg, entry.entry_id
         )
-        for config in data.config.get(CONF_SYSTEMS)
+        for system_id, system_cfg in config[CONF_SYSTEMS].items()
     }
 
     data.systems = systems
@@ -259,7 +277,7 @@ class NibeSystem(object):
             "identifiers": {(DOMAIN, self.system_id)},
             "manufacturer": "NIBE Energy Systems",
             "model": self.system.get("productName"),
-            "name": self.system.get("name"),
+            "name": f"{self.system.get('name')} - {self.system_id}",
         }
 
         device_registry = await self.hass.helpers.device_registry.async_get_registry()

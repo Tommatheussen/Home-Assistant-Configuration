@@ -48,7 +48,6 @@ from .const import (
     ATTR_TARGET_TEMPERATURE,
     ATTR_VALVE_POSITION,
     CONF_CLIMATE_SYSTEMS,
-    CONF_CLIMATES,
     CONF_CURRENT_TEMPERATURE,
     CONF_THERMOSTATS,
     CONF_VALVE_POSITION,
@@ -101,7 +100,6 @@ async def async_setup_entry(hass, entry, async_add_entities):
         *[
             add_active(system)
             for system in systems.values()
-            if system.config[CONF_CLIMATES]
         ]
     )
 
@@ -115,7 +113,7 @@ class NibeClimate(NibeEntity, ClimateDevice):
         self, uplink, system_id: int, statuses: Set[str], climate: ClimateSystem
     ):
         """Init."""
-        super(NibeClimate, self).__init__(uplink, system_id, [])
+        super(NibeClimate, self).__init__(uplink, system_id)
 
         self.get_parameters([PARAM_PUMP_SPEED_HEATING_MEDIUM])
 
@@ -131,8 +129,8 @@ class NibeClimate(NibeEntity, ClimateDevice):
         """Return device info."""
         return {
             "identifiers": {(DOMAIN_NIBE, self._system_id, self._climate.supply_temp)},
-            "via_hub": (DOMAIN_NIBE, self._system_id),
-            "name": self._climate.name,
+            "via_device": (DOMAIN_NIBE, self._system_id),
+            "name": f"Climate System {self._climate.name}",
             "model": "Climate System",
             "manufacturer": "NIBE Energy Systems",
         }
@@ -252,7 +250,7 @@ class NibeClimateRoom(NibeClimate):
         if data:
             return data["unit"]
         else:
-            return None
+            return TEMP_CELSIUS
 
     @property
     def name(self):
@@ -548,8 +546,8 @@ class NibeThermostat(ClimateDevice, RestoreEntity):
         """Return device info."""
         return {
             "identifiers": {(DOMAIN_NIBE, self._system_id, self._external_id)},
-            "via_hub": (DOMAIN_NIBE, self._system_id),
-            "name": self._name,
+            "via_device": (DOMAIN_NIBE, self._system_id),
+            "name": f"Thermostat: {self._name}",
             "model": "Smart Thermostat",
             "manufacturer": "NIBE Energy Systems",
         }
