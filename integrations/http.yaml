@@ -1,6 +1,7 @@
 http:
-  base_url: !secret http.base_url
   # TODO: Enable, requires more config
   # use_x_forwarded_for: true
   ip_ban_enabled: true
   login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies: !secret system.proxy_ip
