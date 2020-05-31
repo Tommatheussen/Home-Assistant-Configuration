@@ -1,8 +1,9 @@
-platform: ophaalkalender
+platform: afvalbeheer
+wastecollector: Ophaalkalender
 resources:
   - restafval
   - papier
   - pmd
 postcode: 2200
-streetname: Acacialaan
 streetnumber: 71
+streetname: Acacialaan
