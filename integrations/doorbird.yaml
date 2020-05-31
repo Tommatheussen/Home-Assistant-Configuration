@@ -1,7 +1,0 @@
-doorbird:
-  devices:
-    - host: !secret doorbird.host
-      username: !secret doorbird.username
-      password: !secret doorbird.password
-      token: !secret doorbird.token
-      hass_url_override: !secret server.host
