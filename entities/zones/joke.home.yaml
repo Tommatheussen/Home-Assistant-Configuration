@@ -1,4 +1,0 @@
-name: Joke's parents
-latitude: !secret joke.home.latitude
-longitude: !secret joke.home.longitude
-icon: mdi:home

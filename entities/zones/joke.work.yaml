@@ -1,4 +1,0 @@
-name: Joke's work
-latitude: !secret joke.work.latitude
-longitude: !secret joke.work.longitude
-icon: mdi:briefcase

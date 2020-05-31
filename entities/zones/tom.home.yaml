@@ -1,4 +1,0 @@
-name: Tom's parents
-latitude: !secret tom.home.latitude
-longitude: !secret tom.home.longitude
-icon: mdi:home

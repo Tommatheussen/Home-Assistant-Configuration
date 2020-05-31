@@ -1,5 +1,0 @@
-name: Home
-latitude: !secret general.latitude
-longitude: !secret general.longitude
-icon: mdi:home-heart
-passive: true
