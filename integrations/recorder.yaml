@@ -1,4 +1,3 @@
 recorder:
-  purge_keep_days: 100
-  purge_interval: 1
+  purge_keep_days: 10
   db_url: !secret server.db_url
