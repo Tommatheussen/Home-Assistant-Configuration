@@ -3,7 +3,7 @@
 import attr
 import asyncio
 import logging
-from typing import List, Dict, Union, T
+from typing import List, Dict, Union, T, Mapping
 
 import voluptuous as vol
 
@@ -102,9 +102,9 @@ SYSTEM_SCHEMA = vol.Schema(vol.All(
         vol.Optional(CONF_SYSTEM): cv.positive_int,
         vol.Optional(CONF_UNITS, default=[]): vol.All(cv.ensure_list, [UNIT_SCHEMA]),
         vol.Optional(CONF_SENSORS, default=[]): vol.All(cv.ensure_list, [cv.string]),
-        vol.Optional(CONF_CLIMATES, default=False): none_as_true,
-        vol.Optional(CONF_WATER_HEATERS, default=False): none_as_true,
-        vol.Optional(CONF_FANS, default=False): none_as_true,
+        vol.Optional(CONF_CLIMATES): none_as_true,
+        vol.Optional(CONF_WATER_HEATERS): none_as_true,
+        vol.Optional(CONF_FANS): none_as_true,
         vol.Optional(CONF_SWITCHES, default=[]): vol.All(cv.ensure_list, [cv.string]),
         vol.Optional(CONF_BINARY_SENSORS, default=[]): vol.All(
             cv.ensure_list, [cv.string]
@@ -149,15 +149,18 @@ class NibeData:
     systems = attr.ib(default=[], type=List["NibeSystem"])
 
 
-def _get_merged_config(data: NibeData, entry: config_entries.ConfigEntry):
-    config = dict(entry.options)
-    config.update(data.config)
+def _get_merged_config(config: Mapping, entry: config_entries.ConfigEntry):
+    config = dict(config)
+    if CONF_SYSTEMS in entry.data:
+        for system in entry.data[CONF_SYSTEMS].keys():
+            if system not in config[CONF_SYSTEMS]:
+                config[CONF_SYSTEMS][system] = SYSTEM_SCHEMA({})
     return config
 
 
 async def async_setup_systems(hass, data: NibeData, entry):
     """Configure each system."""
-    config = _get_merged_config(data, entry)
+    config = _get_merged_config(data.config, entry)
 
     systems = {
         system_id: NibeSystem(
@@ -180,7 +183,12 @@ async def async_setup_systems(hass, data: NibeData, entry):
 
 async def async_setup(hass, config):
     """Configure the nibe uplink component."""
-    hass.data[DATA_NIBE] = NibeData(config[DOMAIN])
+    if DOMAIN in config:
+        data = NibeData(config[DOMAIN])
+    else:
+        data = NibeData(NIBE_SCHEMA({}))
+
+    hass.data[DATA_NIBE] = data
     await async_register_services(hass)
     return True
 
