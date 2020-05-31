@@ -1,2 +1,0 @@
-anniversaries:
-  sensors: !include_dir_list ../entities/anniversaries
