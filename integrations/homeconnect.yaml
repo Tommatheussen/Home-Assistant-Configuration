@@ -1,3 +1,0 @@
-homeconnect:
-  client_id: !secret homeconnect.client_id
-  client_secret: !secret homeconnect.client_secret
