@@ -1,1 +1,0 @@
-person: !include_dir_list ../entities/persons
