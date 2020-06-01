@@ -1,0 +1,24 @@
+- id: 7f8059f82f9e4418b34ecaeaf52e87c2
+  alias: Rolluiken dicht
+  description: ''
+  trigger:
+  - below: '-4'
+    entity_id: sun.sun
+    platform: numeric_state
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
+  condition: []
+  action:
+  - data: {}
+    entity_id: all
+    service: cover.close_cover
+- id: 4fdb907dcdae461a9fd0862756190886
+  alias: Rolluiken open
+  description: ''
+  trigger:
+  - at: '10:00'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: all
+    service: cover.open_cover
