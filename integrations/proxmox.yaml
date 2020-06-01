@@ -1,0 +1,12 @@
+proxmoxve:
+  - host: !secret proxmox.host
+    username: !secret proxmox.username
+    password: !secret proxmox.password
+    verify_ssl: false
+    realm: pve
+    nodes:
+      - node: pve
+        vms:
+          - 101 # HA
+        containers:
+          - 100 # Adguard
