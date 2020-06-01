@@ -1,0 +1,4 @@
+platform: knx
+name: dining_room
+address: '1/1/25'
+state_address: '1/1/28'

@@ -1,4 +1,4 @@
 platform: knx
+name: toilet_upstairs
 address: '1/2/30'
-name: Toilet boven
 state_address: '1/2/31'

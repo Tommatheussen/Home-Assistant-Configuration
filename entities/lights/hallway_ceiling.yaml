@@ -1,4 +1,4 @@
 platform: knx
+name: hallway_ceiling
 address: '1/2/25'
-name: Gang boven
 state_address: '1/2/28'

@@ -1,6 +1,6 @@
 platform: knx
+name: bathroom
 address: '1/2/15'
-name: Badkamer
 state_address: '1/2/18'
 brightness_address: '1/2/17'
 brightness_state_address: '1/2/19'

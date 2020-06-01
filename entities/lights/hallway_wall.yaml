@@ -1,4 +1,4 @@
 platform: knx
+name: hallway_wall
 address: '1/2/50'
-name: Gang boven Muur
 state_address: '1/2/53'

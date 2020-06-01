@@ -1,6 +1,6 @@
 platform: knx
+name: kitchen_living_room
 address: '1/1/5'
-name: Z2 Kitchen
 state_address: '1/1/8'
 brightness_address: '1/1/7'
 brightness_state_address: '1/1/9'
