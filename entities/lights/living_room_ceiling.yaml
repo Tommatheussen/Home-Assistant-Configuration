@@ -1,5 +1,5 @@
 platform: knx
-name: living_room
+name: living_room_ceiling
 address: '1/1/40'
 state_address: '1/1/43'
 brightness_address: '1/1/42'
