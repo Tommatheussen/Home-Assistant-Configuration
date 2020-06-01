@@ -9,7 +9,7 @@ staircase_downstairs_turn_on_red:
     entity_id: switch.wled_staircase_downstairs_sync_receive
     type: turn_off
   - data:
-      brightness_pct: 25
+      brightness_pct: 15
       entity_id: light.wled_staircase_downstairs
       rgb_color:
       - 255
