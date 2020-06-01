@@ -1,3 +1,3 @@
 platform: knx
-name: Gang boven licht
+name: hallway_light
 state_address: '1/2/36'

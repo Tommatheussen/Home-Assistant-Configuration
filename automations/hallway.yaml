@@ -1,0 +1,32 @@
+- id: f6fc15a465f4473494326ed66ea7a57d
+  alias: gang lichten plafond
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.day_night
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hallway_light
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: light.hallway_ceiling
+    service: light.turn_on
+- id: 6601df0c8b3340258fbcafcc44397145
+  alias: gang lichten muur
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.day_night
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hallway_light
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: light.hallway_wall
+    service: light.turn_on
