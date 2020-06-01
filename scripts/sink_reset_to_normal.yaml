@@ -1,0 +1,11 @@
+sink_reset_to_normal:
+  alias: Reset wasbak
+  sequence:
+  - device_id: ebd0750dd3454854b72a41ce4200230d
+    domain: light
+    entity_id: light.wled_staircase_downstairs
+    type: turn_off
+  - device_id: ebd0750dd3454854b72a41ce4200230d
+    domain: switch
+    entity_id: switch.wled_sink_sync_receive
+    type: turn_on
