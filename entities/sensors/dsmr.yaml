@@ -1,0 +1,4 @@
+platform: dsmr
+host: !secret dsmr.host
+port: 2001
+dsmr_version: 5B
