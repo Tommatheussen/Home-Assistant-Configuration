@@ -13,5 +13,5 @@ sink_turn_on_white:
       - 0
       - 0
       white_value: 255
-    entity_id: light.wled_staircase_downstairs
+    entity_id: light.wled_sink
     service: light.turn_on

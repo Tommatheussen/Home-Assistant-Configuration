@@ -3,7 +3,7 @@ sink_reset_to_normal:
   sequence:
   - device_id: ebd0750dd3454854b72a41ce4200230d
     domain: light
-    entity_id: light.wled_staircase_downstairs
+    entity_id: light.wled_sink
     type: turn_off
   - device_id: ebd0750dd3454854b72a41ce4200230d
     domain: switch

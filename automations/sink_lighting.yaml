@@ -1,0 +1,26 @@
+- id: 088da93ae5224bf290b2a4bfb2997cab
+  alias: Wasbak uit
+  description: ''
+  trigger:
+  - entity_id: switch.sink
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: script.sink_reset_to_normal
+    service: script.turn_on
+- id: d602dfb07c734754a24e9c74df8e7bc2
+  alias: Wasbak Wit
+  description: ''
+  trigger:
+  - entity_id: switch.sink
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: script.sink_turn_on_white
+    service: script.turn_on
