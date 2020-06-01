@@ -18,4 +18,6 @@ secrets.yaml
 
 # Specific keeps
 !.gitkeep
+
 .spotify-token-cache
+webostv.conf

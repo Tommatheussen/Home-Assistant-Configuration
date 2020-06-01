@@ -1,3 +1,4 @@
 webostv:
   host: !secret webostv.host
   name: LG TV
+  # TODO: Look into WoL
