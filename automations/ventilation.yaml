@@ -1,0 +1,46 @@
+- id: 8f47dc3e67c74fab85006a93afe0aa34
+  alias: Ventilatie stand 1
+  description: ''
+  trigger:
+  - below: 50
+    device_id: 6002105ba6e64aa0bcc57c18047e2b60
+    domain: sensor
+    entity_id: sensor.badkamer_humi
+    platform: device
+    type: value
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.ventilation_1
+    service: switch.turn_on
+- id: 61b086d670f948a1a49a5a3798f6ca49
+  alias: Ventilatie stand 2
+  description: ''
+  trigger:
+  - above: 55
+    below: 80
+    device_id: 6002105ba6e64aa0bcc57c18047e2b60
+    domain: sensor
+    entity_id: sensor.badkamer_humi
+    platform: device
+    type: value
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.ventilation_2
+    service: switch.turn_on
+- id: 77784f0c811d4743b06f46f22ff40d55
+  alias: Ventilatie Stand 3
+  description: ''
+  trigger:
+  - above: 80
+    device_id: 6002105ba6e64aa0bcc57c18047e2b60
+    domain: sensor
+    entity_id: sensor.badkamer_humi
+    platform: device
+    type: value
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.ventilation_3
+    service: switch.turn_on
