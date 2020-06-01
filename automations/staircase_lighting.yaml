@@ -21,7 +21,7 @@
   - data: {}
     entity_id: timer.staircase_downstairs
     service: timer.start
-- id: 1804214d-3a4d-4d51-a16d-d7134b9b41f1
+- id: 1804214d3a4d4d51a16dd7134b9b41f1
   alias: Trap Beneden Uit
   trigger:
   - event_data:
