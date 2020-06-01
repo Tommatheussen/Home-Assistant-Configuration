@@ -1,0 +1,4 @@
+platform: knx
+name: ventilation_0
+address: '3/0/4'
+state_address: '3/0/5'
