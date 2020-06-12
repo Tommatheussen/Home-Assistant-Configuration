@@ -1,0 +1,46 @@
+satel_integra:
+  host: !secret alarm.host
+  code: !secret alarm.code
+  partitions:
+    01:
+      name: Alarm huis
+  zones:
+    01:
+      name: Alarm toilet beneden
+      type: window
+    02:
+      name: Alarm voordeur
+      type: door
+    03:
+      name: Alarm bureau
+      type: window
+    04:
+      name: Alarm schuifraam
+      type: door
+    05:
+      name: Alarm achterdeur
+      type: door
+    06:
+      name: Alarm dressing
+      type: window
+    07:
+      name: Alarm slaapkamer 1 links
+      type: window
+    08:
+      name: Alarm slaapkamer 2 rechts
+      type: window
+    09:
+      name: Alarm slaapkamer 2
+      type: window
+    10:
+      name: Alarm slaapkamer 3
+      type: window
+    11:
+      name: Alarm badkamer
+      type: window
+    12:
+      name: Alarm zolder links
+      type: window
+    13:
+      name: Alarm zolder rechts
+      type: window
