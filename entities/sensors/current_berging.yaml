@@ -1,4 +1,0 @@
-platform: knx
-name: berging stroom
-state_address: '0/0/3'
-type: current

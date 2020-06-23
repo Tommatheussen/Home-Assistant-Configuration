@@ -1,9 +1,0 @@
-z1_kitchen_daily:
-  source: sensor.z1_kitchen_energy
-  cycle: daily
-z1_kitchen_weekly:
-  source: sensor.z1_kitchen_energy
-  cycle: weekly
-z1_kitchen_monthly:
-  source: sensor.z1_kitchen_energy
-  cycle: monthly

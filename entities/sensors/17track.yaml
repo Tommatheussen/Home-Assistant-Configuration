@@ -1,3 +1,0 @@
-platform: seventeentrack
-username: !secret seventeentrack.username
-password: !secret seventeentrack.password

@@ -1,5 +1,0 @@
-platform: waze_travel_time
-origin: Tom's work
-destination: Home
-region: 'EU'
-name: 'Home'
