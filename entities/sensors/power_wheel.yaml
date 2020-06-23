@@ -1,0 +1,11 @@
+platform: template
+sensors:
+  power_production_w:
+    friendly_name: "Power production in W"
+    unit_of_measurement: 'W'
+    value_template: "{{ (states('sensor.power_production') | float) * 1000 | int }}"
+
+  power_consumption_w:
+    friendly_name: "Power consumption in W"
+    unit_of_measurement: 'W'
+    value_template: "{{ (states('sensor.power_consumption') | float) * 1000 | int }}"
