@@ -1,0 +1,50 @@
+esphome:
+  name: upstairs_temperature
+  platform: ESP32
+  board: esp32cam
+  
+wifi:
+  ssid: !secret WIFI_SSID
+  password: !secret WIFI_PASSWORD
+  fast_connect: true
+  
+api:
+
+logger:
+
+ota:
+  password: !secret OTA_PASSWORD
+  
+# Enable Bluetooth scanning for this ESP32
+esp32_ble_tracker:
+  scan_parameters:
+    window: 200ms
+
+sensor:
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:2F:D4
+    temperature:
+      name: "Slaapkamer Temp"
+    humidity:
+      name: "Slaapkamer Humi"
+    battery_level:
+      name: "Slaapkamer Batt"
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:2C:46
+    temperature:
+      name: "Wasplaats Temp"
+    humidity:
+      name: "Wasplaats Humi"
+    battery_level:
+      name: "Wasplaats Batt"
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:2C:4A
+    temperature:
+      name: "Badkamer Temp"
+    humidity:
+      name: "Badkamer Humi"
+    battery_level:
+      name: "Badkamer Batt"
+       
+      
+     

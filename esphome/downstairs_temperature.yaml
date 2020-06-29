@@ -1,0 +1,47 @@
+esphome:
+  name: downstairs_temperature
+  platform: ESP32
+  board: esp32cam
+  
+wifi:
+  ssid: !secret WIFI_SSID
+  password: !secret WIFI_PASSWORD
+  fast_connect: true
+  
+api:
+
+logger:
+
+ota:
+  password: !secret OTA_PASSWORD
+  
+# Enable Bluetooth scanning for this ESP32
+esp32_ble_tracker:
+  scan_parameters:
+    active: false
+
+sensor:
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:30:1C
+    temperature:
+      name: "node1_temperature"
+    humidity:
+      name: "node1_humidity"
+    battery_level:
+      name: "node1_battery"
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:2C:40
+    temperature:
+      name: "node2_temperature"
+    humidity:
+      name: "node2_humidity"
+    battery_level:
+      name: "node2_battery"
+  - platform: xiaomi_cgg1
+    mac_address: 58:2D:34:11:2F:8E
+    temperature:
+      name: "node3_temperature"
+    humidity:
+      name: "node3_humidity"
+    battery_level:
+      name: "node3_battery"
