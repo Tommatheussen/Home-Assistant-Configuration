@@ -1,0 +1,3 @@
+platform: androidtv
+host: !secret shield.host
+name: Nvidia Shield
