@@ -1,0 +1,38 @@
+- id: 61b086d670f948a1a49a5a3798f6ca49
+  alias: Ventilatie Stand 2
+  description: ''
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reload
+    - platform: state
+      entity_id:
+        - binary_sensor.bathroom_humidity_above_80
+        - binary_sensor.bathroom_humidity_above_60
+        - binary_sensor.toilet_downstairs_in_use
+        - binary_sensor.toilet_upstairs_in_use
+        - binary_sensor.day_night
+  condition:
+    - condition: state
+      entity_id: 
+        - binary_sensor.day_night # Should not be night time
+        - binary_sensor.bathroom_humidity_above_80 # Humidity should be low enough
+      state: 'off'
+    - condition: or
+      conditions:
+        # If humidity is a little bit high
+        - condition: state
+          entity_id: binary_sensor.bathroom_humidity_above_60
+          state: 'on'
+        # Or any toilet is in use
+        - condition: state
+          entity_id: binary_sensor.toilet_downstairs_in_use
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.toilet_upstairs_in_use
+          state: 'on'
+  action:
+  - data: {}
+    entity_id: switch.ventilation_2
+    service: switch.turn_on

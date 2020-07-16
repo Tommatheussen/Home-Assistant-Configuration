@@ -1,0 +1,25 @@
+- id: 77784f0c811d4743b06f46f22ff40d55
+  alias: Ventilatie Stand 3
+  description: ''
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reload
+    - platform: state
+      entity_id:
+        - binary_sensor.bathroom_humidity_above_80
+        - binary_sensor.day_night
+  condition:
+    # Should not be night time
+    - condition: state
+      entity_id: binary_sensor.day_night
+      state: 'off'
+    # Humidity should be high
+    - condition: state
+      entity_id: binary_sensor.bathroom_humidity_above_80
+      state: 'on'
+  action:
+  - data: {}
+    entity_id: switch.ventilation_3
+    service: switch.turn_on
