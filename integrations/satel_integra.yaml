@@ -27,7 +27,7 @@ satel_integra:
       name: Alarm slaapkamer 1 links
       type: window
     08:
-      name: Alarm slaapkamer 2 rechts
+      name: Alarm slaapkamer 1 rechts
       type: window
     09:
       name: Alarm slaapkamer 2
