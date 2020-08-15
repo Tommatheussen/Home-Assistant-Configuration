@@ -1,0 +1,36 @@
+staircase_downstairs_turn_on:
+  alias: Trap beneden aan
+  sequence:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: input_boolean.night
+          state: "off"
+        sequence:
+          # White during the day
+          - data:
+              brightness_pct: 100
+              entity_id: light.wled_staircase_downstairs
+              rgb_color:
+                - 246
+                - 205
+                - 139
+              effect: Solid
+            entity_id: light.wled_staircase_downstairs
+            service: light.turn_on
+      - conditions:
+        - condition: state
+          entity_id: input_boolean.night
+          state: "on"
+        sequence:
+          # Red during the night
+          - data:
+              brightness_pct: 15
+              entity_id: light.wled_staircase_downstairs
+              rgb_color:
+                - 255
+                - 0
+                - 0
+              effect: Solid
+            entity_id: light.wled_staircase_downstairs
+            service: light.turn_on
