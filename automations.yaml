@@ -1,0 +1,14 @@
+- id: '1597332568416'
+  alias: Update lights_on sensor every second
+  description: ''
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: /1
+  condition: []
+  action:
+  - data: {}
+    entity_id: sensor.lights_on
+    service: homeassistant.update_entity
+  mode: single
