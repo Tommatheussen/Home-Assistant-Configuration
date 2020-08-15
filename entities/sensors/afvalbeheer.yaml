@@ -1,5 +1,5 @@
 platform: afvalbeheer
-wastecollector: Ophaalkalender
+wastecollector: recycleapp
 resources:
   - restafval
   - papier
