@@ -1,4 +1,6 @@
 platform: knx
 name: dining_room
-address: '1/1/25'
-state_address: '1/1/28'
+address: '1/1/15'
+state_address: '1/1/18'
+brightness_address: '1/1/17'
+brightness_state_address: '1/1/19'
