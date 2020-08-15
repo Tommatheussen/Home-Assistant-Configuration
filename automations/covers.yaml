@@ -2,6 +2,9 @@
   alias: Rolluiken dicht
   description: ''
   trigger:
+  - platform: state
+    entity_id: input_boolean.night
+    to: 'on'
   - below: '-4'
     entity_id: sun.sun
     platform: numeric_state
