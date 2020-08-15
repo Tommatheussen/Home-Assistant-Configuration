@@ -9,11 +9,11 @@
     - platform: state
       entity_id:
         - binary_sensor.bathroom_humidity_above_80
-        - binary_sensor.day_night
+        - input_boolean.night
   condition:
     # Should not be night time
     - condition: state
-      entity_id: binary_sensor.day_night
+      entity_id: input_boolean.night
       state: 'off'
     # Humidity should be high
     - condition: state

@@ -12,11 +12,11 @@
         - binary_sensor.bathroom_humidity_above_60
         - binary_sensor.toilet_downstairs_in_use
         - binary_sensor.toilet_upstairs_in_use
-        - binary_sensor.day_night
+        - input_boolean.night
   condition:
     - condition: state
       entity_id: 
-        - binary_sensor.day_night # Should not be night time
+        - input_boolean.night # Should not be night time
         - binary_sensor.bathroom_humidity_above_80 # Humidity should be low enough
       state: 'off'
     - condition: or

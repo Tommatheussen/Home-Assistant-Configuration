@@ -2,7 +2,7 @@
   alias: gang lichten plafond
   description: ''
   trigger:
-  - entity_id: binary_sensor.day_night
+  - entity_id: input_boolean.night
     from: 'on'
     platform: state
     to: 'off'
@@ -18,7 +18,7 @@
   alias: gang lichten muur
   description: ''
   trigger:
-  - entity_id: binary_sensor.day_night
+  - entity_id: input_boolean.night
     from: 'off'
     platform: state
     to: 'on'
