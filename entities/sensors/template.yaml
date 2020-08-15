@@ -1,0 +1,7 @@
+platform: template
+sensors:
+  lights_on:
+    friendly_name: "Amount of lights currently on"
+    entity_id: []
+    value_template: >-
+      {{ states.light | selectattr('state','equalto','on') | list | length }}
