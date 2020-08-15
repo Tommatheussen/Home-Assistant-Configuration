@@ -1,0 +1,28 @@
+- id: 814f146bc58e42248c22313f9e346cf3
+  alias: night time
+  description: ''
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reload
+    - platform: state
+      entity_id: binary_sensor.day_night
+  action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.day_night
+          state: "on"
+        sequence:
+          - service: input_boolean.turn_on
+            data_template:
+              entity_id: input_boolean.night
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.day_night
+          state: "off"
+        sequence:
+          - service: input_boolean.turn_off
+            data_template:
+              entity_id: input_boolean.night
