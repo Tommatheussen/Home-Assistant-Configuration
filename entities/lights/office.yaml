@@ -1,4 +1,6 @@
 platform: knx
 name: office
-address: '1/1/35'
-state_address: '1/1/38'
+address: '1/1/0'
+state_address: '1/1/3'
+brightness_address: '1/1/2'
+brightness_state_address: '1/1/4'
