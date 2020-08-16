@@ -1,0 +1,6 @@
+platform: knx
+name: hallway
+address: '1/1/5'
+state_address: '1/1/8'
+brightness_address: '1/1/7'
+brightness_state_address: '1/1/9'

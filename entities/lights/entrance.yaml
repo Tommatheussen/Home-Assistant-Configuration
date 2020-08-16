@@ -1,6 +1,6 @@
 platform: knx
 name: entrance
-address: '1/1/30'
-state_address: '1/1/33'
-brightness_address: '1/1/32'
-brightness_state_address: '1/1/34'
+address: '1/1/10'
+state_address: '1/1/13'
+brightness_address: '1/1/12'
+brightness_state_address: '1/1/14'

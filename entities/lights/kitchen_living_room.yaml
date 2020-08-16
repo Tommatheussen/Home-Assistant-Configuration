@@ -1,6 +1,6 @@
 platform: knx
 name: kitchen_living_room
-address: '1/1/5'
-state_address: '1/1/8'
-brightness_address: '1/1/7'
-brightness_state_address: '1/1/9'
+address: '1/1/25'
+state_address: '1/1/28'
+brightness_address: '1/1/27'
+brightness_state_address: '1/1/29'

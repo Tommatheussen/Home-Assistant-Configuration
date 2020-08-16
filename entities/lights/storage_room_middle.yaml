@@ -1,0 +1,6 @@
+platform: knx
+name: storage_room_middle
+address: '1/1/35'
+state_address: '1/1/38'
+brightness_address: '1/1/37'
+brightness_state_address: '1/1/39'
