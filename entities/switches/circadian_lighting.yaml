@@ -1,0 +1,12 @@
+platform: circadian_lighting
+lights_brightness:
+  - light.office
+  - light.hallway
+  - light.entrance
+  - light.dining_room
+  - light.living_room
+  - light.kitchen_living_room
+  - light.kitchen_window
+  - light.storage_room_middle
+  - light.storage_room_door
+  - light.bedroom_1
