@@ -4,5 +4,5 @@ knx:
     local_ip: !secret knx.local
   expose:
     - type: 'binary'
-      entity_id: 'binary_sensor.day_night'
+      entity_id: input_boolean.night
       address: '0/0/3'
