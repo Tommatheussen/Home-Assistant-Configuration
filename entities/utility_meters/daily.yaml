@@ -1,0 +1,12 @@
+daily_consumption_high:
+  source: sensor.energy_consumption_tarif_1
+  cycle: daily
+daily_consumption_low:
+  source: sensor.energy_consumption_tarif_2
+  cycle: daily
+daily_production_high:
+  source: sensor.energy_production_tarif_1
+  cycle: daily
+daily_production_low:
+  source: sensor.energy_production_tarif_2
+  cycle: daily

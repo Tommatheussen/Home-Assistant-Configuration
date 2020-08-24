@@ -5,3 +5,38 @@ sensors:
     entity_id: []
     value_template: >-
       {{ states.light | selectattr('state','equalto','on') | list | length }}
+  
+  daily_back_to_net:
+    unit_of_measurement: kWh
+    value_template: >-
+      {{ states('sensor.daily_production_high') | float + states('sensor.daily_production_low') | float }}
+
+  daily_from_net:
+    unit_of_measurement: kWh
+    value_template: >-
+      {{ states('sensor.daily_consumption_high') | float + states('sensor.daily_consumption_low') | float }}
+
+  daily_netto_verbruik:
+    unit_of_measurement: kWh
+    value_template: >-
+      {{ states('sensor.daily_from_net') | float - states('sensor.daily_back_to_net') | float }}
+
+  dagelijks_verbruik:
+    unit_of_measurement: kWh
+    value_template: >-
+      {{ ((states('sensor.daily_yield') | float) / 1000) -
+        states('sensor.daily_back_to_net') | float + 
+        states('sensor.daily_from_net') | float
+      }}
+
+  zelfverbruik:
+    unit_of_measurement: kWh
+    value_template: >-
+      {{ ((states('sensor.daily_yield') | float) / 1000) - states('sensor.daily_back_to_net') | float }}
+  
+  zelfverbruik_percentage:
+    unit_of_measurement: '%'
+    value_template: >-
+      {% set t = states('sensor.daily_yield') | float / 1000 %}
+      {% set u = states('sensor.daily_back_to_net') | float %}
+      {{ ((t - u) / t) * 100 }}

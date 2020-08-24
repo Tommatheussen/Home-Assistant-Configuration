@@ -8,4 +8,5 @@ sensors:
   - pv_power
   - pv_gen_meter
   - total_yield
+  - daily_yield
   - status
