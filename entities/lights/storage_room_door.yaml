@@ -1,6 +1,6 @@
 platform: knx
 name: storage_room_door
-address: '1/1/40'
-state_address: '1/1/43'
-brightness_address: '1/1/42'
-brightness_state_address: '1/1/44'
+address: '1/1/45'
+state_address: '1/1/48'
+brightness_address: '1/1/47'
+brightness_state_address: '1/1/49'

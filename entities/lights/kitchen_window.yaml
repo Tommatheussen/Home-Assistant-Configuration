@@ -1,6 +1,6 @@
 platform: knx
 name: kitchen_window
-address: '1/1/30'
-state_address: '1/1/33'
-brightness_address: '1/1/32'
-brightness_state_address: '1/1/34'
+address: '1/1/35'
+state_address: '1/1/38'
+brightness_address: '1/1/37'
+brightness_state_address: '1/1/39'
