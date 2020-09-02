@@ -9,4 +9,4 @@ lights_brightness:
   - light.kitchen_window
   - light.storage_room_middle
   - light.storage_room_door
-  - light.bedroom_1
+  - light.bedroom_parents
