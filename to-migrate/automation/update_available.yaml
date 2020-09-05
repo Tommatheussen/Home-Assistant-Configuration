@@ -1,9 +1,0 @@
-alias: Update Available
-trigger:
-  platform: state
-  entity_id: updater.updater
-action:
-  service: notify.all
-  data:
-    title: "Update available"
-    message: "Update available for Home Assistant"
