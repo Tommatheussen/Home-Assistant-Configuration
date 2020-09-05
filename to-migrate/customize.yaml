@@ -1,7 +1,5 @@
 sun.sun:
   hidden: true
-sensor.new_commits:
-  hidden: true
 device_tracker.9c972640d578:
   icon: mdi:router-wireless
 device_tracker.tom_msm8226:

@@ -1,1 +1,0 @@
-bash /home/hass/.homeassistant/bin/update_new_commits_sensor.sh {{ states.sensor.password.state }}

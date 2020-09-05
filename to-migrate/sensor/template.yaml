@@ -67,6 +67,3 @@ sensors:
       {% else %}
         Calendar failed
       {% endif %}
-  new_commits:
-    value_template: >
-      {{ states("sensor.new_commits") }}
