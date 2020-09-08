@@ -1,0 +1,7 @@
+name: "Slaapkamer 1 Links"
+move_long_address: '2/2/0'
+move_short_address: '2/2/1'
+position_address: '2/2/2'
+position_state_address: '2/2/8'
+travelling_time_down: 17
+travelling_time_up: 17

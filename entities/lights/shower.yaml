@@ -1,4 +1,0 @@
-platform: knx
-name: shower
-address: '1/2/32'
-state_address: '1/2/33'

@@ -1,4 +1,0 @@
-platform: knx
-name: mirror
-address: '1/2/34'
-state_address: '1/2/35'

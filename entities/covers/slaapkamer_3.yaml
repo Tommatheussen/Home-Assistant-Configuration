@@ -1,8 +1,0 @@
-platform: knx
-name: "Slaapkamer 3"
-move_long_address: '2/2/40'
-move_short_address: '2/2/41'
-position_address: '2/2/42'
-position_state_address: '2/2/48'
-travelling_time_down: 17
-travelling_time_up: 17

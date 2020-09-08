@@ -1,3 +1,0 @@
-platform: knx
-name: hallway_light
-state_address: '1/2/36'

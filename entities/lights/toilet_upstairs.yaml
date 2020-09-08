@@ -1,4 +1,0 @@
-platform: knx
-name: toilet_upstairs
-address: '1/2/30'
-state_address: '1/2/31'

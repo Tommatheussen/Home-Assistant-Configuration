@@ -1,8 +1,0 @@
-platform: knx
-name: "Zolder 1"
-move_long_address: '2/3/0'
-move_short_address: '2/3/1'
-position_address: '2/3/2'
-position_state_address: '2/3/8'
-travelling_time_down: 17
-travelling_time_up: 17

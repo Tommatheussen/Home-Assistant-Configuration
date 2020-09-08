@@ -1,0 +1,5 @@
+name: entrance
+address: '1/1/10'
+state_address: '1/1/13'
+brightness_address: '1/1/12'
+brightness_state_address: '1/1/14'
