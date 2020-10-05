@@ -1,7 +1,7 @@
 """
 Sensor component for waste pickup dates from dutch and belgium waste collectors
 Original Author: Pippijn Stortelder
-Current Version: 4.6.3 20200814 - Pippijn Stortelder
+Current Version: 4.6.7 2020923 - Pippijn Stortelder
 20200419 - Major code refactor (credits @basschipper)
 20200420 - Add sensor even though not in mapping
 20200420 - Added support for DeAfvalApp
@@ -41,6 +41,10 @@ Current Version: 4.6.3 20200814 - Pippijn Stortelder
 20200803 - Fix mapping for RecycleApp
 20200811 - Fix mapping for RecycleApp and added translations for dutch month names
 20200814 - Fix bug with dateobject and fix mapping for MijnAfvalWijzer
+20200915 - Switch MijnAfvalwijzer to app API
+20200920 - Update mapping for RecycleApp
+20200923 - Update mapping for Cranendonck
+20200930 - Fix Ormin date
 
 Example config:
 Configuration.yaml:
@@ -165,6 +169,7 @@ WASTE_TYPE_GLASS = 'glas'
 WASTE_TYPE_GREEN = 'gft'
 WASTE_TYPE_GREENGREY = 'duobak'
 WASTE_TYPE_GREY = 'restafval'
+WASTE_TYPE_GREY_BAGS = 'restafvalzakken'
 WASTE_TYPE_SORTI = 'sortibak'
 WASTE_TYPE_KCA = 'chemisch'
 WASTE_TYPE_MILIEUB = 'milieuboer'
@@ -536,10 +541,11 @@ class AfvalwijzerCollector(WasteCollector):
 
     def __init__(self, hass, waste_collector, postcode, street_number, suffix):
         super(AfvalwijzerCollector, self).__init__(hass, waste_collector, postcode, street_number, suffix)
+        self.apikey = '5ef443e778f41c4f75c69459eea6e6ae0c2d92de729aa0fc61653815fbd6a8ca'
 
     def __get_data(self):
-        get_url = 'https://json.{}.nl/?method=postcodecheck&postcode={}&street=&huisnummer={}&toevoeging={}&langs=nl'.format(
-                self.waste_collector, self.postcode, self.street_number, self.suffix)
+        get_url = 'https://api.{}.nl/webservices/appsinput/?apikey={}&method=postcodecheck&postcode={}&street=&huisnummer={}&toevoeging={}&app_name=afvalwijzer&platform=phone&afvaldata={}&langs=nl'.format(
+                self.waste_collector, self.apikey, self.postcode, self.street_number, self.suffix, datetime.today().strftime('%Y-%m-%d'))
         return requests.get(get_url)
 
     async def update(self):
@@ -551,7 +557,7 @@ class AfvalwijzerCollector(WasteCollector):
             r = await self.hass.async_add_executor_job(self.__get_data)
             response = r.json()
 
-            data = (response['data']['ophaaldagen']['data'] + response['data']['ophaaldagenNext']['data'])
+            data = (response['ophaaldagen']['data'] + response['ophaaldagenNext']['data'])
             if not data:
                 _LOGGER.error('No Waste data found!')
                 return
@@ -868,7 +874,7 @@ class OmrinCollector(WasteCollector):
                     continue
 
                 collection = WasteCollection.create(
-                    date=datetime.strptime(item['Datum'], '%Y-%m-%dT%H:%M:%S'),
+                    date=datetime.strptime(item['Datum'], '%Y-%m-%dT%H:%M:%S+02:00'),
                     waste_type=waste_type
                 )
                 self.collections.add(collection)
@@ -888,6 +894,7 @@ class OpzetCollector(WasteCollector):
         'gft': WASTE_TYPE_GREEN,
         'chemisch': WASTE_TYPE_KCA,
         'kca': WASTE_TYPE_KCA,
+        'restafvalzakken': WASTE_TYPE_GREY_BAGS,
         'rest': WASTE_TYPE_GREY,
         'plastic': WASTE_TYPE_PACKAGES,
         'papier': WASTE_TYPE_PAPER,
@@ -1022,6 +1029,7 @@ class RecycleApp(WasteCollector):
     WASTE_TYPE_MAPPING = {
         'grof': WASTE_TYPE_BULKLITTER,
         # 'glas': WASTE_TYPE_GLASS,
+        'glas': WASTE_TYPE_GLASS,
         # 'duobak': WASTE_TYPE_GREENGREY,
         # 'groente': WASTE_TYPE_GREEN,
         'gft': WASTE_TYPE_GREEN,
