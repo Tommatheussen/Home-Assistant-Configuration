@@ -1,0 +1,10 @@
+platform: fitbit
+monitored_resources:
+  - sleep/awakeningsCount
+  - sleep/efficiency
+  - sleep/minutesAfterWakeup
+  - sleep/minutesAsleep
+  - sleep/minutesAwake
+  - sleep/minutesToFallAsleep
+  - sleep/startTime
+  - sleep/timeInBed
