@@ -3,28 +3,7 @@ sensors:
   lights_on:
     friendly_name: "Amount of lights currently on"
     value_template: >
-      {% set lights = [
-        states.light.door,
-        states.light.living_room_wall,
-        states.light.mirror,
-        states.light.nighthall_wall,
-        states.light.shower,
-        states.light.toilet_downstairs,
-        states.light.toilet_upstairs,
-        states.light.office,
-        states.light.hallway,
-        states.light.entrance,
-        states.light.dining_room,
-        states.light.living_room,
-        states.light.kitchen_living_room,
-        states.light.kitchen_window,
-        states.light.storage_room_middle,
-        states.light.storage_room_door,
-        states.light.bedroom_parents,
-        states.light.bathroom,
-        states.light.nighthall_ceiling
-      ] %}
-      {{ lights | selectattr('state','eq','on') | list | count }}
+      {{ states.light | selectattr('state', 'eq', 'on') | list | count }}
   
   daily_back_to_net:
     unit_of_measurement: kWh
