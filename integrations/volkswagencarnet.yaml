@@ -1,0 +1,6 @@
+volkswagencarnet:
+  username: !secret volkswagen.username
+  password: !secret volkswagen.password
+  spin: !secret volkswagen.pin
+  name:
+    wvwzzzcdzmw008643: 'Volkswagen Golf'
