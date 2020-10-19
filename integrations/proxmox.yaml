@@ -5,7 +5,7 @@ proxmoxve:
     verify_ssl: false
     realm: pve
     nodes:
-      - node: pve
+      - node: proxmox
         vms:
           - 101 # HA
         containers:
