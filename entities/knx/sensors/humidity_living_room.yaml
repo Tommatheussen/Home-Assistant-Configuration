@@ -1,0 +1,3 @@
+name: humidity_living_room
+state_address: '5/1/100'
+type: 'humidity'
