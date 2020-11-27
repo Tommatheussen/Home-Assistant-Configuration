@@ -1,7 +1,7 @@
 esphome:
   name: staircase_downstairs
   platform: ESP8266
-  board: esp01_1m
+  board: d1_mini
 
 wifi:
   ssid: !secret WIFI_SSID
@@ -17,20 +17,18 @@ ota:
   password: !secret OTA_PASSWORD
 
 i2c:
-  sda: GPIO0
-  scl: GPIO3
   scan: True
 
 sensor:
   - platform: vl53l0x
     name: "VL53L0x Distance"
-    update_interval: 0.2s
+    update_interval: 100ms
     internal: True
     id: distance
 
 binary_sensor:
   - platform: template
-    name: "Beam broken"
+    name: "Staircase Downstairs Triggered"
     lambda: |-
       if (id(distance).state < 0.70) {
         // Beam was broken
