@@ -1,7 +1,7 @@
 esphome:
-  name: upstairs_temperature
+  name: upstairs_node_aggregation
   platform: ESP32
-  board: esp32cam
+  board: mhetesp32minikit
   
 wifi:
   ssid: !secret WIFI_SSID
@@ -24,27 +24,24 @@ sensor:
   - platform: xiaomi_cgg1
     mac_address: 58:2D:34:11:2F:D4
     temperature:
-      name: "Slaapkamer Temp"
+      name: "XIAOMI 582D34112FD4 Temperature"
     humidity:
-      name: "Slaapkamer Humi"
+      name: "XIAOMI 582D34112FD4 Humidity"
     battery_level:
-      name: "Slaapkamer Batt"
+      name: "XIAOMI 582D34112FD4 Battery"
   - platform: xiaomi_cgg1
     mac_address: 58:2D:34:11:2C:46
     temperature:
-      name: "Wasplaats Temp"
+      name: "XIAOMI 582D34112C46 Temperature"
     humidity:
-      name: "Wasplaats Humi"
+      name: "XIAOMI 582D34112C46 Humidity"
     battery_level:
-      name: "Wasplaats Batt"
+      name: "XIAOMI 582D34112C46 Battery"
   - platform: xiaomi_cgg1
     mac_address: 58:2D:34:11:2C:4A
     temperature:
-      name: "Badkamer Temp"
+      name: "XIAOMI 582D34112C4A Temperature"
     humidity:
-      name: "Badkamer Humi"
+      name: "XIAOMI 582D34112C4A Humidity"
     battery_level:
-      name: "Badkamer Batt"
-       
-      
-     
+      name: "XIAOMI 582D34112C4A Battery"
