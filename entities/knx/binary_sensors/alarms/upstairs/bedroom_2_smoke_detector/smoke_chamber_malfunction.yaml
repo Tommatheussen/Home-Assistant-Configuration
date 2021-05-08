@@ -1,0 +1,3 @@
+name: bedroom_2_smoke_detector_smoke_chamber_malfunction
+state_address: '7/2/14'
+device_class: problem
