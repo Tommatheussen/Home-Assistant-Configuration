@@ -1,0 +1,3 @@
+name: knx_bus_voltage
+state_address: '5/0/101'
+type: 'voltage'
