@@ -2,14 +2,13 @@
 
 import logging
 from typing import Dict  # noqa
-import voluptuous as vol
-from aiohttp.web import Request, Response, HTTPBadRequest
 
+import homeassistant.helpers.config_validation as cv
+import voluptuous as vol
+from aiohttp.web import HTTPBadRequest, Request, Response
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.components.http import HomeAssistantView
-import homeassistant.helpers.config_validation as cv
-
-from nibeuplink import UplinkSession, Uplink
+from nibeuplink import Uplink, UplinkSession
 
 from .const import (
     AUTH_CALLBACK_NAME,
@@ -18,9 +17,9 @@ from .const import (
     CONF_CLIENT_ID,
     CONF_CLIENT_SECRET,
     CONF_REDIRECT_URI,
+    CONF_SYSTEMS,
     CONF_UPLINK_APPLICATION_URL,
     CONF_WRITEACCESS,
-    CONF_SYSTEMS,
     DATA_NIBE,
     DOMAIN,
 )
@@ -63,9 +62,14 @@ class NibeConfigFlow(config_entries.ConfigFlow):
             self.user_data = user_input
             return await self.async_step_auth()
 
-        url = "{}{}".format(self.hass.helpers.network.get_url(prefer_external=True), AUTH_CALLBACK_URL)
+        url = "{}{}".format(
+            self.hass.helpers.network.get_url(prefer_external=True), AUTH_CALLBACK_URL
+        )
 
-        config = self.hass.data[DATA_NIBE].config
+        if DATA_NIBE in self.hass.data:
+            config = self.hass.data[DATA_NIBE].config
+        else:
+            config = {}
 
         return self.async_show_form(
             step_id="user",
@@ -119,10 +123,7 @@ class NibeConfigFlow(config_entries.ConfigFlow):
     async def async_step_systems(self, user_input=None):
         """Configure selected systems."""
         if user_input is not None:
-            self.user_data[CONF_SYSTEMS] = {
-                key: {}
-                for key in user_input[CONF_SYSTEMS]
-            }
+            self.user_data[CONF_SYSTEMS] = {key: {} for key in user_input[CONF_SYSTEMS]}
 
             return self.async_create_entry(title="", data=self.user_data)
 
@@ -137,9 +138,9 @@ class NibeConfigFlow(config_entries.ConfigFlow):
             description_placeholders={},
             data_schema=vol.Schema(
                 {
-                    vol.Required(
-                        CONF_SYSTEMS, default=systems_sel
-                    ): cv.multi_select(systems_dict)
+                    vol.Required(CONF_SYSTEMS, default=systems_sel): cv.multi_select(
+                        systems_dict
+                    )
                 }
             ),
         )

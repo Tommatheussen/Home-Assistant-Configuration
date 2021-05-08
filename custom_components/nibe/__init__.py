@@ -1,13 +1,12 @@
 """Support for nibe uplink."""
 
-import attr
 import asyncio
 import logging
-from typing import List, Dict, Union, T, Mapping
+from typing import Dict, List, Mapping, T, Union
 
-import voluptuous as vol
-
+import attr
 import homeassistant.helpers.config_validation as cv
+import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.components import persistent_notification
 from homeassistant.const import CONF_NAME
@@ -23,6 +22,7 @@ from .const import (
     CONF_CLIMATE_SYSTEMS,
     CONF_CLIMATES,
     CONF_CURRENT_TEMPERATURE,
+    CONF_FANS,
     CONF_REDIRECT_URI,
     CONF_SENSORS,
     CONF_STATUSES,
@@ -38,7 +38,6 @@ from .const import (
     DATA_NIBE,
     DOMAIN,
     SCAN_INTERVAL,
-    CONF_FANS,
     SIGNAL_PARAMETERS_UPDATED,
     SIGNAL_STATUSES_UPDATED,
 )
@@ -60,30 +59,31 @@ def ensure_system_dict(value: Union[Dict[int, T], List[T], None]) -> Dict[int, T
     if value is None:
         return {}
     if isinstance(value, list):
-        value_schema = vol.Schema([
-            vol.Schema({
-                vol.Required(CONF_SYSTEM): cv.positive_int
-            }, extra=vol.ALLOW_EXTRA)
-        ])
+        value_schema = vol.Schema(
+            [
+                vol.Schema(
+                    {vol.Required(CONF_SYSTEM): cv.positive_int}, extra=vol.ALLOW_EXTRA
+                )
+            ]
+        )
         value = value_schema(value)
-        return {
-            x[CONF_SYSTEM]: x
-            for x in value
-        }
+        return {x[CONF_SYSTEM]: x for x in value}
     if isinstance(value, dict):
         return value
     value = SYSTEM_SCHEMA(value)
     return {value[CONF_SYSTEM]: value}
 
 
-UNIT_SCHEMA = vol.Schema(vol.All(
-    cv.deprecated(CONF_STATUSES),
-    {
-        vol.Required(CONF_UNIT): cv.positive_int,
-        vol.Optional(CONF_CATEGORIES, default=False): none_as_true,
-        vol.Optional(CONF_STATUSES, default=False): none_as_true,
-    }
-))
+UNIT_SCHEMA = vol.Schema(
+    vol.All(
+        cv.deprecated(CONF_STATUSES),
+        {
+            vol.Required(CONF_UNIT): cv.positive_int,
+            vol.Optional(CONF_CATEGORIES, default=False): none_as_true,
+            vol.Optional(CONF_STATUSES, default=False): none_as_true,
+        },
+    )
+)
 
 THERMOSTAT_SCHEMA = vol.Schema(
     {
@@ -94,26 +94,34 @@ THERMOSTAT_SCHEMA = vol.Schema(
     }
 )
 
-SYSTEM_SCHEMA = vol.Schema(vol.All(
-    cv.deprecated(CONF_CLIMATES),
-    cv.deprecated(CONF_WATER_HEATERS),
-    cv.deprecated(CONF_FANS),
-    {
-        vol.Optional(CONF_SYSTEM): cv.positive_int,
-        vol.Optional(CONF_UNITS, default=[]): vol.All(cv.ensure_list, [UNIT_SCHEMA]),
-        vol.Optional(CONF_SENSORS, default=[]): vol.All(cv.ensure_list, [cv.string]),
-        vol.Optional(CONF_CLIMATES): none_as_true,
-        vol.Optional(CONF_WATER_HEATERS): none_as_true,
-        vol.Optional(CONF_FANS): none_as_true,
-        vol.Optional(CONF_SWITCHES, default=[]): vol.All(cv.ensure_list, [cv.string]),
-        vol.Optional(CONF_BINARY_SENSORS, default=[]): vol.All(
-            cv.ensure_list, [cv.string]
-        ),
-        vol.Optional(CONF_THERMOSTATS, default={}): {
-            cv.positive_int: THERMOSTAT_SCHEMA
+SYSTEM_SCHEMA = vol.Schema(
+    vol.All(
+        cv.deprecated(CONF_CLIMATES),
+        cv.deprecated(CONF_WATER_HEATERS),
+        cv.deprecated(CONF_FANS),
+        {
+            vol.Optional(CONF_SYSTEM): cv.positive_int,
+            vol.Optional(CONF_UNITS, default=[]): vol.All(
+                cv.ensure_list, [UNIT_SCHEMA]
+            ),
+            vol.Optional(CONF_SENSORS, default=[]): vol.All(
+                cv.ensure_list, [cv.string]
+            ),
+            vol.Optional(CONF_CLIMATES): none_as_true,
+            vol.Optional(CONF_WATER_HEATERS): none_as_true,
+            vol.Optional(CONF_FANS): none_as_true,
+            vol.Optional(CONF_SWITCHES, default=[]): vol.All(
+                cv.ensure_list, [cv.string]
+            ),
+            vol.Optional(CONF_BINARY_SENSORS, default=[]): vol.All(
+                cv.ensure_list, [cv.string]
+            ),
+            vol.Optional(CONF_THERMOSTATS, default={}): {
+                cv.positive_int: THERMOSTAT_SCHEMA
+            },
         },
-    }
-))
+    )
+)
 
 NIBE_SCHEMA = vol.Schema(
     {

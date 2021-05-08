@@ -1,10 +1,11 @@
 """
-Support for Volkswagen Carnet Platform
+Support for Volkswagen WeConnect Platform
 """
 import logging
 
 from homeassistant.components.climate import ClimateEntity
 from homeassistant.components.climate.const import (
+    HVAC_MODE_COOL,
     HVAC_MODE_HEAT,
     HVAC_MODE_OFF,
     SUPPORT_TARGET_TEMPERATURE,
@@ -16,9 +17,9 @@ from homeassistant.const import (
     TEMP_FAHRENHEIT,
 )
 
-SUPPORT_HVAC = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
+SUPPORT_HVAC = [HVAC_MODE_COOL, HVAC_MODE_HEAT, HVAC_MODE_OFF]
 
-from . import DATA_KEY, VolkswagenEntity
+from . import DATA, DATA_KEY, DOMAIN, VolkswagenEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,8 +31,26 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     async_add_entities([VolkswagenClimate(hass.data[DATA_KEY], *discovery_info)])
 
 
+async def async_setup_entry(hass, entry, async_add_devices):
+    data = hass.data[DOMAIN][entry.entry_id][DATA]
+    coordinator = data.coordinator
+    if coordinator.data is not None:
+        async_add_devices(
+            VolkswagenClimate(
+                data, coordinator.vin, instrument.component, instrument.attr
+            )
+            for instrument in (
+                instrument
+                for instrument in data.instruments
+                if instrument.component == "climate"
+            )
+        )
+
+    return True
+
+
 class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
-    """Representation of a Volkswagen Carnet Climate."""
+    """Representation of a Volkswagen WeConnect Climate."""
 
     @property
     def supported_features(self):
@@ -43,9 +62,14 @@ class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
         """Return hvac operation ie. heat, cool mode.
         Need to be one of HVAC_MODE_*.
         """
-        if self.instrument.hvac_mode:
-            return HVAC_MODE_HEAT
-        return HVAC_MODE_OFF
+        if not self.instrument.hvac_mode:
+            return HVAC_MODE_OFF
+
+        hvac_modes = {
+            "HEATING": HVAC_MODE_HEAT,
+            "COOLING": HVAC_MODE_COOL,
+        }
+        return hvac_modes.get(self.instrument.hvac_mode, HVAC_MODE_OFF)
 
     @property
     def hvac_modes(self):

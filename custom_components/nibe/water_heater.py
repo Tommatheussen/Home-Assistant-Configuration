@@ -6,7 +6,6 @@ from collections import OrderedDict
 from typing import Set
 
 import aiohttp
-
 from homeassistant.components.water_heater import (
     ENTITY_ID_FORMAT,
     STATE_ECO,
@@ -17,7 +16,6 @@ from homeassistant.components.water_heater import (
 )
 from homeassistant.const import STATE_OFF
 from homeassistant.exceptions import PlatformNotReady
-
 from nibeuplink import get_active_hotwater
 
 from .const import DATA_NIBE
@@ -79,12 +77,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                 NibeWaterHeater(uplink, system.system_id, system.statuses, hwsys)
             )
 
-    await asyncio.gather(
-        *[
-            add_active(system)
-            for system in systems.values()
-        ]
-    )
+    await asyncio.gather(*[add_active(system) for system in systems.values()])
 
     async_add_entities(entities, True)
 
@@ -216,7 +209,9 @@ class NibeWaterHeater(NibeEntity, WaterHeaterEntity):
         elif operation_mode == OPERATION_AUTO:
             boost = 0
         else:
-            raise Exception(f"Operation mode {operation_mode} not supported in nibe api")
+            raise Exception(
+                f"Operation mode {operation_mode} not supported in nibe api"
+            )
 
         try:
             await self._uplink.put_parameter(

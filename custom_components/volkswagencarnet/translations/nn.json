@@ -1,0 +1,15 @@
+{
+    "title": "Volkswagen WeConnect",
+    "config": {
+        "step": {
+            "user": {
+                "title": "WeConnect-konfigurasjon",
+                "description": "Fyll ut WeConnect-informasjon",
+                "data": {
+                    "username": "Brukarnamn",
+                    "password": "Passord"
+                }
+            }
+        }
+    }
+}

@@ -1,11 +1,12 @@
 """
-Support for Volkswagen Carnet Platform
+Support for Volkswagen WeConnect Platform
 """
 import logging
+from typing import Any, Dict, Optional
 
 from homeassistant.helpers.entity import ToggleEntity
 
-from . import DATA_KEY, VolkswagenEntity
+from . import DATA, DATA_KEY, DOMAIN, VolkswagenEntity, UPDATE_CALLBACK
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,8 +18,26 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     async_add_entities([VolkswagenSwitch(hass.data[DATA_KEY], *discovery_info)])
 
 
+async def async_setup_entry(hass, entry, async_add_devices):
+    data = hass.data[DOMAIN][entry.entry_id][DATA]
+    coordinator = data.coordinator
+    if coordinator.data is not None:
+        async_add_devices(
+            VolkswagenSwitch(
+                data, coordinator.vin, instrument.component, instrument.attr, hass.data[DOMAIN][entry.entry_id][UPDATE_CALLBACK]
+            )
+            for instrument in (
+                instrument
+                for instrument in data.instruments
+                if instrument.component == "switch"
+            )
+        )
+
+    return True
+
+
 class VolkswagenSwitch(VolkswagenEntity, ToggleEntity):
-    """Representation of a Volkswagen Carnet Switch."""
+    """Representation of a Volkswagen WeConnect Switch."""
 
     @property
     def is_on(self):
@@ -41,3 +60,7 @@ class VolkswagenSwitch(VolkswagenEntity, ToggleEntity):
     @property
     def assumed_state(self):
         return self.instrument.assumed_state
+
+    @property
+    def state_attributes(self) -> Optional[Dict[str, Any]]:
+        return self.instrument.attributes

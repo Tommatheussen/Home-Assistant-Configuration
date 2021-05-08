@@ -2,15 +2,15 @@
 
 import asyncio
 import logging
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 from homeassistant.components.fan import ENTITY_ID_FORMAT, SUPPORT_SET_SPEED, FanEntity
 from homeassistant.exceptions import PlatformNotReady
-
-from nibeuplink import get_active_ventilations, VentilationSystem, Uplink
+from nibeuplink import Uplink, VentilationSystem, get_active_ventilations
 
 from . import NibeSystem
-from .const import DATA_NIBE, DOMAIN as DOMAIN_NIBE
+from .const import DATA_NIBE
+from .const import DOMAIN as DOMAIN_NIBE
 from .entity import NibeEntity
 
 PARALLEL_UPDATES = 0
@@ -37,9 +37,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
         for ventilation in ventilations.values():
             entities.append(NibeFan(uplink, system.system_id, ventilation))
 
-    await asyncio.gather(
-        *[add_active(system) for system in systems.values()]
-    )
+    await asyncio.gather(*[add_active(system) for system in systems.values()])
 
     async_add_entities(entities, True)
 
