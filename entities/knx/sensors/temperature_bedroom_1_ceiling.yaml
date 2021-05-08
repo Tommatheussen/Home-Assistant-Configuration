@@ -1,3 +1,3 @@
-name: temperature_bedroom_1
+name: temperature_bedroom_1_ceiling
 state_address: '5/2/0'
 type: 'temperature'
