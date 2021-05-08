@@ -1,0 +1,4 @@
+name: lights_house_outside_power_meter
+state_address: '5/0/69'
+type: 'active_energy'
+sync_state: 'every 5'

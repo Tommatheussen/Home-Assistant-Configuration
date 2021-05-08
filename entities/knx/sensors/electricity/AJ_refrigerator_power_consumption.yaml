@@ -1,0 +1,4 @@
+name: refrigerator_power_consumption
+state_address: '5/0/70'
+type: 'power'
+sync_state: 'expire 5'

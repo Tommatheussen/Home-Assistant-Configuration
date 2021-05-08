@@ -1,0 +1,4 @@
+name: lights_attic_power_consumption
+state_address: '5/0/52'
+type: 'power'
+sync_state: 'expire 5'

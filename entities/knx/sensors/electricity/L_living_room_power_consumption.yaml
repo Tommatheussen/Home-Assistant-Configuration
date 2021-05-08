@@ -1,0 +1,4 @@
+name: living_room_power_consumption
+state_address: '5/0/22'
+type: 'power'
+sync_state: 'expire 5'

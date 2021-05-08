@@ -1,0 +1,4 @@
+name: kitchen_2_power_meter
+state_address: '5/0/17'
+type: 'active_energy'
+sync_state: 'every 5'

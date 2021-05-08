@@ -1,0 +1,4 @@
+name: shutters_power_consumption
+state_address: '5/0/46'
+type: 'power'
+sync_state: 'expire 5'

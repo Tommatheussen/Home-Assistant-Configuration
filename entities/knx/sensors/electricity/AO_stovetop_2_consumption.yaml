@@ -1,0 +1,4 @@
+name: stovetop_2_consumption
+state_address: '5/0/84'
+type: 'power'
+sync_state: 'expire 5'

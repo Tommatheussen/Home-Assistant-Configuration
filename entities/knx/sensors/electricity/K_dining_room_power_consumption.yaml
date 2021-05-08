@@ -1,0 +1,4 @@
+name: dining_room_power_consumption
+state_address: '5/0/20'
+type: 'power'
+sync_state: 'expire 5'

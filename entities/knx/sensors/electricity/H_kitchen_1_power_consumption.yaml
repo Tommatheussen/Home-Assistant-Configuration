@@ -1,0 +1,4 @@
+name: kitchen_1_power_consumption
+state_address: '5/0/14'
+type: 'power'
+sync_state: 'expire 5'

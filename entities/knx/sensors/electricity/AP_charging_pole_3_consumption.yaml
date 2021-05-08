@@ -1,0 +1,4 @@
+name: charging_pole_3_consumption
+state_address: '5/0/92'
+type: 'power'
+sync_state: 'expire 5'

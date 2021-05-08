@@ -1,0 +1,4 @@
+name: bedroom_3_power_consumption
+state_address: '5/0/30'
+type: 'power'
+sync_state: 'expire 5'

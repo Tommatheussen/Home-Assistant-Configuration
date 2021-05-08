@@ -1,0 +1,4 @@
+name: lights_house_outside_power_consumption
+state_address: '5/0/68'
+type: 'power'
+sync_state: 'expire 5'

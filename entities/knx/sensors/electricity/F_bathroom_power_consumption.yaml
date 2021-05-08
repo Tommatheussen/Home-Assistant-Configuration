@@ -1,0 +1,4 @@
+name: bathroom_power_consumption
+state_address: '5/0/10'
+type: 'power'
+sync_state: 'expire 5'

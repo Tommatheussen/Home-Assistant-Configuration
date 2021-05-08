@@ -1,0 +1,4 @@
+name: garden_2_power_consumption
+state_address: '5/0/62'
+type: 'power'
+sync_state: 'expire 5'
