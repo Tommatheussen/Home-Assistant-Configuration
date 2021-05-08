@@ -1,4 +1,4 @@
-name: stovetop_1_meter
+name: stovetop_1_power_meter
 state_address: '5/0/83'
 type: 'active_energy'
 sync_state: 'every 5'

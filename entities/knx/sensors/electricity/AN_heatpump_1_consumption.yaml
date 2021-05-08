@@ -1,4 +1,4 @@
-name: heatpump_1_consumption
+name: heatpump_1_power_consumption
 state_address: '5/0/76'
 type: 'power'
 sync_state: 'expire 5'

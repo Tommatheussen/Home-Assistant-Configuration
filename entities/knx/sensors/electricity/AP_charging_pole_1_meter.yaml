@@ -1,4 +1,4 @@
-name: charging_pole_1_meter
+name: charging_pole_1_power_meter
 state_address: '5/0/89'
 type: 'active_energy'
 sync_state: 'every 5'
