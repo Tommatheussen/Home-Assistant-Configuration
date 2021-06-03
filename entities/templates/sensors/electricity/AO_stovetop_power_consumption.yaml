@@ -1,0 +1,10 @@
+stovetop_power_consumption:
+  unique_id: a8f48c5d5865466382287c49c121fc24
+  unit_of_measurement: W
+  device_class: power
+  value_template: >-
+    {{
+      states('sensor.stovetop_1_power_consumption') | float +
+      states('sensor.stovetop_2_power_consumption') | float +
+      states('sensor.stovetop_3_power_consumption') | float
+    }}

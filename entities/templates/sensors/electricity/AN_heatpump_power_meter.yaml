@@ -1,0 +1,10 @@
+heatpump_power_meter:
+  unique_id: 046f8b48c2174b9e9d8bfb1c30f99f0f
+  unit_of_measurement: Wh
+  device_class: energy
+  value_template: >-
+    {{
+      states('sensor.heatpump_1_power_meter') | float +
+      states('sensor.heatpump_2_power_meter') | float +
+      states('sensor.heatpump_3_power_meter') | float
+    }}

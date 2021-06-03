@@ -1,0 +1,10 @@
+charging_pole_power_meter:
+  unique_id: cbc63949299a49269ecabd04e7947f81
+  unit_of_measurement: Wh
+  device_class: energy
+  value_template: >-
+    {{
+      states('sensor.charging_pole_1_power_meter') | float +
+      states('sensor.charging_pole_2_power_meter') | float +
+      states('sensor.charging_pole_2_power_meter') | float
+    }}
