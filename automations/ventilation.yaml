@@ -1,0 +1,65 @@
+- id: 7baae9e3-1657-41fd-8c16-e04ee2b8eea6
+  alias: Ventilatie
+  description: ''
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reload
+    - platform: state
+      entity_id:
+        - binary_sensor.bathroom_humidity_above_80
+        - binary_sensor.bathroom_humidity_above_60
+        - binary_sensor.toilet_downstairs_in_use
+        - binary_sensor.toilet_upstairs_in_use
+        - input_boolean.night
+  action:
+    - choose:
+      # Night
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.night
+            state: 'on'
+        sequence:
+          - service: fan.set_percentage
+            target:
+              entity_id: fan.ventilation
+            data:
+              percentage: 33
+      # Humid bathroom
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.bathroom_humidity_above_80
+          state: 'on'
+        sequence:
+          - service: fan.set_percentage
+            target:
+              entity_id: fan.ventilation
+            data:
+              percentage: 100
+      # Toilets in use or bathroom still a bit humid
+      - conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.toilet_upstairs_in_use
+              state: 'on'
+            - condition: state
+              entity_id: binary_sensor.toilet_downstairs_in_use
+              state: 'on'
+            - condition: state
+              entity_id: binary_sensor.bathroom_humidity_above_60
+              state: 'on'
+        sequence:
+          - service: fan.set_percentage
+            target:
+              entity_id: fan.ventilation
+            data:
+              percentage: 66
+      # Default set lowest speed
+      default:
+        - service: fan.set_percentage
+          target:
+            entity_id: fan.ventilation
+          data:
+            percentage: 33

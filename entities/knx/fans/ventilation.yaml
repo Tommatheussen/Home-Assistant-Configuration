@@ -1,0 +1,4 @@
+name: ventilation
+address: '3/0/2'
+state_address: '3/0/3'
+max_step: 3
