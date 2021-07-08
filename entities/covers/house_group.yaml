@@ -1,0 +1,7 @@
+name: "house_group"
+platform: group
+entities:
+  - cover.bedroom_1_group
+  - cover.bedroom_2
+  - cover.bedroom_3
+  - cover.attic_group

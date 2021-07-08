@@ -1,0 +1,6 @@
+name: "bedroom_1_group"
+platform: group
+entities:
+  - cover.bedroom_1_left
+  - cover.bedroom_1_middle
+  - cover.bedroom_1_right

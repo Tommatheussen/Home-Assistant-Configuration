@@ -1,0 +1,5 @@
+name: "attic_group"
+platform: group
+entities:
+  - cover.attic_left
+  - cover.attic_right

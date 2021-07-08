@@ -1,27 +1,42 @@
 - id: 7f8059f82f9e4418b34ecaeaf52e87c2
-  alias: Rolluiken dicht
+  alias: Rolluiken
   description: ''
   trigger:
   - platform: state
     entity_id: input_boolean.night
     to: 'on'
-  - below: '-4'
+    id: "nighttime"
+  - platform: numeric_state
     entity_id: sun.sun
-    platform: numeric_state
-    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
-  condition: []
-  action:
-  - data: {}
-    entity_id: all
-    service: cover.close_cover
-- id: 4fdb907dcdae461a9fd0862756190886
-  alias: Rolluiken open
-  description: ''
-  trigger:
+    attribute: elevation
+    below: -4.0
+    id: "sun"
   - at: '10:00'
     platform: time
+    id: "time"
   condition: []
   action:
-  - data: {}
-    entity_id: all
-    service: cover.open_cover
+    - alias: "Open or close?"
+      choose:
+      - conditions:
+        - condition: trigger
+          id: "time"
+        sequence:
+          - alias: "Open covers"
+            service: cover.open_cover
+            target:
+              entity_id:
+              - cover.house_group
+      - conditions:
+        - condition: or
+          conditions:
+            - condition: trigger
+              id: "nighttime"
+            - condition: trigger
+              id: "sun"
+        sequence:
+          - alias: "Close covers"
+            service: cover.close_cover
+            target:
+              entity_id:
+                - cover.house_group

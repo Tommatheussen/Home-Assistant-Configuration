@@ -1,0 +1,7 @@
+sensor.electricity_daily_consumption_alarm: {}
+cover.attic_group:
+  friendly_name: Rolluiken Zolder
+cover.bedroom_1_group:
+  friendly_name: Rolluiken Slaapkamer 1
+cover.house_group:
+  friendly_name: Rolluiken Huis
