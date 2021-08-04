@@ -1,4 +1,5 @@
 name: "bedroom_1_group"
+unique_id: 19aa67a8-ef44-4adb-a24b-c51294d8e504
 platform: group
 entities:
   - cover.bedroom_1_left
