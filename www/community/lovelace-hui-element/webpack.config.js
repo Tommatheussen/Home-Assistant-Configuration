@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/main.js',
   mode: 'production',
   output: {
-    filename: 'slider-entity-row.js',
+    filename: 'hui-element.js',
     path: path.resolve(__dirname)
   }
 };
