@@ -1,14 +1,13 @@
-""" config flow """
+""" Config flow """
 from collections import OrderedDict
-import logging
 from homeassistant.core import callback
 import voluptuous as vol
-import homeassistant.helpers.config_validation as cv
 from homeassistant import config_entries
 from datetime import datetime
 import uuid
 
 from .const import (
+    DEFAULT_COUNT_UP,
     DOMAIN,
     DEFAULT_ICON_NORMAL,
     DEFAULT_ICON_SOON,
@@ -19,24 +18,21 @@ from .const import (
     DEFAULT_UNIT_OF_MEASUREMENT,
     DEFAULT_ID_PREFIX,
     DEFAULT_ONE_TIME,
-    CONF_SENSOR,
-    CONF_ENABLED,
+    DEFAULT_COUNT_UP,
     CONF_ICON_NORMAL,
     CONF_ICON_TODAY,
     CONF_ICON_SOON,
     CONF_DATE,
     CONF_DATE_FORMAT,
-    CONF_SENSORS,
     CONF_SOON,
     CONF_HALF_ANNIVERSARY,
     CONF_UNIT_OF_MEASUREMENT,
     CONF_ID_PREFIX,
     CONF_ONE_TIME,
+    CONF_COUNT_UP,
 )
 
 from homeassistant.const import CONF_NAME
-
-_LOGGER = logging.getLogger(__name__)
 
 
 @config_entries.HANDLERS.register(DOMAIN)
@@ -58,7 +54,7 @@ class AnniversariesFlowHandler(config_entries.ConfigFlow):
                 self.init_info = user_input
                 return await self.async_step_icons()
         return await self._show_user_form(user_input)
-    
+
     async def async_step_icons(self, user_input=None):
         self._errors = {}
         if user_input is not None:
@@ -69,6 +65,7 @@ class AnniversariesFlowHandler(config_entries.ConfigFlow):
     async def _show_user_form(self, user_input):
         name = ""
         date = ""
+        count_up = DEFAULT_COUNT_UP
         one_time = DEFAULT_ONE_TIME
         half_anniversary = DEFAULT_HALF_ANNIVERSARY
         date_format = DEFAULT_DATE_FORMAT
@@ -79,6 +76,8 @@ class AnniversariesFlowHandler(config_entries.ConfigFlow):
                 name = user_input[CONF_NAME]
             if CONF_DATE in user_input:
                 date = user_input[CONF_DATE]
+            if CONF_COUNT_UP in user_input:
+                count_up = user_input[CONF_COUNT_UP]
             if CONF_ONE_TIME in user_input:
                 one_time = user_input[CONF_ONE_TIME]
             if CONF_HALF_ANNIVERSARY in user_input:
@@ -92,6 +91,7 @@ class AnniversariesFlowHandler(config_entries.ConfigFlow):
         data_schema = OrderedDict()
         data_schema[vol.Required(CONF_NAME, default=name)] = str
         data_schema[vol.Required(CONF_DATE, default=date)] = str
+        data_schema[vol.Required(CONF_COUNT_UP, default=count_up)] = bool
         data_schema[vol.Required(CONF_ONE_TIME, default=one_time)] = bool
         data_schema[vol.Required(CONF_HALF_ANNIVERSARY, default=half_anniversary)] = bool
         data_schema[vol.Required(CONF_DATE_FORMAT, default=date_format)] = str
@@ -152,7 +152,8 @@ def is_not_date(date, one_time):
         return False
     except ValueError:
         return True
-        
+
+
 class OptionsFlowHandler(config_entries.OptionsFlow):
     def __init__(self, config_entry):
         self.config_entry = config_entry
@@ -178,9 +179,12 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
 
     async def _show_init_form(self, user_input):
         data_schema = OrderedDict()
+        count_up = self.config_entry.options.get(CONF_COUNT_UP)
         one_time = self.config_entry.options.get(CONF_ONE_TIME)
         unit_of_measurement = self.config_entry.options.get(CONF_UNIT_OF_MEASUREMENT)
         half_anniversary = self.config_entry.options.get(CONF_HALF_ANNIVERSARY)
+        if count_up is None:
+            count_up = DEFAULT_COUNT_UP
         if one_time is None:
             one_time = DEFAULT_ONE_TIME
         if half_anniversary is None:
@@ -189,6 +193,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             unit_of_measurement = DEFAULT_UNIT_OF_MEASUREMENT
         data_schema[vol.Required(CONF_NAME,default=self.config_entry.options.get(CONF_NAME),)] = str
         data_schema[vol.Required(CONF_DATE, default=self.config_entry.options.get(CONF_DATE),)] = str
+        data_schema[vol.Required(CONF_COUNT_UP, default=count_up,)] = bool
         data_schema[vol.Required(CONF_ONE_TIME, default=one_time,)] = bool
         data_schema[vol.Required(CONF_HALF_ANNIVERSARY,default=half_anniversary,)] = bool
         data_schema[vol.Required(CONF_DATE_FORMAT,default=self.config_entry.options.get(CONF_DATE_FORMAT),)] = str

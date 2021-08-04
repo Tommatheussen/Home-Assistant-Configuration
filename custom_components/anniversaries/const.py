@@ -1,6 +1,7 @@
 """ Constants """
+from typing import Optional
 import voluptuous as vol
-from datetime import datetime, date
+from datetime import datetime
 import homeassistant.helpers.config_validation as cv
 from homeassistant.const import CONF_NAME
 
@@ -8,10 +9,10 @@ from homeassistant.const import CONF_NAME
 # Base component constants
 DOMAIN = "anniversaries"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "3.0.2"
+VERSION = "4.4.0"
 PLATFORM = "sensor"
 ISSUE_URL = "https://github.com/pinkywafer/Anniversaries/issues"
-ATTRIBUTION = "Data from this is provided by Anniversaries"
+ATTRIBUTION = "Sensor data calculated by Anniversaries Integration"
 
 ATTR_YEARS_NEXT = "years_at_next_anniversary"
 ATTR_YEARS_CURRENT = "current_years"
@@ -24,6 +25,7 @@ BINARY_SENSOR_DEVICE_CLASS = "connectivity"
 CONF_SENSOR = "sensor"
 CONF_ENABLED = "enabled"
 CONF_DATE = "date"
+CONF_DATE_TEMPLATE = "date_template"
 CONF_ICON_NORMAL = "icon_normal"
 CONF_ICON_TODAY = "icon_today"
 CONF_ICON_SOON = "icon_soon"
@@ -34,6 +36,9 @@ CONF_HALF_ANNIVERSARY = "show_half_anniversary"
 CONF_UNIT_OF_MEASUREMENT = "unit_of_measurement"
 CONF_ID_PREFIX = "id_prefix"
 CONF_ONE_TIME = "one_time"
+CONF_COUNT_UP = "count_up"
+CONF_DATE_EXCLUSION_ERROR = "Configuration cannot include both `date` and `date_template`. configure ONLY ONE"
+CONF_DATE_REQD_ERROR = "Either `date` or `date_template` is Required"
 
 # Defaults
 DEFAULT_NAME = DOMAIN
@@ -46,24 +51,35 @@ DEFAULT_HALF_ANNIVERSARY = False
 DEFAULT_UNIT_OF_MEASUREMENT = "Days"
 DEFAULT_ID_PREFIX = "anniversary_"
 DEFAULT_ONE_TIME = False
+DEFAULT_COUNT_UP = False
 
 ICON = DEFAULT_ICON_NORMAL
 
 def check_date(value):
     try:
-        return datetime.strptime(value, "%Y-%m-%d").date().strftime("%Y-%m-%d")
+        datetime.strptime(value, "%Y-%m-%d")
+        return value
     except ValueError:
         pass
     try:
-        return datetime.strptime(value, "%m-%d").date().strftime("%m-%d")
+        datetime.strptime(value, "%m-%d")
+        return value
     except ValueError:
         raise vol.Invalid(f"Invalid date: {value}")
 
+DATE_SCHEMA = vol.Schema(
+    {
+        vol.Required(
+            vol.Any(CONF_DATE,CONF_DATE_TEMPLATE,msg=CONF_DATE_REQD_ERROR)
+        ): object
+    }, extra=vol.ALLOW_EXTRA
+)
 
-SENSOR_SCHEMA = vol.Schema(
+SENSOR_CONFIG_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_NAME): cv.string,
-        vol.Required(CONF_DATE): check_date,
+        vol.Exclusive(CONF_DATE, CONF_DATE, msg=CONF_DATE_EXCLUSION_ERROR): check_date,
+        vol.Exclusive(CONF_DATE_TEMPLATE, CONF_DATE, msg=CONF_DATE_EXCLUSION_ERROR): cv.string,
         vol.Optional(CONF_SOON, default=DEFAULT_SOON): cv.positive_int,
         vol.Optional(CONF_ICON_NORMAL, default=DEFAULT_ICON_NORMAL): cv.icon,
         vol.Optional(CONF_ICON_TODAY, default=DEFAULT_ICON_TODAY): cv.icon,
@@ -73,8 +89,11 @@ SENSOR_SCHEMA = vol.Schema(
         vol.Optional(CONF_UNIT_OF_MEASUREMENT, default=DEFAULT_UNIT_OF_MEASUREMENT): cv.string,
         vol.Optional(CONF_ID_PREFIX, default=DEFAULT_ID_PREFIX): cv.string,
         vol.Optional(CONF_ONE_TIME, default=DEFAULT_ONE_TIME): cv.boolean,
+        vol.Optional(CONF_COUNT_UP, default=DEFAULT_COUNT_UP): cv.boolean,
     }
 )
+
+SENSOR_SCHEMA = vol.All(SENSOR_CONFIG_SCHEMA, DATE_SCHEMA)
 
 CONFIG_SCHEMA = vol.Schema(
     {
