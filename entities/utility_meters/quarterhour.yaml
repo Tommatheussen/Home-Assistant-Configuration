@@ -1,0 +1,6 @@
+electricity_quarterhour_consumption_tarif_1:
+  source: sensor.energy_consumption_tarif_1
+  cycle: quarter-hourly
+electricity_quarterhour_consumption_tarif_2:
+  source: sensor.energy_consumption_tarif_2
+  cycle: quarter-hourly

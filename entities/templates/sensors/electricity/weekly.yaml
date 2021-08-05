@@ -1,0 +1,53 @@
+electricity_weekly_production_to_grid:
+  unit_of_measurement: kWh
+  value_template: >-
+    {{ 
+      states('sensor.electricity_weekly_production_high') | float + 
+      states('sensor.electricity_weekly_production_low') | float 
+    }}
+
+electricity_weekly_consumption_from_grid:
+  unit_of_measurement: kWh
+  value_template: >-
+    {{ 
+      states('sensor.electricity_weekly_consumption_high') | float + 
+      states('sensor.electricity_weekly_consumption_low') | float 
+    }}
+
+electricity_weekly_self_consumption:
+  unit_of_measurement: kWh
+  value_template: >-
+    {{
+      states('sensor.electricity_weekly_production_solar')| float -
+      states('sensor.electricity_weekly_production_to_grid')| float
+    }}
+
+electricity_weekly_total_consumption:
+  unit_of_measurement: kWh
+  value_template: >-
+    {{
+      states('sensor.electricity_weekly_consumption_from_grid')| float +
+      states('sensor.electricity_weekly_self_consumption')| float
+    }}
+
+electricity_weekly_self_consumption_percentage:
+  unit_of_measurement: "%"
+  value_template: >-
+    {{
+      (
+        states('sensor.electricity_weekly_self_consumption') | float /
+        states('sensor.electricity_weekly_production_solar')| float *
+        100
+      ) | round(2)
+    }}
+
+electricity_weekly_own_production_percentage:
+  unit_of_measurement: "%"
+  value_template: >-
+    {{
+      (
+        states('sensor.electricity_weekly_self_consumption') | float /
+        states('sensor.electricity_weekly_total_consumption') | float *
+        100
+      ) | round(2)
+    }}

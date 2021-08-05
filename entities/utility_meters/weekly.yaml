@@ -1,0 +1,15 @@
+electricity_weekly_consumption_high:
+  source: sensor.energy_consumption_tarif_1
+  cycle: weekly
+electricity_weekly_consumption_low:
+  source: sensor.energy_consumption_tarif_2
+  cycle: weekly
+electricity_weekly_production_high:
+  source: sensor.energy_production_tarif_1
+  cycle: weekly
+electricity_weekly_production_low:
+  source: sensor.energy_production_tarif_2
+  cycle: weekly
+electricity_weekly_production_solar:
+  source: sensor.total_yield
+  cycle: weekly

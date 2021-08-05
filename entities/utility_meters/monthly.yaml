@@ -1,0 +1,15 @@
+electricity_monthly_consumption_high:
+  source: sensor.energy_consumption_tarif_1
+  cycle: monthly
+electricity_monthly_consumption_low:
+  source: sensor.energy_consumption_tarif_2
+  cycle: monthly
+electricity_monthly_production_high:
+  source: sensor.energy_production_tarif_1
+  cycle: monthly
+electricity_monthly_production_low:
+  source: sensor.energy_production_tarif_2
+  cycle: monthly
+electricity_monthly_production_solar:
+  source: sensor.total_yield
+  cycle: monthly

@@ -1,0 +1,15 @@
+electricity_yearly_consumption_high:
+  source: sensor.energy_consumption_tarif_1
+  cycle: yearly
+electricity_yearly_consumption_low:
+  source: sensor.energy_consumption_tarif_2
+  cycle: yearly
+electricity_yearly_production_high:
+  source: sensor.energy_production_tarif_1
+  cycle: yearly
+electricity_yearly_production_low:
+  source: sensor.energy_production_tarif_2
+  cycle: yearly
+electricity_yearly_production_solar:
+  source: sensor.total_yield
+  cycle: yearly
