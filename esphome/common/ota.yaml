@@ -1,0 +1,12 @@
+---
+# OTA (Over The Air) component
+#
+# Contains my common Wi-Fi setup.
+#
+# https://esphome.io/components/ota.html
+#
+substitutions:
+  ota_password: !secret OTA_PASSWORD
+
+ota:
+  password: "${ota_password}"

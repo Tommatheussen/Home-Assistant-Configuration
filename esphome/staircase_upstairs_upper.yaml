@@ -1,0 +1,7 @@
+packages:
+  device: !include devices/staircase.yaml
+
+substitutions:
+  slug: staircase-upstairs-upper
+  name: Staircase Upstairs Upper
+  description: Beam sensor for the upstairs staircase, upper floor.

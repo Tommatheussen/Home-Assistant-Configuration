@@ -1,24 +1,10 @@
-esphome:
-  name: upstairs_node_aggregation
-  platform: ESP32
-  board: mhetesp32minikit
-  
-wifi:
-  ssid: !secret WIFI_SSID
-  password: !secret WIFI_PASSWORD
-  fast_connect: true
-  
-api:
+packages:
+  device: !include devices/bluetooth_node.yaml 
 
-logger:
-
-ota:
-  password: !secret OTA_PASSWORD
-  
-# Enable Bluetooth scanning for this ESP32
-esp32_ble_tracker:
-  scan_parameters:
-    window: 200ms
+substitutions:
+  slug: bluetooth-node-upstairs-laundry-room
+  name: Bluetooth Node Upstairs Laundy Room
+  description: Bluetooth aggregation node, upstairs in the laundry room.
 
 sensor:
   - platform: xiaomi_cgg1

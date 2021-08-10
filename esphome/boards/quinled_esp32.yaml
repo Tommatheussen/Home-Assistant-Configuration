@@ -1,0 +1,4 @@
+esphome:
+  <<: !include base.yaml
+  platform: ESP32
+  board: mhetesp32minikit

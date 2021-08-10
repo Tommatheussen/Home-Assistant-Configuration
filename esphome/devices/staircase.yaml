@@ -1,23 +1,8 @@
-esphome:
-  name: staircase_downstairs
-  platform: ESP8266
-  board: d1_mini
+packages:
+  <<: !include_dir_named ../common/
+  board: !include ../boards/esp8266_d1_mini.yaml
 
-wifi:
-  ssid: !secret WIFI_SSID
-  password: !secret WIFI_PASSWORD
-  fast_connect: true
-
-logger:
-  level: info
-
-api:
-
-ota:
-  password: !secret OTA_PASSWORD
-
-i2c:
-  scan: True
+<<: !include ../components/i2c.yaml
 
 sensor:
   - platform: vl53l0x
@@ -28,7 +13,7 @@ sensor:
 
 binary_sensor:
   - platform: template
-    name: "Staircase Downstairs Triggered"
+    name: "${name} Triggered"
     lambda: |-
       if (id(distance).state < 0.70) {
         // Beam was broken

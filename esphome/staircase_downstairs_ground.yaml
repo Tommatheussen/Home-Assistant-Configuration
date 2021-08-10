@@ -1,0 +1,7 @@
+packages:
+  device: !include devices/staircase.yaml
+
+substitutions:
+  slug: staircase-downstairs-ground
+  name: Staircase Downstairs Ground
+  description: Beam sensor for the downstairs staircase, ground floor.
