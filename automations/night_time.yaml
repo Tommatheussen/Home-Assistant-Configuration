@@ -1,6 +1,6 @@
 - id: 814f146bc58e42248c22313f9e346cf3
-  alias: night time
-  description: ''
+  alias: Night Time
+  description: 'Checks the day/night sensor and handles triggering the boolean input.'
   trigger:
     - platform: homeassistant
       event: start

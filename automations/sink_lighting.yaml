@@ -1,26 +1,48 @@
-- id: 088da93ae5224bf290b2a4bfb2997cab
-  alias: Wasbak uit
-  description: ''
+- id: '1628836896448'
+  alias: Sink Lighting
+  description: Handles the sink lighting
   trigger:
-  - entity_id: switch.sink
-    from: 'on'
-    platform: state
-    to: 'off'
+  - platform: state
+    entity_id: switch.sink
   condition: []
   action:
-  - data: {}
-    entity_id: script.sink_reset_to_normal
-    service: script.turn_on
-- id: d602dfb07c734754a24e9c74df8e7bc2
-  alias: Wasbak Wit
-  description: ''
-  trigger:
-  - entity_id: switch.sink
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data: {}
-    entity_id: script.sink_turn_on_white
-    service: script.turn_on
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.sink
+        state: 'on'
+      sequence:
+      - service: scene.create
+        data:
+          scene_id: temporary_sink
+          snapshot_entities:
+          - light.wled_sink
+      - type: turn_off
+        device_id: 87e4905a750a42b54c3f483cc0012eab
+        entity_id: switch.wled_sink_sync_receive
+        domain: switch
+      - service: light.turn_on
+        target:
+          entity_id: light.wled_sink
+        data:
+          brightness_pct: 25
+          rgbw_color: [0, 0, 0, 255]
+          effect: Solid
+    - conditions:
+      - condition: state
+        entity_id: switch.sink
+        state: 'off'
+      sequence:
+      - type: turn_off
+        device_id: 87e4905a750a42b54c3f483cc0012eab
+        entity_id: light.wled_sink
+        domain: light
+      - type: turn_on
+        device_id: 87e4905a750a42b54c3f483cc0012eab
+        entity_id: switch.wled_sink_sync_receive
+        domain: switch
+      - service: scene.turn_on
+        target:
+          entity_id: scene.temporary_sink
+    default: []
+  mode: single

@@ -1,6 +1,6 @@
 - id: 7f8059f82f9e4418b34ecaeaf52e87c2
-  alias: Rolluiken
-  description: ''
+  alias: House Covers
+  description: 'Opens or closes the covers based on time and house state'
   trigger:
   - platform: state
     entity_id: input_boolean.night
