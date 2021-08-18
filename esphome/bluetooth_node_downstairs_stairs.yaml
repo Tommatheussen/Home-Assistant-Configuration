@@ -7,46 +7,9 @@ substitutions:
   description: Bluetooth aggregation node, downstairs under the stairs.
 
 sensor:
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:30:1C
-    temperature:
-      name: "XIAOMI 582D3411301C Temperature"
-    humidity:
-      name: "XIAOMI 582D3411301C Humidity"
-    battery_level:
-      name: "XIAOMI 582D3411301C Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2C:40
-    temperature: 
-      name: "XIAOMI 582D34112C40 Temperature"
-    humidity:
-      name: "XIAOMI 582D34112C40 Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112C40 Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2F:8E
-    temperature:
-      name: "XIAOMI 582D34112F8E Temperature"
-    humidity:
-      name: "XIAOMI 582D34112F8E Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112F8E Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2B:F9
-    temperature:
-      name: "XIAOMI 582D34112BF9 Temperature"
-    humidity:
-      name: "XIAOMI 582D34112BF9 Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112BF9 Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2F:97
-    temperature:
-      name: "XIAOMI 582D34112F97 Temperature"
-    humidity:
-      name: "XIAOMI 582D34112F97 Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112F97 Battery"
+  - <<: !include ble-devices/xiaomi_server_closet_lower.yaml
+  - <<: !include ble-devices/xiaomi_server_closet_upper.yaml
+  - <<: !include ble-devices/xiaomi_kitchen.yaml
 
 binary_sensor:
   - platform: ble_presence

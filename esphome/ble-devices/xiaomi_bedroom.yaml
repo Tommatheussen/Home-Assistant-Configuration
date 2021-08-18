@@ -1,0 +1,8 @@
+platform: xiaomi_cgg1
+mac_address: 58:2D:34:11:2F:D4
+temperature:
+  name: "Bedroom 1 Temperature Xiaomi"
+humidity:
+  name: "Bedroom 1 Humidity Xiaomi"
+battery_level:
+  name: "Bedroom 1 Battery Xiaomi"

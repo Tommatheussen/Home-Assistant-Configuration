@@ -1,0 +1,15 @@
+packages:
+  device: !include devices/bluetooth_node.yaml
+
+substitutions:
+  slug: bluetooth-node-downstairs-office
+  name: Bluetooth Node Downstairs Office
+  description: Bluetooth aggregation node, downstairs in the office.
+
+sensor:
+  - <<: !include ble-devices/xiaomi_office.yaml
+  - <<: !include ble-devices/xiaomi_dining_room.yaml
+
+binary_sensor:
+  - <<: !include ble-devices/qingping_motion_desk.yaml
+  - <<: !include ble-devices/qingping_motion_ceiling.yaml

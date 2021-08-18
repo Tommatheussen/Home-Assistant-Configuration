@@ -1,0 +1,10 @@
+platform: xiaomi_cgpr1
+name: "Desk Motion detector"
+mac_address: 58:2D:34:60:32:A2
+bindkey: "6712354cf8a1afbb78d22aa9afd4e53f"
+idle_time:
+  name: "Desk Idle Time"
+battery_level:
+  name: "Desk Battery Level"
+illuminance:
+  name: "Desk Illuminance"

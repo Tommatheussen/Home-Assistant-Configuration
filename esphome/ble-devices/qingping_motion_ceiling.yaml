@@ -1,0 +1,10 @@
+platform: xiaomi_cgpr1
+name: "Ceiling Motion detector"
+mac_address: 58:2D:34:60:33:BF
+bindkey: "f99f57d75d2c2d025b76280b27068d92"
+idle_time:
+  name: "Ceiling Idle Time"
+battery_level:
+  name: "Ceiling Battery Level"
+illuminance:
+  name: "Ceiling Illuminance"

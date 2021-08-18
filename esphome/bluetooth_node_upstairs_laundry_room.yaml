@@ -7,27 +7,6 @@ substitutions:
   description: Bluetooth aggregation node, upstairs in the laundry room.
 
 sensor:
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2F:D4
-    temperature:
-      name: "XIAOMI 582D34112FD4 Temperature"
-    humidity:
-      name: "XIAOMI 582D34112FD4 Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112FD4 Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2C:46
-    temperature:
-      name: "XIAOMI 582D34112C46 Temperature"
-    humidity:
-      name: "XIAOMI 582D34112C46 Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112C46 Battery"
-  - platform: xiaomi_cgg1
-    mac_address: 58:2D:34:11:2C:4A
-    temperature:
-      name: "XIAOMI 582D34112C4A Temperature"
-    humidity:
-      name: "XIAOMI 582D34112C4A Humidity"
-    battery_level:
-      name: "XIAOMI 582D34112C4A Battery"
+  - <<: !include ble-devices/xiaomi_bathroom.yaml
+  - <<: !include ble-devices/xiaomi_bedroom.yaml
+  - <<: !include ble-devices/xiaomi_laundry_room.yaml

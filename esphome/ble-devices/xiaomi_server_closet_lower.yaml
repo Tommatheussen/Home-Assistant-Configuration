@@ -1,0 +1,8 @@
+platform: xiaomi_cgg1
+mac_address: 58:2D:34:11:2B:F9
+temperature:
+  name: "Server Closet Lower Temperature Xiaomi"
+humidity:
+  name: "Server Closet Lower Humidity Xiaomi"
+battery_level:
+  name: "Server Closet Lower Battery Xiaomi"

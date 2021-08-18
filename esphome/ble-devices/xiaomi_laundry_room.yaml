@@ -1,0 +1,8 @@
+platform: xiaomi_cgg1
+mac_address: 58:2D:34:11:2C:46
+temperature:
+  name: "Laundry Room Temperature Xiaomi"
+humidity:
+  name: "Laundry Room Humidity Xiaomi"
+battery_level:
+  name: "Laundry Room Battery Xiaomi"
