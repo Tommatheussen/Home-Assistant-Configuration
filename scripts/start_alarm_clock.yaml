@@ -1,0 +1,76 @@
+start_alarm_clock:
+  alias: Start Alarm Clock
+  sequence:
+  - service: wled.effect
+    target:
+      entity_id: light.wled_bed_segment_0
+    data:
+      effect: Sunrise
+      intensity: 128
+      palette: Default
+      speed: 20
+  - service: light.turn_on
+    target:
+      entity_id: light.wled_bed_segment_0
+    data:
+      brightness_pct: 25
+  - delay: 0:05
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.04
+    target:
+      entity_id: media_player.heos_bedroom
+  - service: media_player.play_media
+    data:
+      media_content_type: url
+      media_content_id: https://playerservices.streamtheworld.com/api/livestream-redirect/QMUSICAAC.aac
+    target:
+      entity_id: media_player.heos_bedroom
+  - delay: 0:03
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.05
+    target:
+      entity_id: media_player.heos_bedroom
+  - delay: 0:03
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.06
+    target:
+      entity_id: media_player.heos_bedroom
+  - delay: 0:03
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.07
+    target:
+      entity_id: media_player.heos_bedroom
+  - delay: 0:03
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.08
+    target:
+      entity_id: media_player.heos_bedroom
+  - delay: 0:03
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.heos_bedroom
+  - service: light.turn_on
+    target:
+      entity_id: light.wled_bed_segment_0
+    data:
+      rgbw_color:
+      - 0
+      - 0
+      - 0
+      - 255
+  - service: wled.effect
+    target:
+      entity_id: light.wled_bed_segment_0
+    data:
+      effect: Solid
+      intensity: 64
+      palette: Default
+      speed: 20
+  mode: single
+  icon: mdi:alarm
