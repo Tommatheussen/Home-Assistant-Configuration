@@ -2,66 +2,26 @@
   alias: Alarm Clock
   description: 'Handles the morning alarm'
   trigger:
-  - platform: time
-    at: input_datetime.alarm
+    - platform: time
+      at: input_datetime.alarm
+      id: alarm_time_reached
+    - platform: event
+      event_type: CUSTOM_ALARM_CLOCK_EVENT
+      id: alarm_clock_event
   condition: []
   action:
-  - service: wled.effect
-    entity_id: light.wled_bed_segment_0
-    data:
-      effect: Sunrise
-      intensity: 128
-      palette: Default
-      speed: 20
-  - service: light.turn_on
-    entity_id: light.wled_bed_segment_0
-  - delay: 0:05
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.04
-    entity_id: media_player.heos_bedroom
-  - service: media_player.play_media
-    data:
-      media_content_type: url
-      media_content_id: https://playerservices.streamtheworld.com/api/livestream-redirect/QMUSICAAC.aac
-    entity_id: media_player.heos_bedroom
-  - delay: 0:03
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.05
-    entity_id: media_player.heos_bedroom
-  - delay: 0:03
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.06
-    entity_id: media_player.heos_bedroom
-  - delay: 0:03
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.07
-    entity_id: media_player.heos_bedroom
-  - delay: 0:03
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.08
-    entity_id: media_player.heos_bedroom
-  - delay: 0:03
-  - service: media_player.media_stop
-    data: {}
-    entity_id: media_player.heos_bedroom
-  - service: light.turn_on
-    data:
-      entity_id: light.wled_bed_segment_0
-      rgbw_color:
-      - 0
-      - 0
-      - 0
-      - 255
-  - service: wled.effect
-    entity_id: light.wled_bed_segment_0
-    data:
-      effect: Solid
-      intensity: 64
-      palette: Default
-      speed: 20
-  mode: single
+  - choose:
+    - conditions:
+        condition: trigger
+        id: alarm_time_reached
+      sequence:
+        - service: script.turn_on
+          target:
+            entity_id: script.start_alarm_clock
+    - conditions:
+        condition: trigger
+        id: alarm_clock_event
+      sequence:
+        - service: script.turn_off
+          target:
+            entity_id: script.start_alarm_clock

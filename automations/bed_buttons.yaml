@@ -1,0 +1,80 @@
+- id: '1628542849590'
+  alias: Bed Buttons
+  description: Handles the different scenarios all the buttons above the bed can trigger
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.switch_left_upperleft_long
+    - binary_sensor.switch_right_upperright_long
+    id: long_press_night
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.switch_left_upperleft_short
+    - binary_sensor.switch_right_upperright_short
+    id: short_press_night
+    to: 'on'
+  - platform: state
+    entity_id: 
+      - binary_sensor.switch_left_upperright_long
+      - binary_sensor.switch_right_upperleft_long
+    id: long_press_alarm
+    to: 'on'
+  - platform: state
+    entity_id: 
+      - binary_sensor.switch_left_upperright_short
+      - binary_sensor.switch_right_upperleft_short
+    id: short_press_alarm
+    to: 'on'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: long_press_night
+      sequence:
+      - service: script.start_spotify_in_bedroom
+        data:
+          volume: 0.1
+          playlist: spotify:playlist:37i9dQZF1DX4aYNO8X5RpR
+    - conditions:
+      - condition: trigger
+        id: short_press_night
+      sequence:
+      - service: media_player.clear_playlist
+        target:
+          entity_id: media_player.heos_bedroom
+      - service: tts.cloud_say
+        data_template:
+          entity_id: media_player.heos_bedroom
+          message: Slaapwel, de wekker staat {{ 'op' if is_state('automation.alarm_clock',
+            'on') else 'af' }}.
+          language: nl-NL
+          cache: true
+          options:
+            gender: female
+      - wait_template: '{{ is_state(''media_player.heos_bedroom'', ''playing'') }}'
+      - wait_template: '{{ is_state(''media_player.heos_bedroom'', ''idle'') }}'
+      - service: media_player.select_source
+        target:
+          entity_id: media_player.spotify_tom_matheussen
+        data:
+          source: Slaapkamer
+      - service: script.turn_on
+        target:
+          entity_id: script.sleep_mode
+    - conditions:
+      - condition: trigger
+        id: long_press_alarm
+      sequence:
+      - service: automation.toggle
+        target:
+          entity_id: automation.alarm_clock
+    - conditions:
+      - condition: trigger
+        id: short_press_alarm
+      sequence:
+      - event: CUSTOM_ALARM_CLOCK_EVENT
+        event_data: {}
+    default: []
+  mode: restart
