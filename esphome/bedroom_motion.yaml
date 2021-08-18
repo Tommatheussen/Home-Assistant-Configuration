@@ -1,0 +1,22 @@
+packages:
+  <<: !include_dir_named ./common/
+  board: !include ./boards/esp8266_d1_mini.yaml
+
+substitutions:
+  slug: bedroom-motion
+  name: Bedroom Motion Sensor
+  description: Motion sensors in the bedroom
+
+binary_sensor:
+  - platform: gpio
+    pin: D1
+    name: "${name} Left"
+    device_class: motion
+    filters:
+      - delayed_on: 100ms
+  - platform: gpio
+    pin: D2
+    name: "${name} Right"
+    device_class: motion
+    filters:
+      - delayed_on: 100ms
