@@ -11,3 +11,4 @@ knx:
   binary_sensor: !include_dir_list ../entities/knx/binary_sensors
   switch: !include_dir_list ../entities/knx/switches
   sensor: !include_dir_list ../entities/knx/sensors
+  fan: !include_dir_list ../entities/knx/fans
