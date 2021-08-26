@@ -1,0 +1,5 @@
+# platform: circadian_lighting
+# name: bedroom_parents
+# lights_brightness:
+#   - light.bedroom_parents
+#   # TODO: Other lights

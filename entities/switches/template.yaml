@@ -1,0 +1,102 @@
+platform: template
+switches: !include_dir_merge_named ../templates/switches/
+
+
+
+  # denon_zone1_spotify:
+  #   value_template: >-
+  #     {{ is_state('media_player.living', 'on') 
+  #     and is_state_attr('media_player.living', 'source', 'HEOS Music')
+  #     and (
+  #       is_state_attr('media_player.living', 'sound_mode', 'ALL ZONE STEREO')
+  #       or is_state_attr('media_player.living', 'sound_mode', 'MCH STEREO')
+  #       )
+  #     }}
+  #   turn_on:
+  #     - service: media_player.turn_on
+  #       data:
+  #         entity_id: media_player.living
+  #     - delay: 1
+  #     - service: media_player.select_source
+  #       data:
+  #         entity_id: media_player.living
+  #         source: 'HEOS Music'
+  #     - choose:
+  #       - conditions:
+  #           - condition: state
+  #             entity_id: switch.denon_zone2_spotify
+  #             state: 'on'
+  #         sequence:
+  #           - service: media_player.select_sound_mode
+  #             data:
+  #               entity_id: media_player.living
+  #               sound_mode: 'ALL ZONE STEREO'
+  #       default:
+  #         - service: media_player.select_sound_mode
+  #           data:
+  #             entity_id: media_player.living
+  #             sound_mode: 'MCH STEREO'
+  #   turn_off:
+  #     service: media_player.turn_off
+  #     data:
+  #       entity_id: media_player.living
+  # denon_zone2_spotify:
+  #   value_template: >-
+  #     {{ is_state('media_player.living_zone2', 'on') 
+  #       and is_state_attr('media_player.living_zone2', 'source', 'HEOS Music')
+  #       }}
+  #   turn_on:
+  #     - service: media_player.turn_on
+  #       data:
+  #         entity_id: media_player.living_zone2
+  #     - delay: 1
+  #     - service: media_player.select_source
+  #       data:
+  #         entity_id: media_player.living_zone2
+  #         source: 'HEOS Music'
+      
+  #     - choose:
+  #       - conditions:
+  #           - condition: state
+  #             entity_id: switch.denon_zone1_spotify
+  #             state: 'on'
+  #         sequence:
+  #           - service: media_player.select_sound_mode
+  #             data:
+  #               entity_id: media_player.living
+  #               sound_mode: 'ALL ZONE STEREO'
+  #       default:
+  #         - service: media_player.select_sound_mode
+  #           data:
+  #             entity_id: media_player.living_zone2
+  #             sound_mode: 'MCH STEREO'
+  #     - service: media_player.volume_set
+  #       data:
+  #         entity_id: media_player.living_zone2
+  #         volume_level: 0.19
+          
+  #     # - service: media_player.select_sound_mode
+  #     #   data:
+  #     #     entity_id: media_player.living_zone2
+  #     #     sound_mode: 'ALL ZONE STEREO'
+  #   turn_off:
+  #     - service: media_player.turn_off
+  #       data:
+  #         entity_id: media_player.living_zone2
+  #     - delay: 1
+  #     - condition: state
+  #       entity_id: switch.denon_zone1_spotify
+  #       state: 'on'
+  #     - service: media_player.select_sound_mode
+  #       data:
+  #         entity_id: media_player.living
+  #         sound_mode: 'MCH STEREO'
+  #       # "{{ is_state('sensor.skylight', 'on') }}"
+  #         #   turn_on:
+  #     #     service: switch.turn_on
+  #     #     data:
+  #     #       entity_id: switch.skylight_open
+  #     #   turn_off:
+  #     #     service: switch.turn_off
+  #     #     data:
+  #     #       entity_id: switch.skylight_close
