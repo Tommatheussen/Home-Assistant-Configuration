@@ -23,10 +23,3 @@ While in most systems these options would perfectly suffice, I had a problem on 
 If I were to use Memory, then lights that would have been turned off during the day, would come on at full brightness during the night, and then quickly dimming down, resulting in a bright flash before going to the correct circadian settings. The same happen with Max value, as all my lights have a maximum value of 100% right now. In some places I use the Day/night cycle, but these are also just static values.
 
 I have settled on the Fixed value right now, the modules itself have a minimum value of 6%, I guess the drivers can't properly function below that. And it turns out, this is pretty much perfect. Now all my lights go to a value of 6%, that doesn't sounds like a lot but for LED lights it certainly is enough. As long as Home Assistant is running, the circadian lighting kicks in instantly and brightens up the lights where needed. If Home Assistant is down, I at least still have light (albeit not a lot) everywhere.
-
-### Ventilation
-I have not found a lot of time to fully investigate and identify the actual issue here, but it seems my ventilation system does not expose the correct values to the KNX bus. What this means is that I cannot use the standard Fan integration in Home Assistant to actually set the ventilation system and change the speeds.
-For now, I have found that my ventilation system does support a Switch sensor for each speed setting, so I now have a couple of Switches in Home Assistant to change the speed of the ventilation, as well as some automations to toggle the correct switches.
-The good thing, is that the ventilation automatically toggles the other speed switches off, so I only need to turn 1 on and the rest will go back to off.
-
-I don't like this approach, because it's a lot harder to get this to work inside lovelace with fan cards and such, but it works for now, I will probably revise this in the future.
