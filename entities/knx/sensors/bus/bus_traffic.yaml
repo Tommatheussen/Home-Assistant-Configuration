@@ -1,3 +1,4 @@
 name: knx_bus_traffic
 state_address: '5/0/102'
 type: 'percent'
+state_class: measurement

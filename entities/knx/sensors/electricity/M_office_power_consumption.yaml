@@ -2,3 +2,4 @@ name: office_power_consumption
 state_address: '5/0/24'
 type: 'power'
 sync_state: 'expire 5'
+state_class: measurement

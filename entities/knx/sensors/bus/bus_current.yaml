@@ -1,3 +1,4 @@
 name: knx_bus_current
 state_address: '5/0/100'
-type: 'curr'
+type: 'electric_current'
+state_class: measurement

@@ -2,3 +2,4 @@ name: ventilation_power_consumption
 state_address: '5/0/44'
 type: 'power'
 sync_state: 'expire 5'
+state_class: measurement

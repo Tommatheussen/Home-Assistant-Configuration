@@ -2,3 +2,4 @@ name: storage_room_power_consumption
 state_address: '5/0/18'
 type: 'power'
 sync_state: 'expire 5'
+state_class: measurement

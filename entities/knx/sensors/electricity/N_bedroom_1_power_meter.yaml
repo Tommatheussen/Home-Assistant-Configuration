@@ -2,3 +2,4 @@ name: bedroom_1_power_meter
 state_address: '5/0/27'
 type: 'active_energy'
 sync_state: 'every 5'
+state_class: total_increasing

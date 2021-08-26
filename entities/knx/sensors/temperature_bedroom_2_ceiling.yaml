@@ -1,3 +1,4 @@
 name: temperature_bedroom_2_ceiling
 state_address: '5/2/2'
 type: 'temperature'
+state_class: measurement

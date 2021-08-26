@@ -2,3 +2,4 @@ name: charging_pole_3_power_meter
 state_address: '5/0/93'
 type: 'active_energy'
 sync_state: 'every 5'
+state_class: total_increasing

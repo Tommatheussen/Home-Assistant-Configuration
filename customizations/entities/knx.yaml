@@ -1,0 +1,6 @@
+group.bedroom_1_smoke_detector:
+  device_class: safety
+sensor.knx_bus_current:
+  device_class: current
+sensor.knx_bus_voltage:
+  device_class: voltage
