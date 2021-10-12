@@ -1,0 +1,5 @@
+name: dressing
+address: '1/2/30'
+state_address: '1/2/33'
+brightness_address: '1/2/32'
+brightness_state_address: '1/2/34'

@@ -1,5 +1,5 @@
 name: door
-address: '1/0/4'
-state_address: '1/0/5'
-brightness_address: '1/0/7'
-brightness_state_address: '1/0/8'
+address: '1/4/10'
+state_address: '1/4/13'
+brightness_address: '1/4/12'
+brightness_state_address: '1/4/14'

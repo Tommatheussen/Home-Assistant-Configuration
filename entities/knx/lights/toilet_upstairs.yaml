@@ -1,3 +1,5 @@
 name: toilet_upstairs
-address: '1/2/30'
-state_address: '1/2/31'
+address: '1/2/56'
+state_address: '1/2/60'
+brightness_address: '1/2/59'
+brightness_state_address: '1/2/61'

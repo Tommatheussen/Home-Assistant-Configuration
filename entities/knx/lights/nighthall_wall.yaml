@@ -1,3 +1,5 @@
 name: hallway_wall
-address: '1/2/50'
-state_address: '1/2/53'
+address: '1/2/150'
+state_address: '1/2/153'
+brightness_address: '1/2/152'
+brightness_state_address: '1/2/154'
