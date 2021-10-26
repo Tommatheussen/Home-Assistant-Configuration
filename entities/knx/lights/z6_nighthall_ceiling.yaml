@@ -1,3 +1,5 @@
 name: hallway_ceiling
 address: '1/2/25'
 state_address: '1/2/28'
+brightness_address: '1/2/27'
+brightness_state_address: '1/2/29'

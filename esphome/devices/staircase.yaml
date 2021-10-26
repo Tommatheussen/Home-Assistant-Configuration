@@ -1,6 +1,7 @@
 packages:
   <<: !include_dir_named ../common/
   board: !include ../boards/esp8266_d1_mini.yaml
+  wifi: !include  ../components/wifi.yaml
 
 <<: !include ../components/i2c.yaml
 

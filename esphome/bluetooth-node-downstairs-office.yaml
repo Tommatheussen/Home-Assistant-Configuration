@@ -1,5 +1,5 @@
 packages:
-  device: !include devices/bluetooth_node.yaml
+  device: !include devices/bluetooth_node_ethernet.yaml
 
 substitutions:
   slug: bluetooth-node-downstairs-office
