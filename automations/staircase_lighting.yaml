@@ -10,16 +10,11 @@
       to: 'on'
   condition: []
   action:
-    - service: wled.effect
-      target: 
+    - service: light.turn_on
+      target:
         entity_id: light.wled_staircase
       data:
         effect: Solid
-        palette: Default
-    - device_id: c4e17a300646dab7e44e16f0c71a8bbe
-      domain: light
-      entity_id: light.wled_staircase
-      type: turn_on
     - delay: 
         seconds: 10
     - device_id: c4e17a300646dab7e44e16f0c71a8bbe
