@@ -1,7 +1,7 @@
 """
 Sensor component for waste pickup dates from dutch and belgium waste collectors
 Original Author: Pippijn Stortelder
-Current Version: 4.7.23 20210816 - Pippijn Stortelder
+Current Version: 4.8.1 20211213 - Pippijn Stortelder
 20210112 - Updated date format for RD4
 20210114 - Fix error made in commit 9d720ec
 20210120 - Enabled textile for RecycleApp
@@ -20,6 +20,20 @@ Current Version: 4.7.23 20210816 - Pippijn Stortelder
 20210505 - Fixed Limburg.net mapping
 20210601 - Fix for ROVA
 20210816 - Changed Suez to PreZero
+20210826 - Bugfix for CirculusBerkel
+20210916 - More waste types for Omrin
+20210916 - Fix dutch translation for September
+20210927 - Added support for Westland
+20210927 - Fix for Alkmaar
+20210927 - Added option 'dayofweekonly' to only show day name in state
+20210930 - Fix for Alkmaar
+20211001 - Switch Avalex tot Ximmio
+20211005 - Small bug fix
+20211019 - Add support for housenumber additions on the Circulus Berkel API
+20211022 - Update Mijnafvalwijzer mapping
+20211212 - Replace device_state_attributes with extra_state_attributes
+20211213 - Breaking change: replaced - with _ in Days_until and Days_until
+20211213 - Add unique ids to all sensors
 
 Example config:
 Configuration.yaml:
@@ -86,21 +100,21 @@ CONF_BUILT_IN_ICONS = 'builtinicons'
 CONF_DISABLE_ICONS = 'disableicons'
 CONF_TRANSLATE_DAYS = 'dutch'
 CONF_DAY_OF_WEEK = 'dayofweek'
+CONF_DAY_OF_WEEK_ONLY = 'dayofweekonly'
 CONF_ALWAYS_SHOW_DAY = 'alwaysshowday'
 CONF_PRINT_AVAILABLE_WASTE_TYPES = 'printwastetypes'
 CONF_UPDATE_INTERVAL = 'updateinterval'
 
 ATTR_WASTE_COLLECTOR = 'Wastecollector'
 ATTR_HIDDEN = 'Hidden'
-ATTR_SORT_DATE = 'Sort-date'
-ATTR_DAYS_UNTIL = 'Days-until'
+ATTR_SORT_DATE = 'Sort_date'
+ATTR_DAYS_UNTIL = 'Days_until'
 
 NOTIFICATION_ID = "Afvalbeheer"
 
 OPZET_COLLECTOR_URLS = {
-    'alkmaar': 'https://inzamelkalender.stadswerk072.nl/',
+    'alkmaar': 'https://www.stadswerk072.nl',
     'alphenaandenrijn': 'https://afvalkalender.alphenaandenrijn.nl',
-    'avalex': 'https://www.avalex.nl',
     'berkelland': 'https://afvalkalender.gemeenteberkelland.nl',
     'blink': 'https://mijnblink.nl',
     'cranendonck': 'https://afvalkalender.cranendonck.nl',
@@ -128,6 +142,7 @@ XIMMIO_COLLECTOR_IDS = {
     'acv': 'f8e2844a-095e-48f9-9f98-71fceb51d2c3',
     'almere': '53d8db94-7945-42fd-9742-9bbc71dbe4c1',
     'areareiniging': 'adc418da-d19b-11e5-ab30-625662870761',
+    'avalex': 'f7a74ad1-fdbf-4a43-9f91-44644f4d4222',
     'avri': '78cd4156-394b-413d-8936-d407e334559a',
     'bar': 'bb58e633-de14-4b2a-9941-5bc419f1c4b0',
     'hellendoorn': '24434f5b-7244-412b-9306-3a2bd1e22bc1',
@@ -136,6 +151,7 @@ XIMMIO_COLLECTOR_IDS = {
     'rad': '13a2cad9-36d0-4b01-b877-efcb421a864d',
     'twentemilieu': '8d97bb56-5afd-4cbc-a651-b4f7314264b4',
     'waardlanden': '942abcf6-3775-400d-ae5d-7380d728b23c',
+    'westland': '6fc75608-126a-4a50-9241-a002ce8c8a6c',
     'ximmio': '800bf8d7-6dd1-4490-ba9d-b419d6dc8a45',
     'reinis': '9dc25c8a-175a-4a41-b7a1-83f237a80b77',
 }
@@ -155,6 +171,7 @@ WASTE_TYPE_GREY = 'restafval'
 WASTE_TYPE_GREY_BAGS = 'restafvalzakken'
 WASTE_TYPE_SORTI = 'sortibak'
 WASTE_TYPE_KCA = 'chemisch'
+WASTE_TYPE_KCA_LOCATION = 'chemisch-brengen'
 WASTE_TYPE_MILIEUB = 'milieuboer'
 WASTE_TYPE_PAPER_PMD = 'papier-pmd'
 WASTE_TYPE_PACKAGES = 'pmd'
@@ -178,7 +195,7 @@ FRACTION_ICONS = {
     'restafval': 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8IS0tIENyZWF0b3I6IENvcmVsRFJBVyBYNiAtLT4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNS4zMzMzM2luIiBoZWlnaHQ9IjUuMzMzMzNpbiIgdmVyc2lvbj0iMS4xIiBzdHlsZT0ic2hhcGUtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjsgdGV4dC1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQiDQp2aWV3Qm94PSIwIDAgNTMzMyA1MzMzIg0KIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4NCiA8ZGVmcz4NCiAgPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCiAgIDwhW0NEQVRBWw0KICAgIC5zdHIwIHtzdHJva2U6IzIzMUYyMDtzdHJva2Utd2lkdGg6MTExLjExfQ0KICAgIC5maWwwIHtmaWxsOm5vbmU7ZmlsbC1ydWxlOm5vbnplcm99DQogICBdXT4NCiAgPC9zdHlsZT4NCiA8L2RlZnM+DQogPGcgaWQ9IkxheWVyX3gwMDIwXzEiPg0KICA8bWV0YWRhdGEgaWQ9IkNvcmVsQ29ycElEXzBDb3JlbC1MYXllciIvPg0KICA8cGF0aCBjbGFzcz0iZmlsMCBzdHIwIiBkPSJNNDUyNCA0MjQxYzQ4LC0zOTggMTksLTU1OCAtMTM4LC04MDMgLTE1NiwtMjQ1IC0xMDczLC0xMzEyIC0xMDczLC0xMzEybDM5MSAxMDA5IC01MjYgLTg0NiAtMjAzIDExMzUgLTExIC0xMTU0IC05MDEgNDMyIDk1MSAtNjQxIDMzOSA3NCAxMDEzIC01NDIgLTY5NSAtMTU2IC0yNzcgNDc3IDg3IC0xMDMzIC02ODkgNjAxIDEzNyAtMjM3IC01OTYgLTMwOSA0NTEgOTQzIC0xOTc0IDkyMyAtMjE3IDUyMyAyMTYgNTIwIC0xNjEgLTY3IC0xNTEgMzQwbTM5ODMgNDIxYzIwLC0xMjcgMzUsLTIzMSA0MywtMjk5Ii8+DQogIDxwYXRoIGNsYXNzPSJmaWwwIHN0cjAiIGQ9Ik01Mjc1IDI2NjVjMCwxNDQxIC0xMTY4LDI2MTAgLTI2MTAsMjYxMCAtMTQ0MSwwIC0yNjEwLC0xMTY4IC0yNjEwLC0yNjEwIDAsLTE0NDEgMTE2OCwtMjYxMCAyNjEwLC0yNjEwIDE0NDEsMCAyNjEwLDExNjggMjYxMCwyNjEwem0wIDB6Ii8+DQogPC9nPg0KPC9zdmc+DQo=',
 }
 
-DUTCH_TRANSLATION_DATES = {
+DUTCH_TRANSLATION_DAYS = {
     'Monday': 'Maandag',
     'Tuesday': 'Dinsdag',
     'Wednesday': 'Woensdag',
@@ -186,6 +203,9 @@ DUTCH_TRANSLATION_DATES = {
     'Friday': 'Vrijdag',
     'Saturday': 'Zaterdag',
     'Sunday': 'Zondag',
+}
+
+DUTCH_TRANSLATION_MONTHS = {
     'January': 'Januari',
     'February': 'Februari',
     'March': 'Maart',
@@ -197,7 +217,10 @@ DUTCH_TRANSLATION_DATES = {
     'September': 'September',
     'October': 'Oktober',
     'November': 'November',
-    'December': 'December',
+    'December': 'December'
+}
+
+DUTCH_TRANSLATION_MONTHS_SHORT = {
     'Jan': 'Jan',
     'Feb': 'Feb',
     'Mar': 'Mrt',
@@ -231,6 +254,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_DISABLE_ICONS, default=False): cv.boolean,
     vol.Optional(CONF_TRANSLATE_DAYS, default=False): cv.boolean,
     vol.Optional(CONF_DAY_OF_WEEK, default=True): cv.boolean,
+    vol.Optional(CONF_DAY_OF_WEEK_ONLY, default=False): cv.boolean,
     vol.Optional(CONF_ALWAYS_SHOW_DAY, default=False): cv.boolean,
     vol.Optional(CONF_PRINT_AVAILABLE_WASTE_TYPES, default=False): cv.boolean,
     vol.Optional(CONF_UPDATE_INTERVAL, default=0): cv.positive_int,
@@ -256,6 +280,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     disable_icons = config.get(CONF_DISABLE_ICONS)
     dutch_days = config.get(CONF_TRANSLATE_DAYS)
     day_of_week = config.get(CONF_DAY_OF_WEEK)
+    day_of_week_only = config.get(CONF_DAY_OF_WEEK_ONLY)
     always_show_day = config.get(CONF_ALWAYS_SHOW_DAY)
     print_waste_type = config.get(CONF_PRINT_AVAILABLE_WASTE_TYPES)
     update_interval = config.get(CONF_UPDATE_INTERVAL)
@@ -310,6 +335,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             disable_icons, 
             dutch_days, 
             day_of_week, 
+            day_of_week_only, 
             always_show_day))
 
     if sensor_today:
@@ -540,6 +566,7 @@ class AfvalwijzerCollector(WasteCollector):
         'tuinafval': WASTE_TYPE_BULKYGARDENWASTE,
         'glas': WASTE_TYPE_GLASS,
         'gft': WASTE_TYPE_GREEN,
+        'kcalocatie': WASTE_TYPE_KCA_LOCATION,
         'kca': WASTE_TYPE_KCA,
         'restafval': WASTE_TYPE_GREY,
         'plastic': WASTE_TYPE_PACKAGES,
@@ -621,6 +648,8 @@ class CirculusBerkelCollector(WasteCollector):
     def __get_data(self):
         r = requests.get(self.main_url)
         cookies = r.cookies
+        session_cookie = ""
+        logged_in_cookies = ""
 
         for item in cookies.items():
             if item[0] == "CB_SESSION":
@@ -637,6 +666,16 @@ class CirculusBerkelCollector(WasteCollector):
             r = requests.post(
                 '{}/register/zipcode.json'.format(self.main_url), data=data, cookies=cookies
             )
+
+            json_response_data = r.json()
+            if self.suffix != "" and json_response_data["flashMessage"] != "":
+                authenticationUrl = ""
+                for address in json_response_data["customData"]["addresses"]:
+                    if re.search(' '+self.street_number+' '+self.suffix.lower(), address["address"]) != None:
+                        authenticationUrl = address["authenticationUrl"]
+                        break
+                r = requests.get(self.main_url+authenticationUrl, cookies=cookies)
+
             logged_in_cookies = r.cookies
         else:
             _LOGGER.error("Unable to get Session Cookie")
@@ -840,12 +879,15 @@ class OmrinCollector(WasteCollector):
     WASTE_TYPE_MAPPING = {
         # 'BRANCHES': WASTE_TYPE_BRANCHES,
         'Grofvuil': WASTE_TYPE_BULKLITTER,
+        'Grofvuil en elektrische apparaten': WASTE_TYPE_BULKLITTER,
         # 'BULKYGARDENWASTE': WASTE_TYPE_BULKYGARDENWASTE,
         # 'GLASS': WASTE_TYPE_GLASS,
+        'Biobak op afroep': WASTE_TYPE_GREEN,
         'Biobak': WASTE_TYPE_GREEN,
         'GFT': WASTE_TYPE_GREEN,
         # 'GREY': WASTE_TYPE_GREY,
         'KCA': WASTE_TYPE_KCA,
+        'Chemisch afval': WASTE_TYPE_KCA,
         'Sortibak': WASTE_TYPE_SORTI,
         'Papier': WASTE_TYPE_PAPER,
         # 'REMAINDER': WASTE_TYPE_REMAINDER,
@@ -871,7 +913,7 @@ class OmrinCollector(WasteCollector):
         base64EncodedRequest = b64encode(encryptedRequest).decode("utf-8")
 
         response = requests.post("{}/FetchAccount/".format(self.main_url) + self.appId, '"' + base64EncodedRequest + '"', timeout=60).json()
-        return response['CalendarHomeV2']
+        return response['CalendarV2']
 
     async def update(self):
         _LOGGER.debug('Updating Waste collection dates using Rest API')
@@ -1197,8 +1239,10 @@ class XimmioCollector(WasteCollector):
     }
 
     XIMMIO_URLS = {
+        'avalex': "https://wasteprod2api.ximmio.com",
         'meerlanden': "https://wasteprod2api.ximmio.com",
-        'rad': "https://wasteprod2api.ximmio.com"
+        'rad': "https://wasteprod2api.ximmio.com",
+        'westland': "https://wasteprod2api.ximmio.com",
     }
 
     def __init__(self, hass, waste_collector, postcode, street_number, suffix, address_id):
@@ -1282,7 +1326,7 @@ class XimmioCollector(WasteCollector):
 class WasteTypeSensor(Entity):
 
     def __init__(self, data, waste_type, waste_collector, date_format, date_only, date_object, 
-        name, name_prefix, built_in_icons, disable_icons, dutch_days, day_of_week, always_show_day):
+        name, name_prefix, built_in_icons, disable_icons, dutch_days, day_of_week, day_of_week_only, always_show_day):
         self.data = data
         self.waste_type = waste_type
         self.waste_collector = waste_collector
@@ -1290,17 +1334,19 @@ class WasteTypeSensor(Entity):
         self.date_only = date_only
         self.date_object = date_object
         self._name = _format_sensor(name, name_prefix, waste_collector, self.waste_type)
+        self._attr_unique_id = _format_sensor(name, name_prefix, waste_collector, self.waste_type)
         self.built_in_icons = built_in_icons
         self.disable_icons = disable_icons
         self.dutch_days = dutch_days
         self.day_of_week = day_of_week
+        self.day_of_week_only = day_of_week_only
         self.always_show_day = always_show_day
         if self.dutch_days:
-            self._today = "Vandaag, "
-            self._tomorrow = "Morgen, "
+            self._today = "Vandaag"
+            self._tomorrow = "Morgen"
         else:
-            self._today = "Today, "
-            self._tomorrow = "Tomorrow, "
+            self._today = "Today"
+            self._tomorrow = "Tomorrow"
         self._days_until = None
         self._unit = ''
         self._sort_date = 0
@@ -1321,7 +1367,7 @@ class WasteTypeSensor(Entity):
         return self._state
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         return {
             ATTR_WASTE_COLLECTOR: self.waste_collector,
             ATTR_HIDDEN: self._hidden,
@@ -1353,27 +1399,47 @@ class WasteTypeSensor(Entity):
     def __set_state(self, collection):
         date_diff = (collection.date - datetime.now()).days + 1
         self._days_until = date_diff
+        date_format = self.date_format
         if self.date_object:
             self._state = collection.date
         elif self.date_only:
-            self._state = collection.date.strftime(self.date_format)
+            self._state = collection.date.strftime(date_format)
         elif date_diff >= 8 and not self.always_show_day:
-            self._state = collection.date.strftime(self.date_format)
+            self._state = collection.date.strftime(date_format)
         elif date_diff > 1:
             if self.day_of_week:
-                self._state = collection.date.strftime('%A, ' + self.date_format)
+                if self.day_of_week_only:
+                    date_format = "%A"
+                    self._state = collection.date.strftime(date_format)
+                else:
+                    if "%A"  not in self.date_format:
+                        date_format = "%A, " + date_format
+                    self._state = collection.date.strftime(date_format)
             else:
-                self._state = collection.date.strftime(self.date_format)
+                self._state = collection.date.strftime(date_format)
         elif date_diff == 1:
-            self._state = collection.date.strftime(self._tomorrow + self.date_format)
+            if self.day_of_week_only:
+                self._state = collection.date.strftime(self._tomorrow)
+            else:
+                self._state = collection.date.strftime(self._tomorrow + ", " + date_format)
         elif date_diff == 0:
-            self._state = collection.date.strftime(self._today + self.date_format)
+            if self.day_of_week_only:
+                self._state = collection.date.strftime(self._today)
+            else:
+                self._state = collection.date.strftime(self._today + ", " + date_format)
         else:
             self._state = None
 
         if self.dutch_days and not self.date_object:
-            for EN_day, NL_day in DUTCH_TRANSLATION_DATES.items():
-                self._state = self._state.replace(EN_day, NL_day)
+            if "%b" in date_format:
+                for EN_day, NL_day in DUTCH_TRANSLATION_MONTHS_SHORT.items():
+                    self._state = self._state.replace(EN_day, NL_day)
+            if "%B" in date_format:
+                for EN_day, NL_day in DUTCH_TRANSLATION_MONTHS.items():
+                    self._state = self._state.replace(EN_day, NL_day)
+            if "%A" in date_format:
+                for EN_day, NL_day in DUTCH_TRANSLATION_DAYS.items():
+                    self._state = self._state.replace(EN_day, NL_day)
 
     def __set_sort_date(self, collection):
         self._sort_date = int(collection.date.strftime('%Y%m%d'))
@@ -1403,6 +1469,7 @@ class WasteDateSensor(Entity):
         else:
             day = ''
         self._name = _format_sensor(name, name_prefix, waste_collector, day)
+        self._attr_unique_id = _format_sensor(name, name_prefix, waste_collector, day)
         self._unit = ''
         self._hidden = False
         self._state = None
@@ -1416,7 +1483,7 @@ class WasteDateSensor(Entity):
         return self._state
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         return {
             ATTR_HIDDEN: self._hidden
         }
