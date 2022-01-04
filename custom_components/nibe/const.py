@@ -4,20 +4,18 @@ ATTR_TARGET_TEMPERATURE = "target_temperature"
 ATTR_VALVE_POSITION = "valve_position"
 
 DOMAIN = "nibe"
-DATA_NIBE = "nibe"
+DATA_NIBE_ENTRIES = "nibe.entries"
+DATA_NIBE_CONFIG = "nibe.config"
 
 CONF_CLIENT_ID = "client_id"
 CONF_CLIENT_SECRET = "client_secret"
 CONF_REDIRECT_URI = "redirect_uri"
 CONF_WRITEACCESS = "writeaccess"
 CONF_ACCESS_DATA = "access_data"
-CONF_CATEGORIES = "categories"
 CONF_SENSORS = "sensors"
-CONF_STATUSES = "statuses"
 CONF_SYSTEMS = "systems"
 CONF_SYSTEM = "system"
 CONF_UNITS = "units"
-CONF_UNIT = "unit"
 CONF_CLIMATES = "climates"
 CONF_SWITCHES = "switches"
 CONF_BINARY_SENSORS = "binary_sensors"
@@ -39,9 +37,8 @@ SERVICE_SET_PARAMETER = "set_parameter"
 SERVICE_GET_PARAMETER = "get_parameter"
 SERVICE_SET_THERMOSTAT = "set_thermostat"
 
-SIGNAL_PARAMETERS_UPDATED = "nibe.parameters_updated"
 SIGNAL_STATUSES_UPDATED = "nibe.statuses_updated"
 
-SCAN_INTERVAL = 60
+SCAN_INTERVAL = 30
 
 DEFAULT_THERMOSTAT_TEMPERATURE = 22

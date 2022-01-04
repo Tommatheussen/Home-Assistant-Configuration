@@ -1,8 +1,8 @@
 """FAN for nibe."""
+from __future__ import annotations
 
 import asyncio
 import logging
-from typing import Dict, List, Optional, Union
 
 from homeassistant.components.fan import (
     ENTITY_ID_FORMAT,
@@ -10,11 +10,12 @@ from homeassistant.components.fan import (
     SUPPORT_SET_SPEED,
     FanEntity,
 )
-from homeassistant.exceptions import PlatformNotReady
-from nibeuplink import Uplink, VentilationSystem, get_active_ventilations
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from nibeuplink import VentilationSystem, get_active_ventilations
 
-from . import NibeSystem
-from .const import DATA_NIBE
+from . import NibeData, NibeSystem
+from .const import DATA_NIBE_ENTRIES
 from .const import DOMAIN as DOMAIN_NIBE
 from .entity import NibeEntity
 
@@ -24,20 +25,20 @@ SPEED_AUTO = "auto"
 SPEED_BOOST = "boost"
 
 
-async def async_setup_entry(hass, entry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities
+):
     """Set up the climate device based on a config entry."""
-    if DATA_NIBE not in hass.data:
-        raise PlatformNotReady
-
-    uplink = hass.data[DATA_NIBE].uplink  # type: Uplink
-    systems = hass.data[DATA_NIBE].systems  # type: List[NibeSystem]
+    data: NibeData = hass.data[DATA_NIBE_ENTRIES][entry.entry_id]
+    uplink = data.uplink
+    systems = data.systems
 
     entities = []
 
     async def add_active(system: NibeSystem):
         ventilations = await get_active_ventilations(uplink, system.system_id)
         for ventilation in ventilations.values():
-            entities.append(NibeFan(uplink, system.system_id, ventilation))
+            entities.append(NibeFan(system, ventilation))
 
     await asyncio.gather(*[add_active(system) for system in systems.values()])
 
@@ -47,33 +48,29 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class NibeFan(NibeEntity, FanEntity):
     """Nibe Sensor."""
 
-    def __init__(self, uplink: Uplink, system_id: int, ventilation: VentilationSystem):
+    def __init__(self, system: NibeSystem, ventilation: VentilationSystem):
         """Init."""
-        super().__init__(uplink, system_id)
+        parameters = {
+            ventilation.fan_speed,
+            ventilation.ventilation_boost,
+            ventilation.extract_air,
+            ventilation.exhaust_speed_normal,
+            ventilation.exhaust_air,
+            ventilation.exhaust_speed_1,
+            ventilation.exhaust_speed_2,
+            ventilation.exhaust_speed_3,
+            ventilation.exhaust_speed_4,
+        }
+        super().__init__(system, parameters)
 
         self._ventilation = ventilation
         self.entity_id = ENTITY_ID_FORMAT.format(
-            "{}_{}_{}".format(DOMAIN_NIBE, system_id, str(ventilation.name).lower())
+            "{}_{}_{}".format(
+                DOMAIN_NIBE, system.system_id, str(ventilation.name).lower()
+            )
         )
-
-        self.get_parameters(
-            [
-                ventilation.fan_speed,
-                ventilation.ventilation_boost,
-                ventilation.extract_air,
-                ventilation.exhaust_speed_normal,
-                ventilation.exhaust_air,
-                ventilation.exhaust_speed_1,
-                ventilation.exhaust_speed_2,
-                ventilation.exhaust_speed_3,
-                ventilation.exhaust_speed_4,
-            ]
-        )
-
-    @property
-    def name(self):
-        """Return name of entity."""
-        return self._ventilation.name
+        self._attr_name = ventilation.name
+        self._attr_unique_id = "{}_{}".format(system.system_id, ventilation.fan_speed)
 
     @property
     def is_on(self):
@@ -84,11 +81,14 @@ class NibeFan(NibeEntity, FanEntity):
         return False
 
     @property
-    def percentage(self) -> Optional[int]:
-        return self.get_float(self._ventilation.fan_speed)
+    def percentage(self) -> int | None:
+        """Return the current percentage."""
+        if (value := self.get_value(self._ventilation.fan_speed)) is not None:
+            return int(value)
+        return None
 
     @property
-    def preset_mode(self) -> Optional[str]:
+    def preset_mode(self) -> str | None:
         """Return the current preset mode, e.g., auto, smart, interval, favorite."""
         boost = self.get_raw(self._ventilation.ventilation_boost)
         if boost:
@@ -102,17 +102,7 @@ class NibeFan(NibeEntity, FanEntity):
         return [SPEED_AUTO, SPEED_BOOST]
 
     @property
-    def state_attributes(self) -> dict:
-        """Return optional state attributes.
-
-        Overide base class state_attibutes to support device specific.
-        """
-        data = super().state_attributes
-        data.update(self.device_state_attributes)
-        return data
-
-    @property
-    def device_state_attributes(self) -> Dict[str, Optional[str]]:
+    def extra_state_attributes(self) -> dict[str, str | None]:
         """Return extra state."""
         data = {}
         data["extract_air"] = self.get_value(self._ventilation.extract_air)
@@ -130,12 +120,12 @@ class NibeFan(NibeEntity, FanEntity):
             await self.async_set_preset_mode(preset)
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
-        """Set the preset mode of the fan"""
+        """Set the preset mode of the fan."""
         if preset_mode == SPEED_BOOST:
             value = 1
         else:
             value = 0
-
+        assert self._ventilation.ventilation_boost, "Ventilation boost not supported"
         await self._uplink.put_parameter(
             self._system_id,
             self._ventilation.ventilation_boost,
@@ -143,6 +133,7 @@ class NibeFan(NibeEntity, FanEntity):
         )
 
     async def async_set_percentage(self, percentage: int) -> None:
+        """Set an exact percentage."""
         raise NotImplementedError("Can't set exact speed")
 
     @property
@@ -151,6 +142,6 @@ class NibeFan(NibeEntity, FanEntity):
         return "{}_{}".format(self._system_id, self._ventilation.fan_speed)
 
     @property
-    def supported_features(self) -> Optional[int]:
+    def supported_features(self) -> int | None:
         """Return supported features."""
         return SUPPORT_PRESET_MODE | SUPPORT_SET_SPEED

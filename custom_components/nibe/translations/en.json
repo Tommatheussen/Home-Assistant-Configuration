@@ -19,12 +19,8 @@
                     "code": "Code included in redirect uri"
                 }
             },
-            "systems": {
-                "data": {
-                    "systems": "Selected systems"
-                },
-                "description": "Please select which Nibe systems to track",
-                "title": "System selection"
+            "confirm": {
+                "description": "Authorization successfull, continue to add systems to your instance."
             }
         },
         "error": {
@@ -32,6 +28,21 @@
         },
         "abort": {
             "already_configured": "Uplink is already configured"
+        }
+    },
+    "system_health": {
+        "info": {
+            "api_endpoint_reachable": "NibeUplink API endpoint reachable"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Configure Systems",
+                "data": {
+                    "systems": "Systems to load data from"
+                }
+            }
         }
     }
 }
