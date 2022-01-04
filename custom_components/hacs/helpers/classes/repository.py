@@ -7,13 +7,13 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
-from queueman import QueueManager
 
-from custom_components.hacs.helpers import RepositoryHelpers
-from custom_components.hacs.helpers.classes.exceptions import (
+from custom_components.hacs.exceptions import (
     HacsException,
     HacsNotModifiedException,
+    HacsRepositoryExistException,
 )
+from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.helpers.classes.validate import Validate
@@ -24,7 +24,6 @@ from custom_components.hacs.helpers.functions.information import (
 )
 from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 from custom_components.hacs.helpers.functions.misc import get_repository_name
-from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
@@ -35,6 +34,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
 )
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.queue_manager import QueueManager
 
 
 class RepositoryVersions:
@@ -271,15 +271,14 @@ class HacsRepository(RepositoryHelpers):
 
         # Attach repository
         current_etag = self.data.etag_repository
-        await common_update_data(self, ignore_issues, force)
-        if (
-            not self.data.installed
-            and (current_etag == self.data.etag_repository)
-            and not force
-        ):
-            self.logger.debug(
-                "Did not update %s, content was not modified", self.data.full_name
-            )
+        try:
+            await common_update_data(self, ignore_issues, force)
+        except HacsRepositoryExistException:
+            self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
+            await common_update_data(self, ignore_issues, force)
+
+        if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
+            self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
             return False
 
         # Update last updated
@@ -304,9 +303,7 @@ class HacsRepository(RepositoryHelpers):
             contents = False
 
             for release in self.releases.objects:
-                self.logger.info(
-                    "%s ref: %s ---  tag: %s.", self, self.ref, release.tag_name
-                )
+                self.logger.info("%s ref: %s ---  tag: %s.", self, self.ref, release.tag_name)
                 if release.tag_name == self.ref.split("/")[1]:
                     contents = release.assets
 
@@ -334,7 +331,7 @@ class HacsRepository(RepositoryHelpers):
             temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
             temp_file = f"{temp_dir}/{self.data.filename}"
 
-            result = await async_save_file(temp_file, filecontent)
+            result = await self.hacs.async_save_file(temp_file, filecontent)
             with zipfile.ZipFile(temp_file, "r") as zip_file:
                 zip_file.extractall(self.content.path.local)
 
@@ -366,9 +363,7 @@ class HacsRepository(RepositoryHelpers):
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
             if self.hacs.system.action:
-                raise HacsException(
-                    "::error:: No hacs.json file in the root of the repository."
-                )
+                raise HacsException("::error:: No hacs.json file in the root of the repository.")
             return
         if self.hacs.system.action:
             self.logger.info("%s Found hacs.json", self)
@@ -377,9 +372,7 @@ class HacsRepository(RepositoryHelpers):
 
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
-            self.repository_manifest = HacsManifest.from_dict(
-                json.loads(manifest.content)
-            )
+            self.repository_manifest = HacsManifest.from_dict(json.loads(manifest.content))
             self.data.update_data(json.loads(manifest.content))
         except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
             if self.hacs.system.action:
@@ -412,9 +405,7 @@ class HacsRepository(RepositoryHelpers):
                 self.pending_restart = True
         elif self.data.category == "theme":
             try:
-                await self.hacs.hass.services.async_call(
-                    "frontend", "reload_themes", {}
-                )
+                await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
             except (Exception, BaseException):  # pylint: disable=broad-except
                 pass
         if self.data.full_name in self.hacs.common.installed:
@@ -454,9 +445,7 @@ class HacsRepository(RepositoryHelpers):
 
             if os.path.exists(local_path):
                 if not is_safe_to_remove(local_path):
-                    self.logger.error(
-                        "%s Path %s is blocked from removal", self, local_path
-                    )
+                    self.logger.error("%s Path %s is blocked from removal", self, local_path)
                     return False
                 self.logger.debug("%s Removing %s", self, local_path)
 
@@ -473,8 +462,6 @@ class HacsRepository(RepositoryHelpers):
                 )
 
         except (Exception, BaseException) as exception:
-            self.logger.debug(
-                "%s Removing %s failed with %s", self, local_path, exception
-            )
+            self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
             return False
         return True
