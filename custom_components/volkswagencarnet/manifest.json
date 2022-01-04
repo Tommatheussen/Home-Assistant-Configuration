@@ -10,7 +10,7 @@
     "issue_tracker": "https://github.com/robinostlund/homeassistant-volkswagencarnet/issues",
     "name": "Volkswagen WeConnect",
     "requirements": [
-        "volkswagencarnet==4.4.34"
+        "volkswagencarnet==4.4.35"
     ],
-    "version": "v4.4.46"
+    "version": "v4.4.48"
 }
