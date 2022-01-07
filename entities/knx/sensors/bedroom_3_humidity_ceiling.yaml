@@ -1,4 +1,4 @@
-name: humidity_bedroom_3
+name: bedroom_3_humidity_ceiling
 state_address: '5/2/5'
 type: 'humidity'
 state_class: measurement

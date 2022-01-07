@@ -1,4 +1,4 @@
-name: temperature_living_room
+name: living_room_temperature_ceiling
 state_address: '5/1/0'
 type: 'temperature'
 state_class: measurement

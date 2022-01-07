@@ -1,4 +1,4 @@
-name: temperature_bedroom_1_wall
+name: bedroom_1_temperature_wall
 state_address: '5/2/8'
 type: 'temperature'
 state_class: measurement

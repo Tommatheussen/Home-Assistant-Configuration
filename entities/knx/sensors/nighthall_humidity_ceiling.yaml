@@ -1,4 +1,4 @@
-name: humidity_nighthall
+name: nighthall_humidity_ceiling
 state_address: '5/2/7'
 type: 'humidity'
 state_class: measurement
