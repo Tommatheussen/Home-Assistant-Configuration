@@ -1,9 +1,9 @@
 packages:
-  device: !include devices/bluetooth_node.yaml 
+  device: !include devices/bluetooth_node_ethernet.yaml 
 
 substitutions:
-  slug: bluetooth-node-upstairs-laundry-room
-  name: Bluetooth Node Upstairs Laundy Room
+  slug: bt-node-upstairs-laundry-room
+  name: BT Node Upstairs Laundy Room
   description: Bluetooth aggregation node, upstairs in the laundry room.
 
 sensor:

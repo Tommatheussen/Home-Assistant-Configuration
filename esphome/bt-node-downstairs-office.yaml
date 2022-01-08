@@ -1,0 +1,25 @@
+packages:
+  device: !include devices/bluetooth_node_ethernet.yaml
+
+substitutions:
+  # log_level: DEBUG
+  slug: bt-node-downstairs-office
+  name: bt Node Downstairs Office
+  description: Bluetooth aggregation node, downstairs in the office.
+
+# ble_client:
+#   - <<: !include ble-beacons/nut_client.yaml
+
+sensor:
+  - <<: !include ble-devices/xiaomi_office.yaml
+  # - platform: template
+  #   name: "Battery Sensor"
+  #   id: battery_sensor
+  #   accuracy_decimals: 0
+  #   unit_of_measurement: '%'
+  #   icon: 'mdi:battery'
+
+binary_sensor:
+  - <<: !include ble-devices/qingping_motion_desk.yaml
+  - <<: !include ble-devices/qingping_motion_ceiling.yaml
+  - <<: !include ble-beacons/nut_tom_office_keys.yaml

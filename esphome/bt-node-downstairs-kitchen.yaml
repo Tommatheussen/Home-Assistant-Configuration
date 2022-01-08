@@ -1,0 +1,21 @@
+packages:
+  device: !include devices/bluetooth_node_ethernet.yaml 
+
+substitutions:
+  slug: bt-node-downstairs-kitchen
+  name: BT Node Downstairs Kitchen
+  description: Bluetooth aggregation node, downstairs in the kitchen.
+
+sensor:
+  - <<: !include ble-devices/xiaomi_kitchen.yaml
+
+# binary_sensor:
+#   - platform: ble_presence
+#     mac_address: F4:5D:19:BA:F7:D0
+#     name: ble_joke_bike_keys
+#   - platform: ble_presence
+#     mac_address: DA:86:A2:7F:E8:09
+#     name: ble_tom_keys_cars
+#   - platform: ble_presence
+#     mac_address: 12:07:5A:73:3C:9B
+#     name: ble_tom_keys_work
