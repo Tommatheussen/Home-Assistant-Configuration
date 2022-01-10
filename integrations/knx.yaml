@@ -1,7 +1,4 @@
 knx:
-  tunneling:
-    host: !secret knx.host
-    local_ip: !secret knx.local
   expose:
     - type: 'binary'
       entity_id: input_boolean.night
