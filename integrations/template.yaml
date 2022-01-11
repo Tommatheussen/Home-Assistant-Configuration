@@ -1,0 +1,28 @@
+# template:
+#   - sensor: 
+#       - name: alarm_power_meter_kwh
+#         state_class: "measurement"
+#         unique_id: "65e9aaf0-abe6-4121-afcf-1c7edb10e3bb"
+#         unit_of_measurement: kWh
+#         device_class: energy
+#         state: "{{ states('sensor.alarm_power_meter') | float / 1000 }}"
+template:
+  - sensor: !include_dir_list ../entities/templates/sensors
+  # - sensor:
+  #     - name: heatpump_power_consumption
+  #       unique_id: 707529f611984f4b8eb23872b610d665
+  #       unit_of_measurement: W
+  #       device_class: power
+  #       state_class: measurement
+  #       availability: >-
+  #         {{
+  #           states('sensor.heatpump_1_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+  #           states('sensor.heatpump_2_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+  #           states('sensor.heatpump_3_power_consumption') not in ['unknown', 'unavailable', 'none'] 
+  #         }}
+  #       state: >-
+  #         {{
+  #           states('sensor.heatpump_1_power_consumption') | float +
+  #           states('sensor.heatpump_2_power_consumption') | float +
+  #           states('sensor.heatpump_3_power_consumption') | float
+  #         }}

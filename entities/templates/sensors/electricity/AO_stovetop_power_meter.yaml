@@ -1,10 +1,16 @@
-stovetop_power_meter:
-  unique_id: cfeff9579433413e980763ad9a816daf
-  unit_of_measurement: Wh
-  device_class: energy
-  value_template: >-
-    {{
-      states('sensor.stovetop_1_power_meter') | float +
-      states('sensor.stovetop_2_power_meter') | float +
-      states('sensor.stovetop_3_power_meter') | float
-    }}
+name: stovetop_power_meter
+unique_id: cfeff9579433413e980763ad9a816daf
+unit_of_measurement: Wh
+device_class: energy
+availability: >-
+  {{
+    states('sensor.stovetop_1_power_meter') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.stovetop_2_power_meter') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.stovetop_3_power_meter') not in ['unknown', 'unavailable', 'none'] 
+  }}
+state: >-
+  {{
+    states('sensor.stovetop_1_power_meter') | float +
+    states('sensor.stovetop_2_power_meter') | float +
+    states('sensor.stovetop_3_power_meter') | float
+  }}

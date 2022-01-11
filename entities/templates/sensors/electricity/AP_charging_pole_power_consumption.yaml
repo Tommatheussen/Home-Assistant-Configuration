@@ -1,10 +1,17 @@
-charging_pole_power_consumption:
-  unique_id: 0eca8cc591d4422d911045f2e7775d89
-  unit_of_measurement: W
-  device_class: power
-  value_template: >-
-    {{
-      states('sensor.charging_pole_1_power_consumption') | float +
-      states('sensor.charging_pole_2_power_consumption') | float +
-      states('sensor.charging_pole_2_power_consumption') | float
-    }}
+name: charging_pole_power_consumption
+unique_id: 0eca8cc591d4422d911045f2e7775d89
+unit_of_measurement: W
+device_class: power
+state_class: measurement
+availability: >-
+  {{
+    states('sensor.charging_pole_1_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.charging_pole_2_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.charging_pole_2_power_consumption') not in ['unknown', 'unavailable', 'none'] 
+  }}
+state: >-
+  {{
+    states('sensor.charging_pole_1_power_consumption') | float +
+    states('sensor.charging_pole_2_power_consumption') | float +
+    states('sensor.charging_pole_2_power_consumption') | float
+  }}

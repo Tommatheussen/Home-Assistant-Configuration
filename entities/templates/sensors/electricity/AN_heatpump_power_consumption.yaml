@@ -1,10 +1,17 @@
-heatpump_power_consumption:
-  unique_id: 707529f611984f4b8eb23872b610d665
-  unit_of_measurement: W
-  device_class: power
-  value_template: >-
-    {{
-      states('sensor.heatpump_1_power_consumption') | float +
-      states('sensor.heatpump_2_power_consumption') | float +
-      states('sensor.heatpump_3_power_consumption') | float
-    }}
+name: heatpump_power_consumption
+unique_id: 707529f611984f4b8eb23872b610d665
+unit_of_measurement: W
+device_class: power
+state_class: measurement
+availability: >-
+  {{
+    states('sensor.heatpump_1_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.heatpump_2_power_consumption') not in ['unknown', 'unavailable', 'none'] and 
+    states('sensor.heatpump_3_power_consumption') not in ['unknown', 'unavailable', 'none'] 
+  }}
+state: >-
+  {{
+    states('sensor.heatpump_1_power_consumption') | float +
+    states('sensor.heatpump_2_power_consumption') | float +
+    states('sensor.heatpump_3_power_consumption') | float
+  }}
