@@ -1,0 +1,38 @@
+aurora_lights:
+  alias: Aurora Lichten
+  description: Start aurora lichten in living en keuken.
+  sequence:
+  - service: number.set_value
+    data:
+      value: '100'
+    target:
+      entity_id:
+      - number.wled_sink_intensity
+      - number.wled_window_intensity
+      - number.wled_closet_intensity
+  - service: number.set_value
+    target:
+      entity_id:
+      - number.wled_sink_speed
+      - number.wled_closet_speed
+      - number.wled_window_speed
+    data:
+      value: '60'
+  - service: select.select_option
+    data:
+      option: Aurora
+    target:
+      entity_id:
+      - select.wled_closet_color_palette
+      - select.wled_sink_color_palette
+      - select.wled_window_color_palette
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.wled_closet
+      - light.wled_sink
+      - light.wled_window
+    data:
+      effect: Aurora
+      brightness_pct: 19
+  mode: single
