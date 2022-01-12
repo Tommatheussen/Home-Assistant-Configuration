@@ -1,5 +1,6 @@
 - id: 7baae9e3-1657-41fd-8c16-e04ee2b8eea6
   alias: Ventilation
+  mode: restart
   description: 'Handle ventilation setting'
   trigger:
     - platform: homeassistant
