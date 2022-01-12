@@ -4,7 +4,7 @@
   mode: restart
   trigger:
     - platform: state
-      entity_id: binary_sensor.bedroom_motion_sensor_left
+      entity_id: binary_sensor.bedroom_1_motion_sensor_left
       to: "on"
   condition: []
   action:
@@ -24,7 +24,7 @@
         entity_id: light.wled_bed_segment_2
     - wait_for_trigger:
         - platform: state
-          entity_id: binary_sensor.bedroom_motion_sensor_left
+          entity_id: binary_sensor.bedroom_1_motion_sensor_left
           to: "off"
     - delay:
         seconds: 10
@@ -37,7 +37,7 @@
   mode: restart
   trigger:
     - platform: state
-      entity_id: binary_sensor.bedroom_motion_sensor_right
+      entity_id: binary_sensor.bedroom_1_motion_sensor_right
       to: "on"
   condition: []
   action:
@@ -57,7 +57,7 @@
         entity_id: light.wled_bed_segment_1
     - wait_for_trigger:
         - platform: state
-          entity_id: binary_sensor.bedroom_motion_sensor_right
+          entity_id: binary_sensor.bedroom_1_motion_sensor_right
           to: "off"
     - delay:
         seconds: 10
