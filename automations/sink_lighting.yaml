@@ -17,15 +17,11 @@
           scene_id: temporary_sink
           snapshot_entities:
           - light.wled_sink
-      - type: turn_off
-        device_id: 87e4905a750a42b54c3f483cc0012eab
-        entity_id: switch.wled_sink_sync_receive
-        domain: switch
       - service: light.turn_on
         target:
           entity_id: light.wled_sink
         data:
-          brightness_pct: 25
+          brightness_pct: 50
           rgbw_color: [0, 0, 0, 255]
           effect: Solid
     - conditions:
@@ -37,10 +33,6 @@
         device_id: 87e4905a750a42b54c3f483cc0012eab
         entity_id: light.wled_sink
         domain: light
-      - type: turn_on
-        device_id: 87e4905a750a42b54c3f483cc0012eab
-        entity_id: switch.wled_sink_sync_receive
-        domain: switch
       - service: scene.turn_on
         target:
           entity_id: scene.temporary_sink
