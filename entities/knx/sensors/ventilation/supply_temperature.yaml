@@ -1,0 +1,4 @@
+name: ventilation_supply_temperature
+state_address: '5/3/6'
+type: 'temperature'
+state_class: measurement

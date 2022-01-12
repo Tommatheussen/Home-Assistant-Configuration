@@ -1,0 +1,4 @@
+name: ventilation_exhaust_temperature
+state_address: '5/3/2'
+type: 'temperature'
+state_class: measurement

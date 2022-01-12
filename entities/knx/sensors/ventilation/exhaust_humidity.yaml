@@ -1,0 +1,4 @@
+name: ventilation_exhaust_humidity
+state_address: '5/3/3'
+type: 'humidity'
+state_class: measurement

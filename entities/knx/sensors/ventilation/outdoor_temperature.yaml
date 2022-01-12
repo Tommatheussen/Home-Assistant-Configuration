@@ -1,0 +1,4 @@
+name: ventilation_outdoor_temperature
+state_address: '5/3/4'
+type: 'temperature'
+state_class: measurement

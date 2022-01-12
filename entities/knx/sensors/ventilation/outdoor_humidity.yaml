@@ -1,0 +1,4 @@
+name: ventilation_outdoor_humidity
+state_address: '5/3/5'
+type: 'humidity'
+state_class: measurement

@@ -1,0 +1,4 @@
+name: ventilation_extract_humidity
+state_address: '5/3/1'
+type: 'humidity'
+state_class: measurement

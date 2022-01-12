@@ -1,0 +1,4 @@
+name: ventilation_supply_humidity
+state_address: '5/3/7'
+type: 'humidity'
+state_class: measurement
