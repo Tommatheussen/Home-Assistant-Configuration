@@ -1,9 +1,0 @@
-platform: command_line
-scan_interval: 500
-name: Monthly bandwidth usage
-command: "vnstat --json m"
-unit_of_measurement: "GiB"
-value_template: >
-    {% set values = value_json.interfaces[0].traffic.months[0] %}
-    {% set total = values.rx + values.tx %}
-    {{ (total / 1024 / 1024) | round(2) }}

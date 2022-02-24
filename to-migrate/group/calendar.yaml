@@ -1,3 +1,0 @@
-name: Calendar
-entities:
-  - sensor.jokes_next_shift

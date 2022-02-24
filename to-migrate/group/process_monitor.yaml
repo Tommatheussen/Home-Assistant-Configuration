@@ -1,7 +1,0 @@
-name: Process Monitor
-entities:
-  - sensor.process_flexget
-  - sensor.process_deluge_web
-  - sensor.process_deluged
-  - sensor.process_plexpy
-  - sensor.process_plex_media_server

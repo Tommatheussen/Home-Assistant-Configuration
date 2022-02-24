@@ -1,6 +1,0 @@
-alias: "New device connected"
-trigger:
-  platform: event
-  event_type: device_tracker_new_device
-action:
-  - service: shell_command.update_devices_from_server

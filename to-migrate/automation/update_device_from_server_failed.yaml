@@ -1,9 +1,0 @@
-alias: "Adding device failure"
-trigger:
-  platform: event
-  event_type: update_device_from_server_failrue
-action:
-  - service: notify.all
-    data:
-      title: "Adding device to Github failed"
-      message: "HA couldn't add a new device to github, manual intervention needed"

@@ -1,6 +1,0 @@
-alias: "Reset motion counter"
-trigger:
-  platform: time
-  at: "00:00:00"
-action:
-  - service: sensor.reset_counter

@@ -1,8 +1,0 @@
-free_space_alert:
-  name: Free space is low!
-  done_message: Ok, space is cleared :)
-  entity_id: binary_sensor.free_space_low
-  repeat: 1440 
-  can_acknowledge: False
-  notifiers:
-    - all
