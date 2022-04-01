@@ -5,3 +5,4 @@ position_address: '2/3/12'
 position_state_address: '2/3/18'
 travelling_time_down: 17
 travelling_time_up: 17
+device_class: shutter

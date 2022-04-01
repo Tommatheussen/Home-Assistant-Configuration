@@ -1,8 +1,0 @@
-name: "house_group"
-unique_id: f9f0638c-bd71-4870-af4f-9e31b8fcc393
-platform: group
-entities:
-  - cover.bedroom_1_group
-  - cover.bedroom_2
-  - cover.bedroom_3
-  - cover.attic_group

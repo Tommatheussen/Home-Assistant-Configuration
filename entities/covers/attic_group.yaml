@@ -1,6 +1,0 @@
-name: "attic_group"
-unique_id: 073a1783-a842-4a42-8d0a-d7f0d6bb02f0
-platform: group
-entities:
-  - cover.attic_left
-  - cover.attic_right

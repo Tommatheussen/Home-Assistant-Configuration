@@ -26,7 +26,7 @@
             service: cover.open_cover
             target:
               entity_id:
-              - cover.house_group
+              - cover.house
       - conditions:
         - condition: or
           conditions:
@@ -39,4 +39,4 @@
             service: cover.close_cover
             target:
               entity_id:
-                - cover.house_group
+                - cover.house
