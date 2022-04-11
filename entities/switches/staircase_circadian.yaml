@@ -1,5 +1,0 @@
-# platform: circadian_lighting
-# name: staircase
-# lights_rgb:
-#   - light.wled_staircase
-# max_brightness: 30

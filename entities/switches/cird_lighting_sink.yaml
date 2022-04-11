@@ -1,5 +1,0 @@
-# platform: circadian_lighting
-# name: circ_sink
-# lights_ct:
-#   - light.wled_sink
-#   # TODO: Other lights
