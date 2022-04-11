@@ -17,13 +17,22 @@
           scene_id: temporary_sink
           snapshot_entities:
           - light.wled_sink
+          - switch.adaptive_lighting_sink
       - service: light.turn_on
         target:
           entity_id: light.wled_sink
         data:
-          brightness_pct: 50
-          rgbw_color: [0, 0, 0, 255]
+          brightness_pct: 1
+          rgbw_color:
+          - 0
+          - 0
+          - 0
+          - 255
           effect: Solid
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.adaptive_lighting_sink
     - conditions:
       - condition: state
         entity_id: switch.sink
@@ -36,5 +45,6 @@
       - service: scene.turn_on
         target:
           entity_id: scene.temporary_sink
+        data: {}
     default: []
   mode: single
