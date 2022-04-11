@@ -2,20 +2,22 @@
   alias: Trap Beneden - Beweging
   description: ''
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: tmatheussen/motion_light_brightness.yaml
     input:
       motion_entity: binary_sensor.staircase_downstairs_motion
       light_target:
         entity_id: light.wled_staircase
       no_motion_wait: 15
+      light_strength: 1
 - id: '1649701362768'
   alias: Trap Boven - Beweging
   description: ''
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: tmatheussen/motion_light_brightness.yaml
     input:
       motion_entity: binary_sensor.staircase_upstairs_motion
       light_target:
         entity_id:
         - light.staircase_attic
       no_motion_wait: 15
+      light_strength: 1

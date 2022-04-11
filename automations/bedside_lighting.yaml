@@ -1,66 +1,24 @@
-- id: 69cf1c8f1adc4ba595eff51ba4e1116d
-  alias: Bed Lights Left
-  description: 'Handle triggering LED strip under the bed at the left side'
-  mode: restart
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.bedroom_1_motion_sensor_left
-      to: "on"
-  condition: []
-  action:
-    - type: turn_on
-      device_id: 22342f029152312ec55bbf05528100a0
-      entity_id: light.wled_bed_master
-      domain: light
-    - service: light.turn_on
-      data:
-        brightness_pct: 25
-        effect: Solid
-        rgb_color:
-          - 255
-          - 0
-          - 0
-        white_value: 0
-        entity_id: light.wled_bed_segment_2
-    - wait_for_trigger:
-        - platform: state
-          entity_id: binary_sensor.bedroom_1_motion_sensor_left
-          to: "off"
-    - delay:
-        seconds: 10
-    - service: light.turn_off
-      data:
-        entity_id: light.wled_bed_segment_2
-- id: c9c492e6fdd34c38b8cf01f333dabb7f
-  alias: Bed Lights Right
-  description: 'Handle triggering LED strip under the bed at the right side'
-  mode: restart
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.bedroom_1_motion_sensor_right
-      to: "on"
-  condition: []
-  action:
-    - type: turn_on
-      device_id: 22342f029152312ec55bbf05528100a0
-      entity_id: light.wled_bed_master
-      domain: light
-    - service: light.turn_on
-      data:
-        brightness_pct: 25
-        effect: Solid
-        rgb_color:
-          - 255
-          - 0
-          - 0
-        white_value: 0
-        entity_id: light.wled_bed_segment_1
-    - wait_for_trigger:
-        - platform: state
-          entity_id: binary_sensor.bedroom_1_motion_sensor_right
-          to: "off"
-    - delay:
-        seconds: 10
-    - service: light.turn_off
-      data:
-        entity_id: light.wled_bed_segment_1
+- id: '1649688230188'
+  alias: Slaapkamer Ouders - Bed Lichten Tom
+  description: ''
+  use_blueprint:
+    path: tmatheussen/motion_light_brightness.yaml
+    input:
+      motion_entity: binary_sensor.bedroom_1_motion_sensor_left
+      light_target:
+        entity_id:
+        - light.wled_bed_segment_2
+      no_motion_wait: 15
+      light_strength: 1
+- id: '1649688253210'
+  alias: Slaapkamer Ouders - Bed Lichten Joke
+  description: ''
+  use_blueprint:
+    path: tmatheussen/motion_light_brightness.yaml
+    input:
+      motion_entity: binary_sensor.bedroom_1_motion_sensor_right
+      light_target:
+        entity_id:
+        - light.wled_bed_segment_1
+      no_motion_wait: 15
+      light_strength: 1
