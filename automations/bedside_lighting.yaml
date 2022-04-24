@@ -5,9 +5,7 @@
     path: tmatheussen/motion_light_brightness.yaml
     input:
       motion_entity: binary_sensor.bedroom_1_motion_sensor_left
-      light_target:
-        entity_id:
-        - light.wled_bed_segment_2
+      light_entity: light.wled_bed_segment_2
       no_motion_wait: 15
       light_strength: 1
 - id: '1649688253210'
@@ -17,8 +15,6 @@
     path: tmatheussen/motion_light_brightness.yaml
     input:
       motion_entity: binary_sensor.bedroom_1_motion_sensor_right
-      light_target:
-        entity_id:
-        - light.wled_bed_segment_1
+      light_entity: light.wled_bed_segment_1
       no_motion_wait: 15
       light_strength: 1
