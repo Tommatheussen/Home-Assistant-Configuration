@@ -2,19 +2,21 @@
   alias: Slaapkamer Ouders - Bed Lichten Tom
   description: ''
   use_blueprint:
-    path: tmatheussen/motion_light_brightness.yaml
+    path: tmatheussen/motion_light_brightness_wled.yaml
     input:
       motion_entity: binary_sensor.bedroom_1_motion_sensor_left
       light_entity: light.wled_bed_segment_2
+      master_entity: light.wled_bed_master
       no_motion_wait: 15
       light_strength: 1
 - id: '1649688253210'
   alias: Slaapkamer Ouders - Bed Lichten Joke
   description: ''
   use_blueprint:
-    path: tmatheussen/motion_light_brightness.yaml
+    path: tmatheussen/motion_light_brightness_wled.yaml
     input:
       motion_entity: binary_sensor.bedroom_1_motion_sensor_right
       light_entity: light.wled_bed_segment_1
+      master_entity: light.wled_bed_master
       no_motion_wait: 15
       light_strength: 1
