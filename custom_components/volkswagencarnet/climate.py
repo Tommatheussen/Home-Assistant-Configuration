@@ -1,6 +1,4 @@
-"""
-Support for Volkswagen WeConnect Platform
-"""
+"""Climate support for Volkswagen WeConnect Platform."""
 import logging
 
 from homeassistant.components.climate import ClimateEntity
@@ -14,36 +12,30 @@ from homeassistant.const import (
     ATTR_TEMPERATURE,
     STATE_UNKNOWN,
     TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
 )
 
+from . import VolkswagenEntity
+from .const import DATA_KEY, DATA, DOMAIN
+
 SUPPORT_HVAC = [HVAC_MODE_COOL, HVAC_MODE_HEAT, HVAC_MODE_OFF]
-
-from . import DATA, DATA_KEY, DOMAIN, VolkswagenEntity
-
 _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """ Setup the volkswagen climate."""
+    """Perform climate platform setup."""
     if discovery_info is None:
         return
     async_add_entities([VolkswagenClimate(hass.data[DATA_KEY], *discovery_info)])
 
 
 async def async_setup_entry(hass, entry, async_add_devices):
+    """Perform climate device setup."""
     data = hass.data[DOMAIN][entry.entry_id][DATA]
     coordinator = data.coordinator
     if coordinator.data is not None:
         async_add_devices(
-            VolkswagenClimate(
-                data, coordinator.vin, instrument.component, instrument.attr
-            )
-            for instrument in (
-                instrument
-                for instrument in data.instruments
-                if instrument.component == "climate"
-            )
+            VolkswagenClimate(data=data, vin=coordinator.vin, component=instrument.component, attribute=instrument.attr)
+            for instrument in (instrument for instrument in data.instruments if instrument.component == "climate")
         )
 
     return True
@@ -51,6 +43,38 @@ async def async_setup_entry(hass, entry, async_add_devices):
 
 class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
     """Representation of a Volkswagen WeConnect Climate."""
+
+    def set_temperature(self, **kwargs) -> None:
+        """Not implemented."""
+        raise NotImplementedError("Use async_set_temperature instead")
+
+    def set_humidity(self, humidity: int) -> None:
+        """Not implemented."""
+        raise NotImplementedError
+
+    def set_fan_mode(self, fan_mode: str) -> None:
+        """Not implemented."""
+        raise NotImplementedError
+
+    def set_hvac_mode(self, hvac_mode: str) -> None:
+        """Not implemented."""
+        raise NotImplementedError("Use async_set_hvac_mode instead")
+
+    def set_swing_mode(self, swing_mode: str) -> None:
+        """Not implemented."""
+        raise NotImplementedError
+
+    def set_preset_mode(self, preset_mode: str) -> None:
+        """Not implemented."""
+        raise NotImplementedError
+
+    def turn_aux_heat_on(self) -> None:
+        """Not implemented."""
+        raise NotImplementedError
+
+    def turn_aux_heat_off(self) -> None:
+        """Not implemented."""
+        raise NotImplementedError
 
     @property
     def supported_features(self):
@@ -60,6 +84,7 @@ class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
     @property
     def hvac_mode(self):
         """Return hvac operation ie. heat, cool mode.
+
         Need to be one of HVAC_MODE_*.
         """
         if not self.instrument.hvac_mode:
@@ -74,6 +99,7 @@ class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
     @property
     def hvac_modes(self):
         """Return the list of available hvac operation modes.
+
         Need to be a subset of HVAC_MODES.
         """
         return SUPPORT_HVAC
@@ -97,6 +123,7 @@ class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
         temperature = kwargs.get(ATTR_TEMPERATURE)
         if temperature:
             await self.instrument.set_temperature(temperature)
+            self.notify_updated()
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set new target hvac mode."""
@@ -105,3 +132,4 @@ class VolkswagenClimate(VolkswagenEntity, ClimateEntity):
             await self.instrument.set_hvac_mode(False)
         elif hvac_mode == HVAC_MODE_HEAT:
             await self.instrument.set_hvac_mode(True)
+        self.notify_updated()

@@ -1,3 +1,4 @@
+"""Common constants."""
 from datetime import timedelta
 
 DOMAIN = "volkswagencarnet"
@@ -11,12 +12,13 @@ CONF_MUTABLE = "mutable"
 CONF_SPIN = "spin"
 CONF_SCANDINAVIAN_MILES = "scandinavian_miles"
 CONF_IMPERIAL_UNITS = "imperial_units"
-CONF_NO_CONVERSION = None
+CONF_NO_CONVERSION = "no_conversion"
 CONF_CONVERT = "convert"
 CONF_VEHICLE = "vehicle"
 CONF_REPORT_REQUEST = "report_request"
 CONF_REPORT_SCAN_INTERVAL = "report_scan_interval"
 CONF_DEBUG = "debug"
+CONF_AVAILABLE_RESOURCES = "available_resources"
 
 UPDATE_CALLBACK = "update_callback"
 DATA = "data"
@@ -42,3 +44,8 @@ COMPONENTS = {
     "switch": "switch",
     "climate": "climate",
 }
+
+SERVICE_SET_TIMER_BASIC_SETTINGS = "set_timer_basic_settings"
+SERVICE_UPDATE_SCHEDULE = "update_schedule"
+SERVICE_UPDATE_PROFILE = "update_profile"
+SERVICE_SET_CHARGER_MAX_CURRENT = "set_charger_max_current"

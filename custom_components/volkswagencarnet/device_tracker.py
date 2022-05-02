@@ -5,26 +5,26 @@ import logging
 
 from homeassistant.components.device_tracker import SOURCE_TYPE_GPS
 from homeassistant.components.device_tracker.config_entry import TrackerEntity
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.util import slugify
 
-from . import DATA, DATA_KEY, DOMAIN, SIGNAL_STATE_UPDATED, VolkswagenEntity
+from . import VolkswagenEntity
+from .const import DATA, DATA_KEY, DOMAIN, SIGNAL_STATE_UPDATED
 
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup_entry(hass, entry, async_add_devices):
+async def async_setup_entry(hass: HomeAssistant, entry, async_add_devices):
     data = hass.data[DOMAIN][entry.entry_id][DATA]
     coordinator = data.coordinator
     if coordinator.data is not None:
         async_add_devices(
             VolkswagenDeviceTracker(
-                data, coordinator.vin, instrument.component, instrument.attr
+                data=data, vin=coordinator.vin, component=instrument.component, attribute=instrument.attr
             )
             for instrument in (
-                instrument
-                for instrument in data.instruments
-                if instrument.component == "device_tracker"
+                instrument for instrument in data.instruments if instrument.component == "device_tracker"
             )
         )
 
@@ -43,7 +43,7 @@ async def async_setup_scanner(hass, config, async_see, discovery_info=None):
     async def see_vehicle():
         """Handle the reporting of the vehicle position."""
         host_name = data.vehicle_name(instrument.vehicle)
-        dev_id = "{}".format(slugify(host_name))
+        dev_id = f"{slugify(host_name)}"
         _LOGGER.debug("Getting location of %s" % host_name)
         await async_see(
             dev_id=dev_id,
