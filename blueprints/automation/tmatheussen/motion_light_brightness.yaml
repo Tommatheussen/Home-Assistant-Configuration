@@ -39,21 +39,19 @@ max_exceeded: silent
 trigger:
   platform: state
   entity_id: !input motion_entity
-  from: "off"
+  from: "off" 
   to: "on"
 
 action:
-  - choose:
-      - alias: "Turn the light on if it's off"
-        conditions:
-          - condition: state
-            entity_id: !input light_entity
-            state: "off"
-        sequence:
-          - service: light.turn_on
-            entity_id: !input light_entity
-            data:
-              brightness_pct: !input light_strength
+  - if:
+    - condition: state
+      entity_id: !input light_entity
+      state: "off"
+    then:
+    - service: light.turn_on
+      entity_id: !input light_entity
+      data:
+        brightness_pct: !input light_strength
   - wait_for_trigger:
       platform: state
       entity_id: !input motion_entity
