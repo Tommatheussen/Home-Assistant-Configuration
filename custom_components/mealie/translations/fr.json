@@ -1,0 +1,20 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mealie",
+        "description": "Si vous avez besoin d'aide pour la configuration, regardez ici: https://github.com/mealie-recipes/mealie-hacs",
+        "data": {
+          "username": "Identifiant",
+          "password": "Mot de Passe"
+        }
+      }
+    },
+    "error": {
+      "auth": "Identifiant ou mot de passe erroné."
+    },
+    "abort": {
+      "single_instance_allowed": "Une seule instance est autorisée."
+    }
+  }
+}

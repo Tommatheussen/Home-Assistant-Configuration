@@ -1,0 +1,20 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mealie",
+        "description": "Hvis du trenger hjep til konfigurasjon ta en titt her: https://github.com/mealie-recipes/mealie-hacs",
+        "data": {
+          "username": "Brukernavn",
+          "password": "Passord"
+        }
+      }
+    },
+    "error": {
+      "auth": "Brukernavn/Passord er feil."
+    },
+    "abort": {
+      "single_instance_allowed": "Denne integrasjonen kan kun konfigureres en gang."
+    }
+  }
+}
