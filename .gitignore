@@ -7,6 +7,7 @@
 ._*
 __pycache__
 
+
 # Directory (contents) ignore
 .cloud
 .storage
@@ -22,3 +23,9 @@ secrets.yaml
 .spotify-token-cache
 webostv.conf
 harmony_15624376.conf
+fitbit.conf
+
+custom_components
+www/community
+www/images
+themes
