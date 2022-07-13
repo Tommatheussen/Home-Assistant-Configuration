@@ -1,7 +1,7 @@
 """
 Sensor component for waste pickup dates from dutch and belgium waste collectors
 Original Author: Pippijn Stortelder
-Current Version: 4.9.2 20220118 - Pippijn Stortelder
+Current Version: 4.9.6 20220705 - Pippijn Stortelder
 20210112 - Updated date format for RD4
 20210114 - Fix error made in commit 9d720ec
 20210120 - Enabled textile for RecycleApp
@@ -39,6 +39,12 @@ Current Version: 4.9.2 20220118 - Pippijn Stortelder
 20220106 - Added support for Ximmio commercial address (option added customerid)
 20220113 - Added support for wastcollector Lingewaard
 20220118 - Fix Cranendonck mapping
+20220620 - Fix Spaarnelanden mapping
+20220621 - Changed RD4 to new API
+20220629 - Deprecated Alkmaar, new waste collector is HVC
+20220629 - Fix for rate limiting with RecycleApp API
+20220629 - Default time interval is now 12 hours
+20220705 - Update RecycleApp API address
 
 Example config:
 Configuration.yaml:
@@ -86,7 +92,7 @@ from homeassistant.components import persistent_notification
 
 _LOGGER = logging.getLogger(__name__)
 
-SCHEDULE_UPDATE_INTERVAL = timedelta(hours=1)
+SCHEDULE_UPDATE_INTERVAL = timedelta(hours=12)
 
 CONF_WASTE_COLLECTOR = 'wastecollector'
 CONF_CITY_NAME = 'cityname'
@@ -119,7 +125,6 @@ ATTR_DAYS_UNTIL = 'Days_until'
 NOTIFICATION_ID = "Afvalbeheer"
 
 OPZET_COLLECTOR_URLS = {
-    'alkmaar': 'https://www.stadswerk072.nl',
     'alphenaandenrijn': 'https://afvalkalender.alphenaandenrijn.nl',
     'berkelland': 'https://afvalkalender.gemeenteberkelland.nl',
     'blink': 'https://mijnblink.nl',
@@ -169,6 +174,7 @@ DEPRECATED_AND_NEW_WASTECOLLECTORS = {
     'area': 'areareiniging',
     'ophaalkalender': 'recycleapp',
     'circulus-berkel': 'circulus',
+    'alkmaar': 'hvc',
 }
 
 WASTE_TYPE_BRANCHES = 'takken'
@@ -960,6 +966,7 @@ class OmrinCollector(WasteCollector):
 
 class OpzetCollector(WasteCollector):
     WASTE_TYPE_MAPPING = {
+        'pbd/papier': WASTE_TYPE_PAPER_PMD,
         'snoeiafval': WASTE_TYPE_BRANCHES,
         'sloop': WASTE_TYPE_BULKLITTER,
         'glas': WASTE_TYPE_GLASS,
@@ -976,6 +983,7 @@ class OpzetCollector(WasteCollector):
         'textiel': WASTE_TYPE_TEXTILE,
         'kerstb': WASTE_TYPE_TREE,
         'pmd': WASTE_TYPE_PACKAGES,
+        'pbd': WASTE_TYPE_PACKAGES,
     }
 
     def __init__(self, hass, waste_collector, postcode, street_number, suffix):
@@ -1047,7 +1055,7 @@ class OpzetCollector(WasteCollector):
 
 class RD4Collector(WasteCollector):
     WASTE_TYPE_MAPPING = {
-        # 'snoeiafval': WASTE_TYPE_BRANCHES,
+        'pruning': WASTE_TYPE_BRANCHES,
         # 'sloop': WASTE_TYPE_BULKLITTER,
         # 'glas': WASTE_TYPE_GLASS,
         # 'duobak': WASTE_TYPE_GREENGREY,
@@ -1055,21 +1063,25 @@ class RD4Collector(WasteCollector):
         'gft': WASTE_TYPE_GREEN,
         # 'chemisch': WASTE_TYPE_KCA,
         # 'kca': WASTE_TYPE_KCA,
-        'rest': WASTE_TYPE_GREY,
+        'residual': WASTE_TYPE_GREY,
         # 'plastic': WASTE_TYPE_PACKAGES,
-        'papier': WASTE_TYPE_PAPER,
-        # 'textiel': WASTE_TYPE_TEXTILE,
-        # 'kerstb': WASTE_TYPE_TREE,
+        'paper': WASTE_TYPE_PAPER,
+        'best_bag': "best-tas",
+        'christmas_trees': WASTE_TYPE_TREE,
         'pmd': WASTE_TYPE_PACKAGES,
     }
 
     def __init__(self, hass, waste_collector, postcode, street_number, suffix):
         super(RD4Collector, self).__init__(hass, waste_collector, postcode, street_number, suffix)
-        self.main_url = 'https://rd4.syzygy.eu'
+        self.main_url = 'https://data.rd4.nl/api/v1/waste-calendar'
+        self.postcode_split = re.search(r"(\d\d\d\d) ?([A-z][A-z])", self.postcode)
+        self.postcode = self.postcode_split.group(1) + '+' + self.postcode_split.group(2).upper()
 
     def __get_data(self):
+        self.today = datetime.today()
+        self.year = self.today.year
         response = requests.get(
-            '{}/{}/{}{}'.format(self.main_url, self.postcode, self.street_number, self.suffix)
+            '{}?postal_code={}&house_number={}&house_number_extension={}&year={}'.format(self.main_url, self.postcode, self.street_number, self.suffix, self.year)
         )
         return response
 
@@ -1086,20 +1098,23 @@ class RD4Collector(WasteCollector):
                 _LOGGER.error('No Waste data found!')
                 return
 
-            for item in response:
-                if not response[item]:
+            if not response["success"]:
+                _LOGGER.error('Address not found!')
+                return
+
+            for item in response["data"]["items"][0]:
+
+                waste_type = self.map_waste_type(item["type"])
+                date = item["date"]
+                
+                if not waste_type or not date:
                     continue
 
-                waste_type = self.map_waste_type(item)
-                if not waste_type:
-                    continue
-
-                for item_date in response[item]:
-                    collection = WasteCollection.create(
-                        date=datetime.strptime(item_date, "%Y-%m-%d"),
-                        waste_type=waste_type
-                    )
-                    self.collections.add(collection)
+                collection = WasteCollection.create(
+                    date=datetime.strptime(date, "%Y-%m-%d"),
+                    waste_type=waste_type
+                )
+                self.collections.add(collection)
 
         except requests.exceptions.RequestException as exc:
             _LOGGER.error('Error occurred while fetching data: %r', exc)
@@ -1135,7 +1150,7 @@ class RecycleApp(WasteCollector):
     def __init__(self, hass, waste_collector, postcode, street_name, street_number, suffix):
         super(RecycleApp, self).__init__(hass, waste_collector, postcode, street_number, suffix)
         self.street_name = street_name
-        self.main_url = 'https://recycleapp.be/api/app/v1/'
+        self.main_url = 'https://api.recycleapp.be/api/app/v1/'
         self.xsecret = 'Crgja3EGWe8jdapyr4EEoMBgZACYYjRRcRpaMQrLDW9HJBvmgkfGQyYqLgeXPavAGvnJqkV87PBB2b8zx43q46sUgzqio4yRZbABhtKeagkVKypTEDjKfPgGycjLyJTtLHYpzwJgp4YmmCuJZN9ZmJY8CGEoFs8MKfdJpU9RjkEVfngmmk2LYD4QzFegLNKUbcCeAdEW'
         self.xconsumer = 'recycleapp.be'
         self.accessToken = ''
@@ -1153,19 +1168,22 @@ class RecycleApp(WasteCollector):
 
     def __get_access_token(self):
         response = requests.get("{}access-token".format(self.main_url), headers=self.__get_headers())
-        if not response.status_code == 200:
+        if response.status_code != 200:
             _LOGGER.error('Invalid response from server for accessToken')
             return
         self.accessToken = response.json()['accessToken']
     
     def __get_location_ids(self):
         response = requests.get("{}zipcodes?q={}".format(self.main_url, self.postcode), headers=self.__get_headers())
-        if not response.status_code == 200:
+        if response.status_code == 401:
+            self.__get_access_token()
+            response = requests.get("{}zipcodes?q={}".format(self.main_url, self.postcode), headers=self.__get_headers())
+        if response.status_code != 200:
             _LOGGER.error('Invalid response from server for postcode_id')
             return
         self.postcode_id = response.json()['items'][0]['id']
         response = requests.get("{}streets?q={}&zipcodes={}".format(self.main_url, self.street_name, self.postcode_id), headers=self.__get_headers())
-        if not response.status_code == 200:
+        if response.status_code != 200:
             _LOGGER.error('Invalid response from server for street_id')
             return
         for item in response.json()['items']:
@@ -1191,7 +1209,8 @@ class RecycleApp(WasteCollector):
         _LOGGER.debug('Updating Waste collection dates using Rest API')
 
         try:
-            await self.hass.async_add_executor_job(self.__get_access_token)
+            if (not self.accessToken):
+                await self.hass.async_add_executor_job(self.__get_access_token)
 
             if (not self.postcode_id or not self.street_id) and self.accessToken:
                 await self.hass.async_add_executor_job(self.__get_location_ids)
@@ -1200,7 +1219,7 @@ class RecycleApp(WasteCollector):
                 return
 
             r = await self.hass.async_add_executor_job(self.__get_data)
-            if not r.status_code == 200:
+            if r.status_code != 200:
                 _LOGGER.error('Invalid response from server for collection data')
                 return
             response = r.json()
