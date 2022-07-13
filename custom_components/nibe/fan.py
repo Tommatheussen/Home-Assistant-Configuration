@@ -4,12 +4,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from homeassistant.components.fan import (
-    ENTITY_ID_FORMAT,
-    SUPPORT_PRESET_MODE,
-    SUPPORT_SET_SPEED,
-    FanEntity,
-)
+from homeassistant.components.fan import ENTITY_ID_FORMAT, FanEntity, FanEntityFeature
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from nibeuplink import VentilationSystem, get_active_ventilations
@@ -70,7 +65,7 @@ class NibeFan(NibeEntity, FanEntity):
             )
         )
         self._attr_name = ventilation.name
-        self._attr_unique_id = "{}_{}".format(system.system_id, ventilation.fan_speed)
+        self._attr_unique_id = f"{system.system_id}_{ventilation.fan_speed}"
 
     @property
     def is_on(self):
@@ -139,9 +134,9 @@ class NibeFan(NibeEntity, FanEntity):
     @property
     def unique_id(self) -> str:
         """Return a unique identifier for a this parameter."""
-        return "{}_{}".format(self._system_id, self._ventilation.fan_speed)
+        return f"{self._system_id}_{self._ventilation.fan_speed}"
 
     @property
     def supported_features(self) -> int | None:
         """Return supported features."""
-        return SUPPORT_PRESET_MODE | SUPPORT_SET_SPEED
+        return FanEntityFeature.PRESET_MODE | FanEntityFeature.SET_SPEED

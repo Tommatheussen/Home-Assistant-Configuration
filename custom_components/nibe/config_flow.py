@@ -9,6 +9,7 @@ from aiohttp.web import HTTPBadRequest, Request, Response
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import callback
+from homeassistant.helpers import network
 from nibeuplink import Uplink, UplinkSession
 
 from . import NibeData
@@ -32,7 +33,7 @@ _view = None
 
 
 class NibeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Conflig flow for nibe uplink."""
+    """Config flow for nibe uplink."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -71,7 +72,7 @@ class NibeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return await self.async_step_auth()
 
         url = "{}{}".format(
-            self.hass.helpers.network.get_url(prefer_external=True), AUTH_CALLBACK_URL
+            network.get_url(self.hass, prefer_external=True), AUTH_CALLBACK_URL
         )
 
         if DATA_NIBE_CONFIG in self.hass.data:
@@ -138,7 +139,7 @@ class NibeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle a option flow for a Konnected Panel."""
+    """Handle a option flow."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry):
         """Initialize options flow."""
@@ -200,7 +201,7 @@ class NibeAuthView(HomeAssistantView):
         def check_get(param):
             if param not in request.query:
                 _LOGGER.error("State missing in request.")
-                raise HTTPBadRequest(text="Parameter {} not found".format(param))
+                raise HTTPBadRequest(text=f"Parameter {param} not found")
             return request.query[param]
 
         state = check_get("state")
@@ -221,4 +222,4 @@ class NibeAuthView(HomeAssistantView):
                 text="<script>window.close()</script>",
             )
         except data_entry_flow.UnknownFlow:
-            raise HTTPBadRequest(text="Unkown flow")
+            raise HTTPBadRequest(text="Unknown flow")
