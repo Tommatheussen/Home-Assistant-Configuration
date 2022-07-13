@@ -19,6 +19,7 @@ secrets.yaml
 
 # Specific keeps
 !.gitkeep
+!custom_components/satel_integra
 
 .spotify-token-cache
 webostv.conf
