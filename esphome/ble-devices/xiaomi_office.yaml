@@ -1,8 +1,0 @@
-platform: xiaomi_cgg1
-mac_address: 58:2D:34:11:30:1C
-temperature:
-  name: "Office Temperature Xiaomi"
-humidity:
-  name: "Office Humidity Xiaomi"
-battery_level:
-  name: "Office Battery Xiaomi"

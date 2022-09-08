@@ -1,9 +1,12 @@
 packages:
   <<: !include_dir_named ../common/
   board: !include ../boards/quinled_esp32.yaml
-  wifi: !include  ../components/wifi.yaml
+  ethernet: !include ../components/ethernet.yaml
 
-# Enable Bluetooth scanning for this ESP32
 esp32_ble_tracker:
   scan_parameters:
-    window: 300ms
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:

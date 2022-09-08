@@ -1,8 +1,0 @@
-platform: xiaomi_cgg1
-mac_address: 58:2D:34:11:2C:4A
-temperature:
-  name: "Bathroom Temperature Xiaomi"
-humidity:
-  name: "Bathroom Humidity Xiaomi"
-battery_level:
-  name: "Bathroom Battery Xiaomi"

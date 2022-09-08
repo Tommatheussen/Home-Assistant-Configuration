@@ -1,0 +1,4 @@
+platform: safe_mode
+id: safe_mode
+name: "${name} Safe Mode Boot"
+entity_category: diagnostic

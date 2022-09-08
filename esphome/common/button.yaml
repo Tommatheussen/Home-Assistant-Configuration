@@ -1,2 +1,3 @@
 button:
   - <<: !include ../buttons/restart.yaml
+  - <<: !include ../buttons/safe_mode.yaml

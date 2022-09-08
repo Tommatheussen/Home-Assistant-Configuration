@@ -1,8 +1,0 @@
-platform: xiaomi_cgg1
-mac_address: 58:2D:34:11:2F:97
-temperature:
-  name: "Server Closet Upper Temperature Xiaomi"
-humidity:
-  name: "Server Closet Upper Humidity Xiaomi"
-battery_level:
-  name: "Server Closet Upper Battery Xiaomi"
